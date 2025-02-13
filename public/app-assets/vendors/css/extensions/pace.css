@@ -1,0 +1,51 @@
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #ff6275;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 3px;
+}
+
+/* nav bar logo */
+.navbar-brand {
+  display: ruby-text;
+}
+@media (min-width: 768px) {
+  .navbar-expand-md .navbar-nav {
+      flex-direction: row;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+}
+.menu-expanded .header-navbar .navbar-header .navbar-brand .brand-logo {
+  width: 147px !important;
+  object-fit:cover;
+  height: 80px;
+}
+
+  body.vertical-layout.vertical-menu .navbar .navbar-header:has(.brand-logo) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+
+.w-10 {
+  width: 10px !important;
+}
