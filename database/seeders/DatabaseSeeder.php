@@ -8,6 +8,7 @@ use App\Models\AppSetting;
 use Illuminate\Database\Seeder;
 use Database\Seeders\CompanySeeder;
 use Database\Seeders\HolidaySeeder;
+use Database\Seeders\EmployeeSeeder;
 use Database\Seeders\AppSettingSeeder;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\JobPositionSeeder;
@@ -29,8 +30,8 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             HolidaySeeder::class,
             HrSettingSeeder::class,
-        //    EmployeeSeeder::class
-            // AttendanceSeeder::class,
+            EmployeeSeeder::class,
+            AttendanceSeeder::class,
 
 
         ]);
