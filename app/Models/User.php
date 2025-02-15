@@ -38,6 +38,7 @@ class User extends Authenticatable
         'address',
         'category_id',
         'job_position_id',
+        'fullname', 
     ];
 
     /**

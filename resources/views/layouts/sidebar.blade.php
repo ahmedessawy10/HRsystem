@@ -1,6 +1,9 @@
 <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow " data-scroll-to-active="true">
   <div class="main-menu-content">
-    <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+    <ul class="navigation navigation-main mt-2" id="main-menu-navigation" data-menu="menu-navigation">
+
+
+  
 
 
       <li class=" nav-item">
@@ -17,7 +20,6 @@
           </li>
           @endcanany
 
- 
 
           @canany([
           'permission view_only',
@@ -46,13 +48,20 @@
 
             </ul>
           </li>
-
-
-
+        
 
 
 
 
         </ul>
+
+        <li class="nav-item">
+            <a href="{{ route('attendance.index') }}">
+              <i class="la la-clock-o"></i>
+              <span class="menu-title" data-i18n="nav.templates.main">{{ __('project.Attendance') }}</span>
+            </a>
+          </li>
+    
+
   </div>
 </div>
