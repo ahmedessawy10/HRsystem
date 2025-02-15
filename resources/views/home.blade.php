@@ -27,7 +27,7 @@
               <div class="card-content collapse show">
                 <div class="card-body">
                   <div class="card-text">
-                    {{-- content --}} <h1>{{__('app.test')}}</h1>
+                    {{-- content --}} <h1>{{__('app.failed')}}</h1>
                   </div>
 
                 </div>

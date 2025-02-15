@@ -13,8 +13,9 @@ return [
     |
     */
     'test' => 'هذه رسالة تجربة',
-    'failed' => 'These credentials do not match our records.',
+    'failed' => 'الاجازه.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'project' =>'الاجازه',
 
 ];
