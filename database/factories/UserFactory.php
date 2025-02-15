@@ -2,9 +2,12 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Department;
+use App\Models\User;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -23,23 +26,28 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $start = $this->fake()->time();
-        $end = $start + 8;
-        $gender = $this->fake()->randomElement(['male', 'female']);
+        $startTime = $this->faker->time('H:i:s');
+        $endTime = date('H:i:s', strtotime($startTime) + (8 * 3600)); // إضافة 8 ساعات
+
+        $gender = $this->faker->randomElement(['male', 'female']);
+        $department = $this->faker->randomElement(Department::pluck('id'));
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'name' => $this->faker->name($gender),
+            'fullname' => $this->faker->name($gender),
+            'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'phone' => $this->fake()->phoneNumber(),
-            'address' => $this->fake()->address(),
-            'role' => 3,
-            'status' => $this->fake()->randomElement(['active', 'inactive', 'pending', 'leave']),
-            'join_date' => $this->fake()->date(),
-            'start_time' => $start,
-            'end_time' => $end,
-            'salary' => $this->fake()->numberBetween(10000, 50000),
+            'phone' => $this->faker->phoneNumber(),
+            'address' => $this->faker->address(),
+            // 'status' => $this->faker->randomElement(['active', 'inactive', 'pending', 'leave']),
+            'status' => 'active',
+            'department_id' =>$department,
+            'join_date' => $this->faker->date(),
+            'start_time' => $startTime,
+            'end_time' => $endTime,
+            'salary' => $this->faker->numberBetween(10000, 50000),
             'gender' => $gender,
         ];
     }
@@ -53,9 +61,13 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
-    public function employee(){
-        return $this->state(fn(array $attributes) => [
-            'role' => 3,
-        ]);
+
+
+    public function employee(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            $role = Role::firstOrCreate(['name' => 'employee']);
+            $user->assignRole($role);
+        });
     }
 }
