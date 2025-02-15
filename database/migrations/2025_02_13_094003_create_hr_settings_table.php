@@ -9,19 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('hr_settings', function (Blueprint $table) {
             $table->id();
-            $table->decimal('discount', 5, 2);
-            $table->decimal('overtime', 5, 2);
-            $table->time('start_time'); // وقت بدء العمل
-            $table->time('end_time'); // وقت انتهاء العمل
-            $table->string('day_off_1'); // يوم الإجازة الأول
-            $table->string('day_off_2'); // يوم الإجازة الثاني
+            $table->decimal('overtime', 8, 2)->default(0);
+            $table->decimal('discount', 8, 2)->default(0);
+            $table->time('start_time')->nullable()->default('00:00:00');
+            $table->time('end_time');
+            $table->string('day_off_1');
+            $table->string('day_off_2')->nullable();
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.

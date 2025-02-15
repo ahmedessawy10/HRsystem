@@ -11,13 +11,12 @@ class DepartmentSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
-        Department::insert([
-            ['name'=> 'HR'],
-            ['name'=> 'Development'],
-            ['name'=> 'Accounting'],
-            ['name'=> 'Sale'],
-        ]);
+        $departments = ['HR', 'Development', 'Accounting', 'Sales'];
+
+        foreach ($departments as $departmentName) {
+            Department::firstOrCreate(['name' => $departmentName]);
+        }
     }
 }

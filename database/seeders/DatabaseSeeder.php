@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             HolidaySeeder::class,
             HrSettingSeeder::class,
+        //    EmployeeSeeder::class
             // AttendanceSeeder::class,
 
 

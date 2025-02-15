@@ -32,15 +32,21 @@
         <ul class="nav navbar-nav float-right">
           <li class="dropdown dropdown-user nav-item">
             <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-              <span class="mr-1">{{__("project.hello")}},
-                @auth()
-                <span class=" text-bold-700">{{auth()->user()->name}}</span>
-                @endauth
-              </span>
+            <span class="mr-1">{{__("project.hello")}},
+  @if(auth()->check())
+    <span class="text-bold-700">{{ auth()->user()->name }}</span>
+  @else
+    <span class="text-bold-700">{{ __('Guest') }}</span>
+  @endif
+</span>
+
               <span class="avatar avatar-online">
-                <img src="https://ui-avatars.com/api/?name={{auth()->user()->name}}&background=0D8ABC&color=fff"
-                  alt="avatar"><i></i></span>
-            </a>
+              @if(auth()->check())
+  <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}&background=0D8ABC&color=fff" alt="avatar">
+@else
+  <img src="https://ui-avatars.com/api/?name=Guest&background=0D8ABC&color=fff" alt="avatar">
+@endif
+
             <div class="dropdown-menu dropdown-menu-right">
 
               <a class="dropdown-item" href=""><i class="ft-user"></i>{{  __('project.Profile')}}</a>

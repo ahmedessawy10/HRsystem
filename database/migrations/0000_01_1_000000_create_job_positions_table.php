@@ -14,8 +14,12 @@ return new class extends Migration
         Schema::create('job_positions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('department_id')->nullable()->constrained('departments')->cascadeOnDelete();
-            $table->timestamps();
+            $table->unsignedBigInteger('department_id');
+            $table->foreign('department_id')
+            ->references('id')
+            ->on('departments')
+            ->onDelete('cascade');
+                  $table->timestamps();
         });
     }
 
