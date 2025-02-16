@@ -14,7 +14,6 @@ return [
     */
 
     'test' => 'These test message',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
+    'salarys_page_title' => 'Salarys',
+    'show_salays' => 'Show Salays',
 ];
