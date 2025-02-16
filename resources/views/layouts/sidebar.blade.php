@@ -52,33 +52,18 @@
       <li class="nav-item">
         <a href="#">
           <i class="la la-calendar"></i>
-          <span class="menu-title" data-i18n="nav.templates.main">{{ __('project.General Holidays') }}</span>
+          <span class="menu-title" data-i18n="nav.templates.main">{{ __('General Holidays') }}</span>
         </a>
         <ul class="menu-content">
           <li class="nav-item {{ request()->routeIs('holiday.index') ? 'active' : '' }}">
-            <a href="{{ route('holiday.index') }}">
+            <a href="{{ auth()->user()->hasRole('admin') ? route('holiday.index') : 'javascript:void(0)' }}"
+               class="{{ auth()->user()->hasRole('admin') ? '' : 'disabled-link' }}"
+               @if(!auth()->user()->hasRole('admin')) data-toggle="tooltip" title="Access restricted to admin only" @endif>
               <i class="la la-list"></i>
-              <span class="menu-title" data-i18n="nav.templates.main">{{ __('project.Holiday List') }}</span>
+              <span class="menu-title" data-i18n="nav.templates.main">{{ __('Holiday List') }}</span>
             </a>
           </li>
-          <li class="nav-item {{ request()->routeIs('holiday.create') ? 'active' : '' }}">
-            <a href="{{ route('holiday.create') }}">
-              <i class="la la-plus"></i>
-              <span class="menu-title" data-i18n="nav.templates.main">{{ __('project.Add Holiday') }}</span>
-            </a>
-          </li>
-          <li class="nav-item {{ request()->routeIs('holiday.calendar') ? 'active' : '' }}">
-            <a href="{{ route('holiday.calendar') }}">
-              <i class="la la-calendar-check"></i>
-              <span class="menu-title" data-i18n="nav.templates.main">{{ __('project.Holiday Calendar') }}</span>
-            </a>
-          </li>
-          <li class="nav-item {{ request()->routeIs('holiday.report') ? 'active' : '' }}">
-            <a href="{{ route('holiday.report') }}">
-              <i class="la la-file-text"></i>
-              <span class="menu-title" data-i18n="nav.templates.main">{{ __('project.Holiday Reports') }}</span>
-            </a>
-          </li>
+          
         </ul>
       </li>
       
@@ -87,13 +72,13 @@
       <li class="nav-item">
         <a href="#">
           <i class="la la-clock-o"></i>
-          <span class="menu-title" data-i18n="nav.attendance.main">{{ __('project.Attendance') }}</span>
+          <span class="menu-title" data-i18n="nav.attendance.main">{{ __('Attendance') }}</span>
         </a>
         <ul class="menu-content">
-          <li class="nav-item {{ request()->routeIs('attendance.index') ? 'active' : '' }}">
-            <a href="{{ route('attendance.index') }}">
+          <li class="nav-item {{ request()->routeIs('attendanceHome.index') ? 'active' : '' }}">
+            <a href="{{ route('attendanceHome.index') }}">
               <i class="la la-check-circle"></i>
-              <span class="menu-title" data-i18n="nav.attendance.my">{{ __('project.My Attendance') }}</span>
+              <span class="menu-title" data-i18n="nav.attendance.my">{{ __('My Attendance') }}</span>
             </a>
           </li>
         </ul>

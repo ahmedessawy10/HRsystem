@@ -7,7 +7,7 @@ use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\HolidayController; // For holidays
-use App\Http\Controllers\AttendanceController; // For attendance
+use App\Http\Controllers\AttendanceHomeController; // For attendance
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
@@ -22,7 +22,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         // Role and Permission routes
         Route::resource('permission', PermissionController::class);
         Route::resource('userRole', UserRoleController::class);
-        
+
+       
+
         // Holiday routes
         Route::prefix('holidays')->name('holiday.')->group(function () {
             Route::get('/', [HolidayController::class, 'index'])->name('index');
@@ -37,10 +39,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         });
 
         // Attendance routes (for employee attendance)
-        Route::prefix('attendance')->name('attendance.')->group(function () {
-            Route::get('/', [AttendanceController::class, 'index'])->name('index');
-            Route::post('/checkin', [AttendanceController::class, 'checkIn'])->name('checkin');
-            Route::post('/checkout', [AttendanceController::class, 'checkOut'])->name('checkout');
+        Route::prefix('attendance-home')->name('attendanceHome.')->group(function () {
+            Route::get('/', [AttendanceHomeController::class, 'index'])->name('index');
+            Route::post('/checkin', [AttendanceHomeController::class, 'checkIn'])->name('checkin');
+            Route::post('/checkout', [AttendanceHomeController::class, 'checkOut'])->name('checkout');
         });
     });
 });
