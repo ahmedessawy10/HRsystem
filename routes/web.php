@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\DashboardController;
@@ -10,7 +11,6 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
-
     Route::redirect('/', '/login', 301);
     Route::get('/formChangePass', [UserController::class, 'formChangePass'])->name('formChangePass');
     Route::post('/change-password', [UserController::class, 'changePassword'])->name('changePassword');
@@ -23,6 +23,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         // role and permission
         Route::resource('permission', PermissionController::class);
         Route::resource('userRole', UserRoleController::class);
+
+
+        //salary pages
+        Route::resource('salarys', SalaryController::class);
     });
 });
 

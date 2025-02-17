@@ -43,8 +43,8 @@ class AttendanceSeeder extends Seeder
                 $endTime = strtotime('17:00:00');
 
 
-                $f1 = rand(0, 3600);
-                $f2 = rand(0, 3600);
+                $f1 = rand(0, 60);
+                $f2 = rand(0, 60);
                 $timeInTimestamp = $startTime + $f1;
                 $timeOutTimestamp = $endTime + $f2;
 
