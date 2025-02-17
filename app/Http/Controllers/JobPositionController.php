@@ -4,52 +4,63 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\JobPosition;
 use App\Models\Department;
-use App\Models\Employee; // إضافة نموذج الموظف
+use App\Models\Employee;
 
 class JobPositionController extends Controller
 {
     public function index()
     {
         $jobpositions = JobPosition::with('department')->get();
-        $departments=Department::all();
-        return view('job_positions.index', compact('jobpositions','departments'));
+        $departments = Department::all();
+        return view('job_positions.index', compact('jobpositions', 'departments'));
     }
-
-    /**
-     * ✅ جلب جميع الموظفين بناءً على القسم المحدد
-     */
-    public function getEmployeesByDepartment(Request $request)
+    public function create()
     {
-        $employees = Employee::where('department_id', $request->department_id)->get();
-        return response()->json($employees);
+        return view('job_positions.create');
     }
-
-    /**
-     * ✅ إضافة أو تحديث مسمى وظيفي لموظف معين
-     */
-    public function updateJobPosition(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
-            'employee_id' => 'required|exists:employees,id',
-            'job_position' => 'nullable|string|max:255',
+            'name' => 'required|string|max:255',
+            'department_id' => 'required|exists:departments,id',
         ]);
+    
+        JobPosition::create([
+            'name' => $request->name,
+            'department_id' => $request->department_id,
+        ]);
+    
+        return response()->json(['message' => 'تمت إضافة الوظيفة بنجاح!']);
+    }
+    
+    
 
-        $employee = Employee::findOrFail($request->employee_id);
-        $employee->job_position = $request->job_position;
-        $employee->save();
-
-        return response()->json(['message' => 'تم تحديث المسمى الوظيفي بنجاح!']);
+    public function edit($id)
+    {
+        $jobPosition = JobPosition::findOrFail($id);
+        return response()->json($jobPosition);
     }
 
-    /**
-     * ✅ حذف المسمى الوظيفي لموظف معين
-     */
-    public function deleteJobPosition(Request $request)
+    public function update(Request $request, $id)
     {
-        $employee = Employee::findOrFail($request->employee_id);
-        $employee->job_position = null;
-        $employee->save();
-
-        return response()->json(['message' => 'تم حذف المسمى الوظيفي بنجاح!']);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'department_id' => 'required|exists:departments,id',
+        ]);
+    
+        $jobPosition = JobPosition::findOrFail($id);
+        $jobPosition->update([
+            'name' => $request->name,
+            'department_id' => $request->department_id,
+        ]);
+    
+        return response()->json(['message' => 'تم تعديل الوظيفة بنجاح!']);
+    }
+    
+    
+    public function destroy($id)
+    {
+        JobPosition::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'تم حذف المسمى الوظيفي بنجاح');
     }
 }

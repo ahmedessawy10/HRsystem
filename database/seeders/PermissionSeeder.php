@@ -34,6 +34,8 @@ class PermissionSeeder extends Seeder
             ['name' => 'role delete', 'guard_name' => 'web'],
             ['name' => 'holiday create', 'guard_name' => 'web'],
             ['name' => 'holiday update', 'guard_name' => 'web'],
+            ['name' => 'project.Job Titles', 'guard_name' => 'web'],
+            ['name' => 'project.Departments', 'guard_name' => 'web'],
 
         ]);
 

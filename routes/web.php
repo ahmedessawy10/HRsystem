@@ -13,17 +13,14 @@ use App\Http\Controllers\HRSettingsController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\JobPositionController;
 
-Route::get('/employees/{department_id}', [JobPositionController::class, 'getEmployeesByDepartment']);
-
-Route::get('/job_positions/employees', [JobPositionController::class, 'getEmployeesByDepartment'])->name('job_positions.getEmployees');
-Route::post('/job_positions/update', [JobPositionController::class, 'updateJobPosition'])->name('job_positions.updateJobPosition');
-Route::post('/job_positions/delete', [JobPositionController::class, 'deleteJobPosition'])->name('job_positions.deleteJobPosition');
-
-Route::resource('departments', DepartmentController::class)->except(['create', 'edit', 'show']);
-Route::resource('job_positions', JobPositionController::class)->except(['create', 'edit', 'show']);
-Route::resource('departments', DepartmentController::class);
+// Route::get('/employees/{department_id}', [JobPositionController::class, 'getEmployeesByDepartment']);
 Route::resource('job_positions', JobPositionController::class);
+// Route::resource('jobposition', JobPositionController::class);
 
+
+Route::resource('posts', JobPositionController::class);
+Route::resource('departments', DepartmentController::class);
+Route::resource('departments', DepartmentController::class)->except(['create', 'edit', 'show']);
 
 Route::get('/hr-settings', [HRSettingsController::class, 'index'])->name('hr.settings');
 Route::post('/hr-settings/update', [HRSettingsController::class, 'update'])->name('hr.settings.update');

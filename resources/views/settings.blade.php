@@ -45,6 +45,11 @@
                       <select id="day_off_1" name="day_off_1" class="form-control">
                         <option value="Friday" {{ ($settings->day_off_1 ?? '') == 'Friday' ? 'selected' : '' }}>Friday</option>
                         <option value="Saturday" {{ ($settings->day_off_1 ?? '') == 'Saturday' ? 'selected' : '' }}>Saturday</option>
+                        <option value="Sunday" {{ ($settings->day_off_1 ?? '') == 'Sunday' ? 'selected' : '' }}>Sunday</option>
+                        <option value="Monday" {{ ($settings->day_off_1 ?? '') == 'Monday' ? 'selected' : '' }}>Monday</option>
+                        <option value="Tuesday" {{ ($settings->day_off_1 ?? '') == 'Tuesday' ? 'selected' : '' }}>Tuesday</option>
+                        <option value="Wednesday" {{ ($settings->day_off_1 ?? '') == 'Wednesday' ? 'selected' : '' }}>Wednesday</option>
+                        <option value="Thursday" {{ ($settings->day_off_1 ?? '') == 'Thursday' ? 'selected' : '' }}>Thursday</option>
                       </select>
                     </div>
 
@@ -55,11 +60,16 @@
                         <option value="">No Holiday</option>
                         <option value="Friday" {{ ($settings->day_off_2 ?? '') == 'Friday' ? 'selected' : '' }}>Friday</option>
                         <option value="Saturday" {{ ($settings->day_off_2 ?? '') == 'Saturday' ? 'selected' : '' }}>Saturday</option>
+                        <option value="Sunday" {{ ($settings->day_off_2 ?? '') == 'Sunday' ? 'selected' : '' }}>Sunday</option>
+                        <option value="Monday" {{ ($settings->day_off_2 ?? '') == 'Monday' ? 'selected' : '' }}>Monday</option>
+                        <option value="Tuesday" {{ ($settings->day_off_2 ?? '') == 'Tuesday' ? 'selected' : '' }}>Tuesday</option>
+                        <option value="Wednesday" {{ ($settings->day_off_2 ?? '') == 'Wednesday' ? 'selected' : '' }}>Wednesday</option>
+                        <option value="Thursday" {{ ($settings->day_off_2 ?? '') == 'Thursday' ? 'selected' : '' }}>Thursday</option>
                       </select>
                     </div>
 
                     <!-- يوم الإجازة البديل -->
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="alternative_day_off">{{ __("project.alternative_day_off") }}</label>
                       <select id="alternative_day_off" name="alternative_day_off" class="form-control">
                         <option value="">No Alternative Day</option>
@@ -71,7 +81,7 @@
                         <option value="Wednesday" {{ ($settings->alternative_day_off ?? '') == 'Wednesday' ? 'selected' : '' }}>Wednesday</option>
                         <option value="Thursday" {{ ($settings->alternative_day_off ?? '') == 'Thursday' ? 'selected' : '' }}>Thursday</option>
                       </select>
-                    </div>
+                    </div> -->
 
                     <!-- زر الحفظ -->
                     <button type="submit" class="btn btn-primary">{{ __("project.save_changes") }}</button>
