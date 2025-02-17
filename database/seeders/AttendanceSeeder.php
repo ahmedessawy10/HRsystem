@@ -10,9 +10,6 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class AttendanceSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         // Attendance::factory()->count(100)->create();
