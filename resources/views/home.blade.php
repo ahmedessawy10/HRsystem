@@ -19,7 +19,7 @@
       <section id="basic-form-layouts">
         <div class="row match-height">
           <div class="col-md-12">
-            <div class="card" >
+            <div class="card">
               <div class="card-header">
                 <h4 class="card-title" id="basic-layout-form"> </h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
@@ -27,7 +27,11 @@
               <div class="card-content collapse show">
                 <div class="card-body">
                   <div class="card-text">
-                    {{-- content --}} <h1>{{__('app.failed')}}</h1>
+
+                    {{-- content --}}
+
+                    <h1>{{__('app.test')}}</h1>
+
                   </div>
 
                 </div>

@@ -15,6 +15,10 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\JobpositionController;
 use App\Http\Controllers\HolidayController; // For holidays
+
+use App\Http\Controllers\EmployeeController;
+
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\AttendanceHomeController; // For attendance
 
@@ -81,6 +85,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
+
+// Route to display a single employee
+// Route::get('/employees/{id}', [EmployeeController::class, 'show'])->name('employees.show');
+// Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
+// Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
+// Route::delete('/employees/{id}', [EmployeeController::class, 'destroy'])->name('employees.destroy');
+// Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
+// Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
+Route::resource('employees', EmployeeController::class);
 
 
 

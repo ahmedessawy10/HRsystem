@@ -41,7 +41,18 @@ class User extends Authenticatable
         'job_position_id',
         'fullname', 
     ];
-
+    
+    
+        // use HasFactory;
+    
+        protected $table = 'users'; // Explicitly define the table name
+        // protected $fillable = [
+        //     'name', 'fullname', 'email', 'password', 'photo', 'phone', 'role', 
+        //     'birthdate', 'gender', 'status', 'salary', 'nationality_id', 'address', 
+        //     'join_date', 'leave_date', 'start_time', 'end_time', 'department_id', 
+        //     'job_position_id'
+        // ];
+    // }
     /**
      * The attributes that should be hidden for serialization.
      *
