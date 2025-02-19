@@ -71,6 +71,7 @@ return [
     'create department' => 'create department',
     'edit department' => 'edit department',
     'department_name' => 'department name',
+    'employees' => 'Employees',
 
 
 

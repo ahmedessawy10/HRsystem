@@ -10,14 +10,14 @@ class EmployeeController extends Controller
     // Display a list of employees
     public function index()
     {
-        $employees = User::all(); // Fetch all employees
+        $employees = User::paginate(10); // Fetch all employees
         return view('employees.index', compact('employees'));
     }
 
     // Display the form to create a new employee
     public function create()
     {
-        
+
         return view('employees.create');
     }
 

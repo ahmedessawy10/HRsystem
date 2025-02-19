@@ -9,7 +9,7 @@
                 <div class="card-header border-0">
                     <div class="card-title text-center">
                         <div class="p-1">
-                            <img style="width:200px" src="{{asset('app-assets/images/logo.png')}}" alt="LOGO" />
+                            <img style="width:200px" src="{{asset('uploads/'.$appSetting->logo)}}" alt="LOGO" />
 
                         </div>
                     </div>

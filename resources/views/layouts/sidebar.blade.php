@@ -7,7 +7,7 @@
 
       <li class=" nav-item {{ request()->routeIs('attendanceHome.index') ? 'active' : '' }} ">
         <a href="{{ route('attendanceHome.index') }}">
-          <i class="la la-users"></i>
+          <i class="la la-calendar"></i>
           <span class="menu-title" data-i18n="nav.templates.main">{{ __('My Attendance') }}</span>
         </a>
       </li>
@@ -16,7 +16,7 @@
       <!-- General Holidays Section -->
       <li class="nav-item">
         <a href="#">
-          <i class="la la-calendar"></i>
+          <i class="la la-users-cog"></i>
           <span class="menu-title" data-i18n="nav.templates.main">{{ __('hr Module') }}</span>
         </a>
         <ul class="menu-content">
@@ -34,12 +34,21 @@
 
           <li class=" nav-item {{ request()->routeIs('attendance.index') ? 'active' : '' }} ">
             <a href="{{ route('attendance.index') }}">
-              <i class="la la-users"></i>
+              <i class="la la-calendar"></i>
               <span class="menu-title" data-i18n="nav.templates.main">{{ __('attendance') }}</span>
             </a>
           </li>
           @endcan
 
+
+          @canany(['employees view','employees create_and_view','employees update'])
+          <li class="nav-item {{ request()->routeIs('employees.*') ? 'active' : '' }}">
+            <a href="{{ route('employees.index') }}">
+              <i class="la la-users"></i>
+              {{ __('app.employees') }}
+            </a>
+          </li>
+          @endcanany
         </ul>
       </li>
 
@@ -103,19 +112,19 @@
 
 
           <!-- Roles & Permissions Section -->
-            {{-- @canany(['department view','department create','department update'])
+          {{-- @canany(['department view','department create','department update'])
             <li class="nav-item {{ request()->routeIs('userRole.*', 'permission.*') ? 'active' : '' }}">
-            <a href="#">
-              <i class="la la-key"></i>
-              <span class="menu-title" data-i18n="nav.templates.horz.main">{{ __('app.appSetting') }}</span>
-            </a>
-            <ul class="menu-content">
+          <a href="#">
+            <i class="la la-key"></i>
+            <span class="menu-title" data-i18n="nav.templates.horz.main">{{ __('app.appSetting') }}</span>
+          </a>
+          <ul class="menu-content">
 
 
 
-            </ul>
-        </li>
-        @endcanany --}}
+          </ul>
+      </li>
+      @endcanany --}}
 
 
 
