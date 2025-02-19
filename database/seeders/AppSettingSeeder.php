@@ -17,7 +17,7 @@ class AppSettingSeeder extends Seeder
         AppSetting::create([
             'name' => 'Hr system',
             'logo' => 'logoDefault.png',
-            'favicon' => 'logoDefault.png',
+            'favicon' => 'favicon.png',
             'time_zone' => 'Africa/Cairo',
             'currancy' => 'EGY',
             'language' => 'en',

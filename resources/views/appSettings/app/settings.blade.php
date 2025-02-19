@@ -323,7 +323,8 @@
                                                 </div>
                                                 <div class="col-12 col-lg-6 mb-1 fs-4">
                                                     <h4 for="logo" class="form-label">{{__('app.favicon')}}</h4>
-                                                    <label for="favicon" class="form-label"><img style=""
+                                                    <label for="favicon" class="form-label"><img
+                                                            style="max-width:100%;height:150px"
                                                             src="{{asset("uploads/".$appSetting->favicon)}}"
                                                             alt=""></label>
                                                     <div class="input-group mb-1">

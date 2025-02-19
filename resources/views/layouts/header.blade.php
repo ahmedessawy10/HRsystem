@@ -1,5 +1,5 @@
-<link rel=" shortcut icon" href="{{asset('logoDefault.png')}}">
-<link rel="apple-touch-icon" type="image/x-icon" href="{{asset("app-assets/images/favicon-logo.png")}}">
+<link rel=" shortcut icon" href="{{asset('uploads/'.$appSetting->favicon)}}">
+<link rel="apple-touch-icon" type="image/x-icon" href="{{asset('uploads/'.$appSetting->favicon)}}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
