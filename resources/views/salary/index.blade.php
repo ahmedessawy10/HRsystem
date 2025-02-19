@@ -29,6 +29,7 @@
                             </div>
                             <div class="card-content collapse show ">
                                 <livewire:salary-table />
+
                             </div>
                         </div>
                     </div>

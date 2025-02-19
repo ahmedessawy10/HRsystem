@@ -20,9 +20,9 @@ class AppSettingSeeder extends Seeder
             'favicon' => 'logoDefault.png',
             'time_zone' => 'Africa/Cairo',
             'currancy' => 'EGY',
-            'langauge' => 'En',
+            'language' => 'en',
             'date_format' => 'dd-MM-yyyy',
-            'time_format' => 'HH:mm A',
+            'time_format' => 'HH:mm a',
         ]);
     }
 }

@@ -17,8 +17,7 @@ return new class extends Migration
             $table->decimal('overtime', 5, 2);
             $table->time('start_time'); // وقت بدء العمل
             $table->time('end_time'); // وقت انتهاء العمل
-            $table->string('day_off_1'); // يوم الإجازة الأول
-            $table->string('day_off_2'); // يوم الإجازة الثاني
+            $table->json('holidays'); // يوم الإجازة الأول
             $table->timestamps();
         });
     }

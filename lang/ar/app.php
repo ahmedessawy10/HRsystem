@@ -13,6 +13,9 @@ return [
     |
     */
     'test' => 'هذه رسالة تجربة',
-    'salarys_page_title' => 'المراتبات',
-    'show_salays' => 'عرض المرتبات',
+    "department" => "الاقسام",
+    'failed' => 'These credentials do not match our records.',
+    'password' => 'The provided password is incorrect.',
+    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+
 ];

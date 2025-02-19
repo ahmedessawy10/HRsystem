@@ -10,20 +10,20 @@ class AttendanceController extends Controller
 {
     public function index()
     {
-        $attendances = Attendance::with('user')->get();
+        $attendances = Attendance::with('user')->paginate();
         return view('attendance.index', compact('attendances'));
     }
 
     public function create()
     {
         $users = User::all(['id', 'fullname']);
-        return view('attendance.create',compact('users'));
+        return view('attendance.create', compact('users'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'user'=>'required|exists:users,id',
+            'user' => 'required|exists:users,id',
             'date' => 'required|date',
             'time_in' => 'required|date_format:H:i',
             'time_out' => 'required|date_format:H:i',

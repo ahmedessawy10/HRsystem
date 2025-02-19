@@ -2,17 +2,22 @@
     <div class="card-body card-dashboard">
         <!-- الفلتر لاختيار السنة والشهر -->
         <div class="mb-3 flex space-x-4">
-            <select wire:model="year" class="form-control w-auto">
-                @foreach(range(Carbon\Carbon::now()->year - 5, Carbon\Carbon::now()->year) as $y)
-                <option value="{{ $y }}">{{ $y }}</option>
-                @endforeach
-            </select>
 
-            <select wire:model="month" class="form-control w-auto">
-                @foreach(range(1, 12) as $m)
-                <option value="{{ $m }}">{{ Carbon\Carbon::create()->month($m)->translatedFormat('F') }}</option>
-                @endforeach
-            </select>
+            <form wire:submit>
+                <select wire:model="year" class="form-control w-auto">
+                    @foreach(range(Carbon\Carbon::now()->year - 5, Carbon\Carbon::now()->year) as $y)
+                    <option value="{{ $y }}">{{ $y }}</option>
+                    @endforeach
+                </select>
+
+                <select wire:model="month" class="form-control w-auto">
+                    @foreach(range(1, 12) as $m)
+                    <option value="{{ $m }}">{{ Carbon\Carbon::create()->month($m)->translatedFormat('F') }}</option>
+                    @endforeach
+                </select>
+                <button wire:click>filter</button>
+            </form>
+
         </div>
 
         <!-- جدول عرض بيانات الرواتب -->
@@ -23,8 +28,8 @@
                     <th>Department</th>
                     <th>Salary</th>
                     <th>Attendances (Days)</th>
-                    <th>Late (Minutes)</th>
-                    <th>Extra (Minutes)</th>
+                    <th>Late (Min)</th>
+                    <th>Extra (Min)</th>
                     <th>Net Salary</th>
                 </tr>
             </thead>

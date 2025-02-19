@@ -18,8 +18,8 @@ class HrSettingSeeder extends Seeder
             'overtime' => 2,
             'start_time' => date('H:i:s', strtotime('10:00:00')),
             'end_time' => date('H:i:s', strtotime('18:00:00')),
-            'day_off_1' => "friday",
-            'day_off_2' => "sunday",
+            'holidays' => json_encode([5, 6]),
+
         ]);
     }
 }

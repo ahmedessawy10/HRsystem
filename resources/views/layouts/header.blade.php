@@ -42,4 +42,3 @@
 @endif
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/fonts/simple-line-icons/style.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/forms/toggle/switchery.min.css') }}">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">

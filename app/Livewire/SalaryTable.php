@@ -2,15 +2,17 @@
 
 namespace App\Livewire;
 
+use Carbon\Carbon;
 use App\Models\User;
 use Livewire\Component;
 use App\trait\SalaryCalc;
-use Carbon\Carbon;
+use Livewire\WithPagination;
+use Livewire\WithoutUrlPagination;
 use Spatie\Permission\Models\Role;
 
 class SalaryTable extends Component
 {
-    use SalaryCalc;
+    use SalaryCalc, WithPagination, WithoutUrlPagination;
 
     public $year;
     public $month;
@@ -24,6 +26,8 @@ class SalaryTable extends Component
 
     public function render()
     {
+
+   
         $startDate = Carbon::create($this->year, $this->month, 1)->startOfMonth()->format('Y-m-d');
         $endDate = Carbon::create($this->year, $this->month, 1)->endOfMonth()->format('Y-m-d');
         $users = User::whereHas('roles', function ($query) {
@@ -49,15 +53,15 @@ class SalaryTable extends Component
                 $user->start_time,
                 $user->end_time
             );
-            $user->total_late = $total_late;
-            $user->total_extra = $total_extra;
+            $user->total_late = $total_late / 60;
+            $user->total_extra = $total_extra / 60;
             $user->attendances_count = $count_attendance;
             $user->total_deduction = $calcSalary['total_deduction'];
             $user->total_increase = $calcSalary['total_increase'];
-            $user->total_work_minutes_cost = $calcSalary['total_work_minutes_cost'];
+            $user->total_work_minutes_cost = $calcSalary['total_work_hours_cost'];
             $user->netSalary = $calcSalary['net_salary'];
         }
 
-        return view('livewire.salary-table', compact('users'));
+        return view('livewire.salary-table', ['users' => $users]);
     }
 }

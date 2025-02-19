@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model
 {
-    public function jobs(){
+
+    protected  $fillable = [
+        'name',
+    ];
+    public function jobs()
+    {
         return $this->hasMany(JobPosition::class);
     }
 }

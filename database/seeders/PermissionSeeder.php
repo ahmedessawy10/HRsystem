@@ -24,6 +24,8 @@ class PermissionSeeder extends Seeder
 
         // Insert permissions
         Permission::insert([
+            ['name' => 'hr_setting  manage', 'guard_name' => 'web'],
+            ['name' => 'app_setting  manage', 'guard_name' => 'web'],
             ['name' => 'permission view_only', 'guard_name' => 'web'],
             ['name' => 'permission create_and_view', 'guard_name' => 'web'],
             ['name' => 'permission update', 'guard_name' => 'web'],
@@ -32,8 +34,30 @@ class PermissionSeeder extends Seeder
             ['name' => 'role create_and_view', 'guard_name' => 'web'],
             ['name' => 'role update', 'guard_name' => 'web'],
             ['name' => 'role delete', 'guard_name' => 'web'],
-            ['name' => 'holiday create', 'guard_name' => 'web'],
+            ['name' => 'holiday view', 'guard_name' => 'web'],
+            ['name' => 'holiday create_and_view', 'guard_name' => 'web'],
             ['name' => 'holiday update', 'guard_name' => 'web'],
+            ['name' => 'attendance view_all', 'guard_name' => 'web'],
+            ['name' => 'attendance view_own', 'guard_name' => 'web'],
+            ['name' => 'attendance create', 'guard_name' => 'web'],
+            ['name' => 'attendance update', 'guard_name' => 'web'],
+            ['name' => 'employee view', 'guard_name' => 'web'],
+            ['name' => 'employee create', 'guard_name' => 'web'],
+            ['name' => 'employee update', 'guard_name' => 'web'],
+            ['name' => 'employee delete', 'guard_name' => 'web'],
+            ['name' => 'department view', 'guard_name' => 'web'],
+            ['name' => 'department create_and_view', 'guard_name' => 'web'],
+            ['name' => 'department update', 'guard_name' => 'web'],
+            ['name' => 'department delete', 'guard_name' => 'web'],
+            ['name' => 'jobposition view', 'guard_name' => 'web'],
+            ['name' => 'jobposition create_and_view', 'guard_name' => 'web'],
+            ['name' => 'jobposition update', 'guard_name' => 'web'],
+            ['name' => 'jobposition delete', 'guard_name' => 'web'],
+            ['name' => 'appSetting manage', 'guard_name' => 'web'],
+            ['name' => 'hrSetting manage', 'guard_name' => 'web'],
+            ['name' => 'company manage ', 'guard_name' => 'web'],
+            ['name' => 'employee_attendance show', 'guard_name' => 'web'],
+
 
         ]);
 

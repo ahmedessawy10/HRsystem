@@ -7,7 +7,8 @@
             href="#"><i class="ft-menu font-large-1"></i></a></li>
         <li class="nav-item">
           <a class="navbar-brand" href="{{route('dashboard')}}">
-            <img class="brand-logo" alt="modern admin logo" src="{{asset('logoDefault.png')}}" style="max-width:90px">
+            <img class="brand-logo" alt="modern admin logo" src="{{asset('uploads/'.$appSetting->logo)}}"
+              style="max-width:90px">
           </a>
         </li>
         <li class="nav-item d-md-none">
@@ -81,6 +82,7 @@
 
 
             </div>
+
           </li>
           <li class="dropdown dropdown-notification nav-item">
             <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-bell"></i>

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('favicon');
             $table->string('time_zone');
             $table->string('currancy');
-            $table->string('langauge');
+            $table->string('language');
             $table->string('date_format');
             $table->string('time_format');
             $table->timestamps();

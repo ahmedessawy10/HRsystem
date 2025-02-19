@@ -5,6 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+    </script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <title>
         @yield("title")
     </title>
@@ -68,6 +77,12 @@
     <!-- BEGIN VENDOR JS-->
     <script src="{{asset('app-assets/vendors/js/vendors.min.js')}}" type="text/javascript"></script>
     <!-- BEGIN VENDOR JS-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
+    </script>
     <script src="{{asset('app-assets/vendors/js/forms/toggle/bootstrap-switch.min.js')}}" type="text/javascript">
     </script>
     <!-- BEGIN MODERN JS-->
@@ -76,7 +91,13 @@
 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+        integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
     @yield("js")
 
@@ -123,7 +144,42 @@
         });
     </script>
     @endif
+    @if (!empty(Session::all()))
+    @foreach (Session::all() as $type => $message)
+    @if (in_array($type, ['success', 'warning', 'info', 'error']))
+    <script>
+        $(document).ready(function() {
+                    var message = "{{ addslashes($message) }}";
+                    var type = "{{ $type }}";
 
+                    toastr.options.timeOut = 10000;
+
+                    // Play audio if available
+                    // var audio = new Audio('audio.mp3');
+                    // audio.play().catch(function(error) {
+                    //     console.error("Audio playback failed: ", error);
+                    // });
+
+                    // Display toastr notification based on type
+                    switch (type) {
+                        case 'info':
+                            toastr.info(message);
+                            break;
+                        case 'success':
+                            toastr.success(message);
+                            break;
+                        case 'warning':
+                            toastr.warning(message);
+                            break;
+                        case 'error':
+                            toastr.error(message);
+                            break;
+                    }
+                });
+    </script>
+    @endif
+    @endforeach
+    @endif
     <script>
         password=$('#password');
     pssword_validate=$('#password-validate');

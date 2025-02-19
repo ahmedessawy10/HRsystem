@@ -17,18 +17,18 @@ trait SalaryCalc
         $work_to = $work_to ?? $hr->end_time;
         $work_from = $work_from ?? $hr->start_time;
 
-        $totalworkminuts = (strtotime($work_to) - strtotime($work_from)) / 60;
-        $totalworkminutscost = $salary / ($totalworkminuts * $total_attend);
-        $total_deduction =  ($discount * $total_late) * $totalworkminutscost;
-        $total_increase =  ($add * $total_extra) * $totalworkminutscost;
+        $totalworkhour = (strtotime($work_to) - strtotime($work_from)) / 3600;
+        $totalworkhourscost = $salary / ($totalworkhour * $total_attend);
+        $total_deduction =  ($discount * ($total_late / 60)) * $totalworkhourscost;
+        $total_increase =  ($add * ($total_extra / 60)) * $totalworkhourscost;
 
         $net_salary = $salary + $total_increase - $total_deduction;
 
 
 
         return [
-            "total_work_minutes" => $totalworkminuts,
-            "total_work_minutes_cost" => $totalworkminutscost,
+            "total_work_hours" =>  $totalworkhour,
+            "total_work_hours_cost" =>  $totalworkhourscost,
             "total_deduction" => $total_deduction,
             "total_increase" => $total_increase,
             "net_salary" =>  intval($net_salary),
