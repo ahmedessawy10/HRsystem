@@ -1,7 +1,6 @@
 @extends("back.layouts.master")
-@section("title")
-{{__('project.edit user role')}}
-@endsection
+@section("title",__('project.create user role'))
+
 @section("css")
 
 @endsection
@@ -18,35 +17,32 @@
               <div class="col-md-12">
                 <div class="card" style="">
                   <div class="card-header">
-                    <h4 class="card-title" id="basic-layout-form">{{__('project.edit user role')}}</h4>
-                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"> </i></a>
-           
+                    <h4 class="card-title" id="basic-layout-form">{{__('project.create user role')}}</h4>
+                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                   </div>
                   <div class="card-content collapse show">
                     <div class="card-body">
                       <div class="card-text">
                        
                       </div>
-                      <form class="form" method="post" action="{{route('admin.userRole.update',$role->id)}}">
-                        @csrf
-                        @method('put')
+                      <form class="form" action="{{route('admin.userRole.store')}}" method="post">
 
+                        @csrf 
                         <div class="form-body">
                           <div class="row">
                             <div class="col-md-12">
                               <div class="form-group redAstric">
-                                <label for="name">  {{__('project.name of user role')}}</label>
-                                <input type="text" class="form-control" id="name" placeholder="name" name="name" value="{{old('name',$role->name)}}"> 
-                                @error('name')
-                                <div class="text-600  text-danger">{{ $message }}</div>
-                            @enderror
+                                <label for="projectinput1">{{__('project.name of user role')}} </label>
+                                <input type="text" id="projectinput1" class="form-control" name="name" value="{{old('name')}}">
                               </div>
+                              @error('name')
+
+                              <div class="text-red-600 text-danger">
+                                {{ $message }}</div>  
+                            @enderror
                             </div>
-
-
-
-                            {{--  --}}
-                            <div class="container" >
+                           
+                            <div class="container">
                               <h3>{{__('project.Permissions')}}</h3>
                               <div class="row pt-2" >
  
@@ -60,9 +56,9 @@
                                     @foreach ($value  as $item)
                                     <div class="form-group  d-flex" style="margin-bottom:12px">
                                     @foreach ($item as $permission => $short)
-                                    <input type="checkbox" class="form-control" {{($hasPermission->contains($permission))?'checked':" "}} style="width:18px" name="permissions[]" id="{{ 'permission-' . $key . $permission }}" value="{{ $permission }}">
+                                    <input type="checkbox" class="form-control" style="width:18px" name="permissions[]" id="{{ 'permission-' . $key . $permission }}" value="{{ $permission }}">
                                         <label for="{{ 'permission-' . $key . $permission }}" class="" style="padding-left: 11px;
-                                             padding-right: 11px;">{{$short}}    </label>
+                                     padding-right: 11px;">{{$short}} </label>
                                        
                                         @endforeach
                                       </div>
@@ -79,16 +75,16 @@
                  
                            </div>
                            </div>
-                            {{--  --}}
+                          
                           </div>
                           
                         </div>
                         <div class="form-actions">
                           <a href="{{route('admin.userRole.index')}}" class="btn btn-warning mr-1">
-                            <i class="ft-x"></i> {{__('back')}}
+                            <i class="ft-x"></i> {{__('project.back')}}
                           </a>
-                          <button type="submit" class="btn  "style="background-color: #1E9FF2;color:white">
-                            <i class="la la-check-square-o"></i> {{__('Save')}} 
+                          <button type="submit" class="btn btn-primary">
+                            <i class="la la-check-square-o"></i>{{__('project.save')}} 
                           </button>
                         </div>
                       </form>
@@ -97,7 +93,7 @@
                 </div>
               </div>
              
-            </div>  
+            </div>
           
           </section>
 
@@ -111,10 +107,6 @@
 
 
 @section("js")
-{{-- <script src="{{asset('app-assets/vendors/js/forms/repeater/jquery.repeater.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('app-assets/js/scripts/forms/form-repeater.js')}}" type="text/javascript"></script> --}}
+
 @endsection
-
-
-
 
