@@ -34,9 +34,9 @@
   }
 }
 .menu-expanded .header-navbar .navbar-header .navbar-brand .brand-logo {
-  width: 147px !important;
+  width:185px !important;
   object-fit:cover;
-  height: 80px;
+  /* height: 80px; */
 }
 
   body.vertical-layout.vertical-menu .navbar .navbar-header:has(.brand-logo) {
