@@ -1,4 +1,4 @@
-@extends("back.layouts.master")
+@extends("layouts.master")
 @section("title")
 {{__("project.user role list")}}
 @endsection
@@ -8,97 +8,112 @@
 
 @section("content")
 <div class="app-content content">
-    <div class="content-wrapper">
-      <div class="content-header row">
-      </div>
-      <div class="content-body">
-     
-        <section id="ordering">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title"> {{__("project.user role list")}}</h4>
-                  <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                  <div class="heading-elements">
-                    <ul class="list-inline mb-0">
-                      @can('role create_and_view')
-                      <li><a  class="btn btn-success text-white" href="{{route('admin.userRole.create')}}">{{__('project.create')}}</a></li>
-                        
-                      @endcan
-                    </ul>
-                  </div>
+  <div class="content-wrapper">
+    <div class="content-header row">
+    </div>
+    <div class="content-body">
+
+      <section id="ordering">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title"> {{__("project.user role list")}}</h4>
+                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                  <ul class="list-inline mb-0">
+                    @can('role create_and_view')
+                    <li><a class="btn btn-success text-white"
+                        href="{{route('userRole.create')}}">{{__('project.create')}}</a></li>
+
+                    @endcan
+                  </ul>
                 </div>
-                <div class="card-content collapse show">
-                  <div class="card-body card-dashboard">
-                  
-                    <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
-                      
-                        <table class="table table-striped table-bordered default-ordering dataTable" id="DataTables_Table_1" role="grid" aria-describedby="DataTables_Table_1_info">
+              </div>
+              <div class="card-content collapse show">
+                <div class="card-body card-dashboard">
+
+                  <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+
+                    <table class="table table-striped table-bordered default-ordering dataTable" id="DataTables_Table_1"
+                      role="grid" aria-describedby="DataTables_Table_1_info">
                       <thead>
                         <tr role="row">
-                          <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 69.4875px;" aria-sort="descending">#</th>
-                          <th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 88.3375px;">{{__("project.name")}}</th>
-                        
-                          <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 69.4875px;" aria-sort="descending">{{__('project.permissions')}}</th>
-                          <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 69.4875px;" aria-sort="descending">{{__("project.created_at")}}</th>
-                          <th class="no-sorting" tabindex="0"
-                           aria-controls="DataTables_Table_1" rowspan="1" colspan="1" 
-                           aria-label="Position: activate to sort column ascending" 
-                           style="width: 88.3375px;">{{__("project.action")}}</th>
+                          <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1"
+                            colspan="1" aria-label="Name: activate to sort column ascending" style="width: 69.4875px;"
+                            aria-sort="descending">#</th>
+                          <th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
+                            aria-label="Position: activate to sort column ascending" style="width: 88.3375px;">
+                            {{__("project.name")}}</th>
+
+                          <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1"
+                            colspan="1" aria-label="Name: activate to sort column ascending" style="width: 69.4875px;"
+                            aria-sort="descending">{{__('project.permissions')}}</th>
+                          <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1"
+                            colspan="1" aria-label="Name: activate to sort column ascending" style="width: 69.4875px;"
+                            aria-sort="descending">{{__("project.created_at")}}</th>
+                          <th class="no-sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
+                            aria-label="Position: activate to sort column ascending" style="width: 88.3375px;">
+                            {{__("project.action")}}</th>
                         </tr>
                       </thead>
                       <tbody>
-                      
 
-                      
+
+
                         @foreach ($roles as $role)
                         <tr role="row" class="odd">
 
-                        <td class="">{{$role->id}}</td>
-                        <td class="">{{$role->name}}</td>
-                        <td class="">{{$role->permissions->pluck('name')->implode(', ')}}</td>
-                        <td class="">{{ Carbon\Carbon::parse( $role->created_at)->format('d/m/Y')}}</td>
-                        
+                          <td class="">{{$role->id}}</td>
+                          <td class="">{{$role->name}}</td>
+                          <td class="">{{$role->permissions->pluck('name')->implode(', ')}}</td>
+                          <td class="">{{ Carbon\Carbon::parse( $role->created_at)->format('d/m/Y')}}</td>
 
-                        
-                        <td class="d-flex ">
-                             
-@can("role update")
-<a  class="btn btn-success mx-2"href="{{route('admin.userRole.edit', $role->id)}}"><i class="la la-pencil" data-toggle="tooltip" data-placement="top"  title="{{__("project.edit")}}"></i></a>
-@endcan
-@if($role->id!=1)
-@can('role delete')
-<form action="{{route('admin.userRole.destroy',  $role->id)}}" method="post">                     
-  @csrf
-  @method('delete')
-  <button   type="submit"  class="btn btn-danger confirm-button" ><i class="la la-trash" title="{{__("project.delete")}}"data-toggle="tooltip" data-placement="top" ></i></button>
-</form>
-@endcan
 
-@endif
-                            
 
-                          
-                        </td>
+                          <td class="d-flex ">
 
-                          
-                      </tr>
+                            @can("role update")
+                            <a class="btn btn-success mx-2" href="{{route('userRole.edit', $role->id)}}"><i
+                                class="la la-pencil" data-toggle="tooltip" data-placement="top"
+                                title="{{__("project.edit")}}"></i></a>
+                            @endcan
+                            @if($role->id!=1)
+                            @can('role delete')
+                            <form action="{{route('userRole.destroy',  $role->id)}}" method="post">
+                              @csrf
+                              @method('delete')
+                              <button type="submit" class="btn btn-danger confirm-button"><i class="la la-trash"
+                                  title="{{__("project.delete")}}" data-toggle="tooltip"
+                                  data-placement="top"></i></button>
+                            </form>
+                            @endcan
+
+                            @endif
+
+
+
+                          </td>
+
+
+                        </tr>
                         @endforeach
-                          
-                       </tbody>
-                     
-                    </table></div></div>
-                  </div>
+
+                      </tbody>
+
+                    </table>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </section>
-      </div>
+        </div>
     </div>
   </div>
+  </section>
+</div>
+</div>
+</div>
 @endsection
 
 
@@ -110,8 +125,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script type="text/javascript">
-
-$(document).ready(function(){
+  $(document).ready(function(){
 $('.no-sorting').removeClass('sorting_desc');
 
 
@@ -178,4 +192,3 @@ $('#DataTables_Table_1').on('click','.confirm-button', async function(event) {
 </script>
 
 @endsection
-

@@ -49,6 +49,10 @@ class PermissionSeeder extends Seeder
             ['name' => 'department create_and_view', 'guard_name' => 'web'],
             ['name' => 'department update', 'guard_name' => 'web'],
             ['name' => 'department delete', 'guard_name' => 'web'],
+            ['name' => 'salaries view_all', 'guard_name' => 'web'],
+            ['name' => 'salaries view_own', 'guard_name' => 'web'],
+            ['name' => 'salaries update', 'guard_name' => 'web'],
+            ['name' => 'salaries print', 'guard_name' => 'web'],
             ['name' => 'jobposition view', 'guard_name' => 'web'],
             ['name' => 'jobposition create_and_view', 'guard_name' => 'web'],
             ['name' => 'jobposition update', 'guard_name' => 'web'],
@@ -69,14 +73,26 @@ class PermissionSeeder extends Seeder
         // Assign permissions to roles
         $allPermissionNames = Permission::pluck('name');
         $AdminRole->givePermissionTo($allPermissionNames); // Admin gets all permissions
+
+        $EmployeeRole->givePermissionTo([
+            'employee_attendance show'
+        ]);
         $HrRole->givePermissionTo([
-            'permission create_and_view',
-            'permission update',
-            'permission delete',
-            'role view_only',
-            'role create_and_view',
-            'role update',
-            'role delete',
+            'holiday view',
+            'holiday create_and_view',
+            'holiday update',
+            'attendance view_all',
+            'attendance view_own',
+            'attendance create',
+            'attendance update',
+            'employees view',
+            'employees create_view',
+            'employees update',
+            'employees delete',
+            'salaries view_all',
+            'salaries view_own',
+            'salaries update',
+            'salaries print',
         ]);
 
         // Create or retrieve users
@@ -88,6 +104,7 @@ class PermissionSeeder extends Seeder
             'email' => 'admin@gmail.com', // Corrected email to match the query
             'status' => "active",
             'password' => Hash::make('123456'),
+            'last_login' => now(),
         ]);
 
         $Hr = User::firstOrCreate([
@@ -98,6 +115,18 @@ class PermissionSeeder extends Seeder
             'email' => 'hrManger@gmail.com',
             'status' => "active",
             'password' => Hash::make('123456'),
+            'last_login' => now(),
+
+        ]);
+        $HrJunior = User::firstOrCreate([
+            'email' => 'hrjunior@gmail.com',
+        ], [
+            'name' => 'hrjunior',
+            'fullname' => "hrjunior",
+            'email' => 'hrjunior@gmail.com',
+            'status' => "active",
+            'password' => Hash::make('123456'),
+
 
         ]);
 
@@ -111,11 +140,14 @@ class PermissionSeeder extends Seeder
             "start_time" => date('H:i:s', strtotime('10:00:00')),
             "end_time" => date('H:i:s', strtotime('18:00:00')),
             'password' => Hash::make('123456'),
+            'last_login' => now(),
+            "salary" => "10000",
         ]);
 
         // Assign roles to users
         $Admin->assignRole($AdminRole);
         $Hr->assignRole($HrRole);
+        $HrJunior->assignRole($HrRole);
         $Employee->assignRole($EmployeeRole);
     }
 }

@@ -3,7 +3,13 @@
 namespace App\Providers;
 
 use App\Models\AppSetting;
+use App\Models\Attendance;
+use App\Events\Notifications;
+use App\Observers\AttendObserver;
+use App\Listeners\NotificationsSend;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Event; 
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,7 +28,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
 
+        Attendance::observe(AttendObserver::class);
+        Paginator::useBootstrapFive();
         $appSetting = AppSetting::find(1);
         View::share('appSetting', $appSetting);
+
+        Event::listen(
+            Notifications::class,
+            NotificationsSend::class,
+        );
     }
 }

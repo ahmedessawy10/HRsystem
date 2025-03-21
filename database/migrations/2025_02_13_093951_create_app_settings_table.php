@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('language');
             $table->string('date_format');
             $table->string('time_format');
+            $table->boolean('is_demo')->default(false);
             $table->timestamps();
         });
     }

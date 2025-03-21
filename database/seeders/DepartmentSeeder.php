@@ -14,10 +14,10 @@ class DepartmentSeeder extends Seeder
     public function run(): void
     {
         Department::insert([
-            ['name'=> 'HR'],
-            ['name'=> 'Development'],
-            ['name'=> 'Accounting'],
-            ['name'=> 'Sale'],
+            ['name' => 'HR'],
+            ['name' => 'Development'],
+            ['name' => 'Accounting'],
+            ['name' => 'Sale'],
         ]);
     }
 }

@@ -18,7 +18,8 @@
 
                 <div class="card-content">
                     <div class="card-body">
-                        <form class="form-horizontal form-simple" action="{{route('login')}}" method="post" novalidate>
+                        <form class="form-horizontal form-simple" action="{{route('login')}}" method="post" novalidate
+                            id="loginForm">
                             @csrf
                             <fieldset class="form-group position-relative has-icon-left mb-2">
                                 <input type="text" name="email" class="form-control form-control-lg input-lg"
@@ -81,6 +82,39 @@
                                 {{__("login")}}
                             </button>
                         </form>
+                        <table class="table table-bordered mt-3">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Email</th>
+                                    <th>Password</th>
+                                    <th>Copy</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Admin</td>
+                                    <td>admin@gmail.com</td>
+                                    <td>123456</td>
+                                    <td><button type="button" class="btn btn-primary"
+                                            onclick="copyUser('admin@gmail.com', '123456');">Login</button></td>
+                                </tr>
+                                <tr>
+                                    <td>HR</td>
+                                    <td>hrManger@gmail.com</td>
+                                    <td>123456</td>
+                                    <td><button type="button" class="btn btn-primary"
+                                            onclick="copyUser('hrManger@gmail.com', '123456');">Login</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Employee</td>
+                                    <td>employee@gmail.com</td>
+                                    <td>123456</td>
+                                    <td><button type="button" class="btn btn-primary"
+                                            onclick="copyUser('employee@gmail.com', '123456');">Login</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

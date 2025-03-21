@@ -9,4 +9,10 @@ class Absent extends Model
 {
     /** @use HasFactory<\Database\Factories\AbsentFactory> */
     use HasFactory;
+    protected $fillable = [
+        'user_id',
+        'absent_date',
+        'status',
+
+    ];
 }

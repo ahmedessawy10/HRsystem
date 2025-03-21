@@ -34,6 +34,7 @@ class AppSettingController extends Controller
     {
         // dd($request);
 
+        // dd($request);
         $request->validate([
             'name' => 'required|string',
             'time_zone' => 'required|string',
@@ -54,7 +55,7 @@ class AppSettingController extends Controller
         // Set the application's locale
 
 
-
+        $data['is_demo'] = boolval($data['is_demo']);
         if ($request->hasFile('logo')) {
             $file = $request->file('logo');
             $logo = $file->getClientOriginalName();

@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->time('time_in')->nullable();  // Allow NULL values
-            $table->time('time_out')->nullable(); // Allow NULL values
+            $table->time('time_in')->nullable();
+            $table->time('time_out')->nullable();
             $table->date('date');
             $table->foreignId('user_id')->constrained('users');
-            $table->integer('late_minutes')->default(0);
-            $table->integer('extra_minutes')->default(0);
+            $table->decimal('late_hours', 8, 2)->nullable()->default(0.0);
+            $table->decimal('extra_hours', 8, 2)->nullable()->default(0.0);
+            $table->string('work_from')->default("company");
+            $table->decimal('longitude', 10, 8)->nullable();
+            $table->decimal('latitude', 10, 8)->nullable();
             $table->unique(['user_id', 'date'], 'user_id_date');
             $table->timestamps();
         });

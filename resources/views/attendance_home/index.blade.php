@@ -182,6 +182,8 @@
               </table>
             </div>
 
+
+            {{ $attendances->links() }}
           </div>
         </div>
       </section>

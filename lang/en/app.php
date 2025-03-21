@@ -72,6 +72,9 @@ return [
     'edit department' => 'edit department',
     'department_name' => 'department name',
     'employees' => 'Employees',
+    'is_demo' => 'Is Demo',
+    'true' => 'True',
+    'false' => 'False',
 
 
 

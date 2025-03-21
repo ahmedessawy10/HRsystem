@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Observers\AttendObserver;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 
+#[ObservedBy([AttendObserver::class])]
 class Attendance extends Model
 {
     use HasFactory;
@@ -16,8 +19,8 @@ class Attendance extends Model
         'time_out',
         'date',
         'user_id',
-        'late_minutes',
-        'extra_minutes'
+        'late_hours',
+        'extra_hours'
     ];
 
     public function user()
@@ -31,6 +34,7 @@ class Attendance extends Model
         'time_in' => 'datetime',
         'time_out' => 'datetime',
     ];
+
 
     /**
      * Calculate late minutes with grace period consideration.
@@ -46,14 +50,14 @@ class Attendance extends Model
     public function calculateLateMinutes($officialTimeIn, $gracePeriod = 5)
     {
         if (!$this->time_in) {
-            return 0; 
+            return 0;
         }
 
         $timeIn = Carbon::parse($this->time_in);
         $officialTime = Carbon::parse($officialTimeIn)->addMinutes($gracePeriod);
 
         if ($timeIn->greaterThan($officialTime)) {
-        
+
             return $officialTime->diffInMinutes($timeIn);
         }
 
@@ -74,14 +78,14 @@ class Attendance extends Model
     public function calculateExtraMinutes($officialTimeOut, $roundingInterval = 5)
     {
         if (!$this->time_out) {
-            return 0; 
+            return 0;
         }
 
         $timeOut = Carbon::parse($this->time_out);
         $officialTime = Carbon::parse($officialTimeOut);
 
         if ($timeOut->greaterThan($officialTime)) {
-           
+
             $extraMinutes = $officialTime->diffInMinutes($timeOut);
             return (int) ceil($extraMinutes / $roundingInterval) * $roundingInterval;
         }
@@ -108,4 +112,3 @@ class Attendance extends Model
         return sprintf('%d minute(s)', $minutes);
     }
 }
-

@@ -18,55 +18,55 @@ class JobPositionSeeder extends Seeder
             // 🔹 وظائف برمجية (Development Department - ID: 3)
             [
                 'name' => 'Full-Stack Developer',
-                'department_id' => 3,
+                'department_id' => 2,
             ],
             [
                 'name' => 'Frontend Developer',
-                'department_id' => 3,
+                'department_id' => 2,
             ],
             [
                 'name' => 'Backend Developer',
-                'department_id' => 3,
+                'department_id' => 2,
             ],
             [
                 'name' => 'Mobile App Developer',
-                'department_id' => 3,
+                'department_id' => 2,
             ],
             [
                 'name' => 'DevOps Engineer',
-                'department_id' => 3,
+                'department_id' => 2,
             ],
             [
                 'name' => 'Cybersecurity Analyst',
-                'department_id' => 3,
+                'department_id' => 2,
             ],
             [
                 'name' => 'Data Scientist',
-                'department_id' => 3,
+                'department_id' => 2,
             ],
             [
                 'name' => 'Machine Learning Engineer',
-                'department_id' => 3,
+                'department_id' => 2,
             ],
             [
                 'name' => 'Cloud Engineer',
-                'department_id' => 3,
+                'department_id' => 2,
             ],
             [
                 'name' => 'Software Architect',
-                'department_id' => 3,
+                'department_id' => 2,
             ],
             [
                 'name' => 'Database Administrator',
-                'department_id' => 3,
+                'department_id' => 2,
             ],
             [
                 'name' => 'Game Developer',
-                'department_id' => 3,
+                'department_id' => 2,
             ],
             [
                 'name' => 'Embedded Systems Engineer',
-                'department_id' => 3,
+                'department_id' => 2,
             ],
 
             // 🔹 وظائف إدارة ومحاسبة (HR - ID: 1, Accounting - ID: 4)
@@ -132,21 +132,21 @@ class JobPositionSeeder extends Seeder
             // 🔹 وظائف التصميم والإبداع (Development - ID: 3)
             [
                 'name' => 'UI/UX Designer',
-                'department_id' => 3, // Development
+                'department_id' => 2, // Development
             ],
 
-            // 🔹 وظائف أخرى (Development - ID: 3, HR - ID: 1)
+            // 🔹 وظائف أخرى (Development - ID: 2, HR - ID: 1)
             [
                 'name' => 'QA Engineer',
-                'department_id' => 3, // Development
+                'department_id' => 2, // Development
             ],
             [
                 'name' => 'Network Engineer',
-                'department_id' => 3, // Development
+                'department_id' => 2, // Development
             ],
             [
                 'name' => 'IT Support Specialist',
-                'department_id' => 3, // Development
+                'department_id' => 2, // Development
             ],
             [
                 'name' => 'Legal Consultant',
@@ -154,7 +154,7 @@ class JobPositionSeeder extends Seeder
             ],
             [
                 'name' => 'Research Scientist',
-                'department_id' => 3, // Development
+                'department_id' => 2, // Development
             ],
         ]);
     }

@@ -21,22 +21,26 @@ use App\Http\Controllers\EmployeeController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\AttendanceHomeController; // For attendance
+use App\Http\Controllers\ChatController;
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::redirect('/', '/login', 301);
     Route::get('/formChangePass', [UserController::class, 'formChangePass'])->name('formChangePass');
     Route::post('/change-password', [UserController::class, 'changePassword'])->name('changePassword');
-
+    Route::get('/counter', function () {
+        return view('test');
+    });
     Route::middleware(['auth', 'changepassword'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name("dashboard");
 
-        Route::get('/counter', Counter::class);
+
         // Role and Permission routes
         Route::resource('permission', PermissionController::class);
         Route::resource('userRole', UserRoleController::class);
 
         //salary pages
-        Route::resource('salarys', SalaryController::class);
+        Route::resource('salaries', SalaryController::class);
+        Route::get('salaries/{salary}/print', [SalaryController::class, 'print'])->name('salaries.print');
         // Holiday routes
         Route::prefix('holidays')->name('holiday.')->group(function () {
             Route::get('/', [HolidayController::class, 'index'])->name('index');
@@ -77,6 +81,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         //** hr setting   */
         Route::resource('hrSettings', HrSettingController::class)->only(['index', 'store']);
         Route::resource('appSettings', AppSettingController::class)->only(['index', 'store']);
+
+        // ** chat app
+        Route::post("/aichat", [ChatController::class, "ai_chat"]);
+        Route::post("/chat", [ChatController::class, "ai_chat"]);
+        Route::resource("/chats", ChatController::class);
     });
 });
 

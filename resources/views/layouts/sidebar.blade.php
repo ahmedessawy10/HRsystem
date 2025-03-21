@@ -16,7 +16,7 @@
       <!-- General Holidays Section -->
       <li class="nav-item">
         <a href="#">
-          <i class="la la-users-cog"></i>
+          <i class="fa fa-user"></i>
           <span class="menu-title" data-i18n="nav.templates.main">{{ __('hr Module') }}</span>
         </a>
         <ul class="menu-content">
@@ -34,11 +34,20 @@
 
           <li class=" nav-item {{ request()->routeIs('attendance.index') ? 'active' : '' }} ">
             <a href="{{ route('attendance.index') }}">
-              <i class="la la-calendar"></i>
+              <i class="fa fa-business-time"></i>
               <span class="menu-title" data-i18n="nav.templates.main">{{ __('attendance') }}</span>
             </a>
           </li>
           @endcan
+          @canany(['salaries view_all', 'salaries view_own', 'salaries update', 'salaries print'])
+
+          <li class=" nav-item {{ request()->routeIs('salaries.*s') ? 'active' : '' }} ">
+            <a href="{{ route('salaries.index') }}">
+              <i class="fa fa-wallet "></i>
+              <span class="" data-i18n="nav.templates.main">{{ __('Salaries') }}</span>
+            </a>
+          </li>
+          @endcanany
 
 
           @canany(['employees view','employees create_and_view','employees update'])

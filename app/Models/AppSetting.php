@@ -15,5 +15,6 @@ class AppSetting extends Model
         'language',
         'date_format',
         'time_format',
+        'is_demo',
     ];
 }

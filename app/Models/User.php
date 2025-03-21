@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Salary;
 use App\Models\Department;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -39,19 +40,19 @@ class User extends Authenticatable
         'address',
         'category_id',
         'job_position_id',
-        'fullname', 
+        'fullname',
     ];
-    
-    
-        // use HasFactory;
-    
-        protected $table = 'users'; // Explicitly define the table name
-        // protected $fillable = [
-        //     'name', 'fullname', 'email', 'password', 'photo', 'phone', 'role', 
-        //     'birthdate', 'gender', 'status', 'salary', 'nationality_id', 'address', 
-        //     'join_date', 'leave_date', 'start_time', 'end_time', 'department_id', 
-        //     'job_position_id'
-        // ];
+
+
+    // use HasFactory;
+
+    protected $table = 'users'; // Explicitly define the table name
+    // protected $fillable = [
+    //     'name', 'fullname', 'email', 'password', 'photo', 'phone', 'role', 
+    //     'birthdate', 'gender', 'status', 'salary', 'nationality_id', 'address', 
+    //     'join_date', 'leave_date', 'start_time', 'end_time', 'department_id', 
+    //     'job_position_id'
+    // ];
     // }
     /**
      * The attributes that should be hidden for serialization.
@@ -83,8 +84,17 @@ class User extends Authenticatable
         return $this->hasMany(Attendance::class, 'user_id');
     }
 
+
+    public function salaries()
+    {
+        return $this->hasMany(Salary::class, 'user_id');
+    }
     public function department()
     {
         return $this->belongsTo(Department::class, 'department_id');
+    }
+    public function absents()
+    {
+        return $this->hasMany(Absent::class, 'user_id');
     }
 }

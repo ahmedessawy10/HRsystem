@@ -4,18 +4,72 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | App Language Lines
+    | لغة التطبيق
     |--------------------------------------------------------------------------
     |
-    | The following language lines are used during authentication for various
-    | messages that we need to display to the user. You are free to modify
-    | these language lines according to your application's requirements.
+    | تحتوي هذه الرسائل على الترجمات المستخدمة في التطبيق للعديد من 
+    | الرسائل المختلفة التي نحتاج إلى عرضها للمستخدم. يمكنك تعديلها 
+    | وفقًا لاحتياجات تطبيقك.
     |
     */
-    'test' => 'هذه رسالة تجربة',
-    "department" => "الاقسام",
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+
+    'test' => 'هذه رسالة اختبار',
+
+    // ** عام
+    "create" => "إنشاء",
+    "edit" => "تعديل",
+    "view" => "عرض",
+    "delete" => "حذف",
+    "select" => "اختيار",
+    "save" => "حفظ",
+    "back" => "رجوع",
+
+    // ** الشريط الجانبي (Sidebar)
+    'salarys_page_title' => 'الرواتب',
+    'show_salays' => 'عرض الرواتب',
+    'departments' => 'الأقسام',
+    'department' => 'القسم',
+    'create_department' => 'إنشاء قسم',
+    'edit_department' => 'تعديل قسم',
+    'hrsetting' => 'إعدادات الموارد البشرية',
+    'updete message' => 'تم التحديث بنجاح',
+    'create message' => 'تم الإنشاء بنجاح',
+    'delete message' => 'تم الحذف بنجاح',
+    'hrsettings' => 'إعدادات الموارد البشرية',
+    'appsettings' => 'إعدادات التطبيق',
+    'time_start' => 'وقت البدء',
+    'time_end' => 'وقت الانتهاء',
+    'salary_add' => 'العمل الإضافي',
+    'salary_discount' => 'الخصم',
+    'hours' => 'الساعات',
+    'work_day' => 'يوم العمل',
+
+    // ** أيام الأسبوع
+    'saturday' => 'السبت',
+    'sunday' => 'الأحد',
+    'monday' => 'الإثنين',
+    'tuesday' => 'الثلاثاء',
+    'wednesday' => 'الأربعاء',
+    'thursday' => 'الخميس',
+    'friday' => 'الجمعة',
+
+    'holidays' => 'العطلات',
+    'timeformat' => 'تنسيق الوقت',
+    'dateformat' => 'تنسيق التاريخ',
+    'name' => 'الاسم',
+    'language' => 'اللغة',
+    'time_zone' => 'المنطقة الزمنية',
+    'logo' => 'الشعار',
+    'favicon' => 'الأيقونة المفضلة',
+    'appSetting' => 'إعدادات التطبيق',
+    'hrSetting' => 'إعدادات الموارد البشرية',
+    'jobpositions' => 'المناصب الوظيفية',
+    'create department' => 'إنشاء قسم',
+    'edit department' => 'تعديل قسم',
+    'department_name' => 'اسم القسم',
+    'employees' => 'الموظفون',
+    'is_demo' => 'وضع التجربة',
+    'true' => 'نعم',
+    'false' => 'لا',
 
 ];

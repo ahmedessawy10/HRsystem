@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Salary;
+use App\Models\Company;
+use App\Models\Holiday;
+use App\Models\HrSetting;
 use App\trait\SalaryCalc;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SalaryController extends Controller
 {
@@ -16,9 +22,6 @@ class SalaryController extends Controller
 
     public function index(Request $request)
     {
-
-
-       
 
         return view('salary.index');
     }
@@ -69,5 +72,22 @@ class SalaryController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function print(Salary $salary)
+    {
+
+        $company = Company::first();
+
+
+        $username = $salary->user->fullname;
+        $filename = $username . '-salary-' . $salary->year . '-' . $salary->month . '.pdf';
+
+
+        // return  view('pdf.salaries', compact('salary', 'company'));
+
+        $pdf = Pdf::loadView('pdf.salaries', compact('salary', 'company'));
+        return $pdf->download($filename);
+        // return response($pdf->output(), 200)->header('Content-Type', 'application/pdf');
     }
 }

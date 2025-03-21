@@ -280,7 +280,7 @@
                                                     <label for="name" class="form-label">{{__('app.name')}}</label>
 
                                                     <input type="text" class="form-control checknumber" id="name"
-                                                        name="name" placeholder="2 hours"
+                                                        name="name" placeholder="{{__('app.name')}}"
                                                         value="{{old('name',$appSetting->name)}}">
                                                 </div>
 
@@ -374,6 +374,21 @@
 
                                                         @endforeach
                                                     </select>
+
+
+                                                </div>
+                                                <div class="col-12 col-lg-6 mb-1 fs-4">
+                                                    <label for="is_demo"
+                                                        class="form-label">{{__('app.is_demo')}}</label>
+                                                    <select name="is_demo" class="form-select" id="is_demo">
+                                                        <option value="true"
+                                                            {{old('is_demo',$appSetting->is_demo)== true?'selected':"" }}>
+                                                            {{__('app.true')}}</option>
+                                                        <option value="false"
+                                                            {{old('is_demo',$appSetting->is_demo)== false?'selected':"" }}>
+                                                            {{__('app.false')}}</option>
+                                                    </select>
+
 
 
                                                 </div>

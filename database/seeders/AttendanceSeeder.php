@@ -39,9 +39,8 @@ class AttendanceSeeder extends Seeder
                 $startTime = strtotime('08:00:00');
                 $endTime = strtotime('17:00:00');
 
-
-                $f1 = rand(0, 60);
-                $f2 = rand(0, 60);
+                $f1 = mt_rand(15, 200) / 100;
+                $f2 = mt_rand(15, 200) / 100;
                 $timeInTimestamp = $startTime + $f1;
                 $timeOutTimestamp = $endTime + $f2;
 
@@ -50,8 +49,8 @@ class AttendanceSeeder extends Seeder
                     'date' => $day,
                     'time_in' => date('H:i:s', $timeInTimestamp),
                     'time_out' => date('H:i:s', $timeOutTimestamp),
-                    'late_minutes' => max(0, ($timeInTimestamp - $startTime) / 60),
-                    'extra_minutes' => max(0, ($timeOutTimestamp - $endTime) / 60),
+                    'late_hours' => round(max(0, ($timeInTimestamp - $startTime)), 2),
+                    'extra_hours' => round(max(0, ($timeOutTimestamp - $endTime)), 2),
                 ]);
             }
         }
