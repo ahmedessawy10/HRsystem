@@ -71,7 +71,7 @@ class AttendanceHomeController extends Controller
     public function index()
     {
         $userId = Auth::id();
-        $attendances = Attendance::where('user_id', Auth::id())->orderBy("date", "desc")->paginate(5);
+        $attendances = Attendance::where('user_id', Auth::id())->orderBy("date", "desc")->paginate(31);
 
         return view('attendance_home.index', compact('attendances'));
     }

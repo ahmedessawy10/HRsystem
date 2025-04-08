@@ -1,29 +1,36 @@
 <?php
 
+use Livewire\Livewire;
 use App\Livewire\Counter;
 use App\Models\HrSetting;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HrSettingController;
 use App\Http\Controllers\AppSettingController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DepartmentController;
+
 use App\Http\Controllers\PermissionController;
+
 use App\Http\Controllers\JobpositionController;
-use App\Http\Controllers\HolidayController; // For holidays
-
-use App\Http\Controllers\EmployeeController;
-
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\HolidayController; // For holidays
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\AttendanceHomeController; // For attendance
-use App\Http\Controllers\ChatController;
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
+
+    // livewire for localiztion
+    Livewire::setUpdateRoute(function ($handle) {
+        return Route::post('/livewire/update', $handle);
+    });
+
     Route::redirect('/', '/login', 301);
     Route::get('/formChangePass', [UserController::class, 'formChangePass'])->name('formChangePass');
     Route::post('/change-password', [UserController::class, 'changePassword'])->name('changePassword');
