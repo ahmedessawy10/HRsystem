@@ -75,7 +75,7 @@
                         <td>{{ $user->fullname }}</td>
                         <td>{{ $user->department?->name ?? 'N/A' }}</td>
                         <td>{{ number_format($user->salaries[0]?->salary) ?? 0}} EGP</td>
-                        <td>{{$user->attendances_count}}</td>
+                        <td>{{$attendances_count}}</td>
                         <td>{{$user->salaries[0]->absent}}</td>
                         <td class=" text-danger font-bold">{{ $user->salaries[0]->delay_hours ?? 0 }}</td>
                         <td class="text-success font-bold ">{{ $user->salaries[0]->extra_hours ??0 }}
@@ -99,7 +99,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="9" class="text-center">No data found</td>
+                        <td colspan="11" class="text-center">No data found</td>
                         @endforelse
                 </tbody>
             </table>

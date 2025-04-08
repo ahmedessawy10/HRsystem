@@ -5,21 +5,29 @@ namespace App\Livewire;
 use Carbon\Carbon;
 use App\Models\User;
 use Livewire\Component;
+use App\Models\HrSetting;
+use App\Trait\SalaryCalc;
 use Livewire\WithPagination;
 
 class SalaryV2 extends Component
 {
-    use WithPagination;
+    use WithPagination, SalaryCalc;
     public $year;
     public $month;
     public $paginationTheme = 'bootstrap';
     public  $queryString = ['year', 'month'];
     public $user;
+    public $attendances_count;
 
     public function mount()
     {
         $this->year = Carbon::now()->year;
         $this->month = Carbon::now()->subMonth()->month;
+        $this->attendances_count = $this->calcDayMonth(
+            $this->year,
+            $this->month,
+            json_decode(HrSetting::first()->holidays)
+        );
     }
     public function render()
     {
@@ -34,8 +42,14 @@ class SalaryV2 extends Component
                 $query->where('year', $this->year)
                     ->where('month', $this->month);
             }, 'department'])
-            ->withCount('attendances')
+
             ->paginate(10);
+
+        $this->attendances_count = $this->calcDayMonth(
+            $this->year,
+            $this->month,
+            json_decode(HrSetting::first()->holidays)
+        );
 
         // dd($this->user);
         // $this->user = null;

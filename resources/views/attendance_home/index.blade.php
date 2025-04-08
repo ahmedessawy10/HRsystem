@@ -159,15 +159,15 @@
                       {{ $attendance->time_out ? \Carbon\Carbon::parse($attendance->time_out)->format('H:i:s') : '-' }}
                     </td>
                     <td>
-                      @if($attendance->late_minutes > 0)
-                      <span class="badge-late">{{ $attendance->late_minutes }}</span>
+                      @if($attendance->late_hours > 0)
+                      <span class="badge-late">{{ $attendance->late_hours }}</span>
                       @else
                       <span class="badge-zero">0</span>
                       @endif
                     </td>
                     <td>
-                      @if($attendance->extra_minutes > 0)
-                      <span class="badge-extra">{{ $attendance->extra_minutes }}</span>
+                      @if($attendance->extra_hours > 0)
+                      <span class="badge-extra">{{ $attendance->extra_hours }}</span>
                       @else
                       <span class="badge-zero">0</span>
                       @endif
