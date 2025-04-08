@@ -8,37 +8,36 @@ use Illuminate\Support\Facades\DB;
 
 class Users extends Component
 {
-    public $search;
-
+    public $search = "";
+    public $activeUser;
+    public $isLoading = false;
 
     public function render()
     {
-        // $users = User::with("chats")->whereNot("id", auth()->id)->orderBy(function ($q) {
-        //     return $q->chats->latest();
-        // })->when($this->search, function ($q) {
-        //     return   $q->where("name", "like", "%" . $this->search . "%");
-        // });
-        // dd($users);
-        $users = User::with(['chats' => function ($query) {
-            $query->latest();
-        }])
-            ->whereNot("users.id", auth()->id())  
-            
-            ->leftJoin('chats', function ($join) {
-                $join->on('users.id', '=', 'chats.user_id')
-                    ->whereIn('chats.id', function ($query) {
-                        $query->select(DB::raw('MAX(id)'))
-                            ->from('chats')
-                            ->groupBy('user_id');
-                    });
-                })
-            ->orderBy('chats.created_at', 'desc')
+        $users = User::with("chats")
+            ->whereNot("id", auth()->id())
             ->when($this->search, function ($q) {
-                return $q->where("users.name", "like", "%" . $this->search . "%");
+                return $q->where("name", "like", "%" . $this->search . "%");
             })
-            ->select('users.*')
             ->get();
-        dd($users);
-        return view('livewire.chat.users');
+
+        return view('livewire.chat.users', compact("users"));
+    }
+
+    public function mount()
+    {
+        if (session()->has('active_chat')) {
+            $this->activeUser = session()->get('active_chat');
+            $this->dispatch('openChat', $this->activeUser);
+        }
+    }
+
+    public function openChat($receiver_id)
+    {
+        $this->isLoading = true;
+        $this->activeUser = $receiver_id;
+        session()->put('active_chat', $receiver_id);
+        $this->dispatch('openChat', $receiver_id);
+        $this->isLoading = false;
     }
 }

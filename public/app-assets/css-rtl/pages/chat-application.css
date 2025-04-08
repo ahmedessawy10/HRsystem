@@ -1,5 +1,7 @@
 .chat-application .app-content, .chat-application .content-right, .chat-application .content-wrapper, .chat-application .content-body {
-  height: 100%; }
+  height: calc(100vh - 78px); 
+  display:flex;
+}
 
 .chat-application .content-wrapper {
   padding: 0 !important; }
@@ -34,6 +36,10 @@
   background-color: #edeef0;
   overflow: hidden; }
 
+  .content-right{
+    flex-grow:1;
+    
+  }
 .chat-application .chats {
   padding: 0; }
   .chat-application .chats .chat-body {
