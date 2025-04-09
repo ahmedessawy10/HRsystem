@@ -122,6 +122,18 @@ if (!function_exists('getTimezone')) {
         }
     }
 
+    if (!function_exists('careerStatus')) {
+        function  careerStatus()
+        {
+            $careerStatus = [
+                "open",
+                "close",
+            ];
+
+            return $careerStatus;
+        }
+    }
+
     if (!function_exists('getTimeformat')) {
         function  getTimeformat()
         {

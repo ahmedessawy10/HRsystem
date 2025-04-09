@@ -21,10 +21,13 @@ class Messages extends Component
         'message' => 'required|min:2',
     ];
 
-    protected $validationMessages = [
-        'message.required' => 'Message cannot be empty',
-        'message.min' => 'Message must be at least 2 characters',
-    ];
+    protected function messages()
+    {
+        return [
+            'message.required' => __('project.message_required'),
+            'message.min' => __('project.message_min_length'),
+        ];
+    }
 
     protected $listeners = ["openChat" => "getMessage"];
 
@@ -39,8 +42,12 @@ class Messages extends Component
     public function mount()
     {
         $this->viewchat = false;
-    }
 
+        if (session()->has('active_chat')) {
+            $receiverId = session()->get('active_chat');
+            $this->getMessage($receiverId);
+        }
+    }
     public function render()
     {
         return view('livewire.chat.messages', [
@@ -88,7 +95,11 @@ class Messages extends Component
 
     public function broadcastedMessageReceived($event)
     {
-        if ($this->user && ($event['message']['sender_id'] == $this->user->id || $event['message']['receiver_id'] == $this->user->id)) {
+        $message = $event['message'] ?? [];
+        $senderId = $message['sender_id'] ?? null;
+        $receiverId = $message['receiver_id'] ?? null;
+
+        if ($this->user && ($senderId == $this->user->id || $receiverId == $this->user->id)) {
             $this->loadMessages($this->user->id);
         }
     }
@@ -109,7 +120,7 @@ class Messages extends Component
                 ->update(['is_read' => true]);
 
             // Load messages
-            $this->messages = Chat::where(function ($query) use ($receiverId) {
+            $messages = Chat::where(function ($query) use ($receiverId) {
                 $query->where('sender_id', Auth::id())
                     ->where('receiver_id', $receiverId);
             })
@@ -117,15 +128,21 @@ class Messages extends Component
                     $query->where('sender_id', $receiverId)
                         ->where('receiver_id', Auth::id());
                 })
-                ->latest()
-                ->paginate($this->perPage)
-                ->orderBy('created_at', 'desc')
-                ->groupBy(function ($message) {
-                    return $message->created_at->format('Y-m-d');
-                })
-                ->map(function ($group) {
-                    return $group->values();
-                });
+                ->orderBy('created_at', 'asc')
+                ->get();
+
+            // Group messages by date without using morphing
+            $this->messages = $messages->groupBy(function ($message) {
+                return $message->created_at->format('Y-m-d');
+            })->toArray();
         }
+    }
+    public function closeChat()
+    {
+        $this->viewchat = false;
+        $this->user = null;
+        $this->messages = [];
+        $this->message = '';
+        session()->forget('active_chat');
     }
 }

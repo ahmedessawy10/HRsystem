@@ -13,31 +13,26 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 // Fetch HR settings and holidays
-$hr = HrSetting::first();
-if (!$hr) {
-    return; // Exit if no HR settings are found
-}
+Schedule::call(function () {
+    $hr = HrSetting::first();
+    if (!$hr) return;
 
-$holidays = json_decode($hr->holidays, true) ?? [];
-$isHoliday = in_array(now()->dayOfWeek, $holidays);
-$hasHolidayToday = Holiday::whereDate('date', now())->exists();
+    $holidays = json_decode($hr->holidays, true) ?? [];
+    $isHoliday = in_array(now()->dayOfWeek, $holidays);
+    $hasHolidayToday = Holiday::whereDate('date', now())->exists();
 
-// Schedule the task if today is a holiday and no specific holiday is set
-if ($isHoliday && !$hasHolidayToday) {
-    Schedule::call(function () {
+    if ($isHoliday && !$hasHolidayToday) {
         User::roles('employee')->with(['attendances', 'salaries'])->chunk(100, function ($users) {
             foreach ($users as $user) {
-                // Check if the user already has an absence record for today
                 $absent = $user->absents()
-                    ->where('user_id', $user->id)
-                    ->where('absent_date', now()->toDateString())
+                    ->whereDate('absent_date', now())
                     ->exists();
 
                 if (!$absent) {
-                    // Check if the user has attendance for today
-                    $attend = $user->attendances->where('date', now()->toDateString())->first();
+                    $attended = $user->attendances()
+                        ->whereDate('date', now())
+                        ->exists();
 
-                    // Fetch or create the salary record for the current month and year
                     $salary = $user->salaries()
                         ->firstOrCreate(
                             [
@@ -51,21 +46,18 @@ if ($isHoliday && !$hasHolidayToday) {
                             ]
                         );
 
-                    // Deduct salary for absence if the user didn't attend
-                    if (!$attend) {
+                    if (!$attended) {
                         $salary->net_salary -= $salary->salary / 30;
                         $salary->absent += 1;
                         $salary->save();
                     }
 
-                    // Create an absence record for the user
                     $user->absents()->create([
-                        'user_id' => $user->id,
                         'absent_date' => now()->toDateString(),
                         'reason' => 'Absent',
                     ]);
                 }
             }
         });
-    })->daily()->at('23:00');
-}
+    }
+})->daily()->at('7:56')->timezone('Africa/Cairo');

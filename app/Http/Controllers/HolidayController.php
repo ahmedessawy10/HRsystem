@@ -14,7 +14,7 @@ class HolidayController extends Controller
     public function index()
     {
         // $holidays = Holiday::orderBy('date', 'asc')->get();
-        $holidays = Holiday::orderBy('date', 'asc')->paginate(5);
+        $holidays = Holiday::orderBy('date', 'desc')->paginate(5);
         return view('holidays.index', compact('holidays'));
     }
 
@@ -91,7 +91,7 @@ class HolidayController extends Controller
     public function calendar()
     {
         // $holidays = Holiday::all();
-        $holidays = Holiday::paginate(5); 
+        $holidays = Holiday::paginate(5);
         return view('holidays.calendar', compact('holidays'));
     }
 

@@ -187,6 +187,13 @@
         border-left: 5px solid #dc3545;
     }
 
+    button[type="submit"] {
+        background-color: #1da1f2 !important;
+        color: #fff !important;
+        border: none !important;
+        padding: 10px 20px !important;
+    }
+
     .alert .close {
         margin-left: auto;
         font-size: 20px;
@@ -442,7 +449,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type=" submit" class="btn btn-success">Save</button>
+                    <button type=" submit" class="btn ">Save</button>
                 </div>
             </form>
         </div>

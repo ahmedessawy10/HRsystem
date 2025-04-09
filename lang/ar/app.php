@@ -43,6 +43,17 @@ return [
     'salary_discount' => 'الخصم',
     'hours' => 'الساعات',
     'work_day' => 'يوم العمل',
+    "hr Module" => "وحدة الموارد البشرية",
+    "holiday list" => "قائمة الإجازات",
+    "attendances" => "الحضور والانصراف",
+    "salaries" => "الرواتب",
+    "careers" => "الوظائف",
+    "employees" => "الموظفون",
+    "job positions" => "المناصب الوظيفية",
+    "Settings" => "الإعدادات",
+    "Users" => "المستخدمون",
+    "my Attendance" => "حضورى",
+    "my Salary" => "راتبي",
 
     // ** أيام الأسبوع
     'saturday' => 'السبت',
@@ -72,4 +83,18 @@ return [
     'true' => 'نعم',
     'false' => 'لا',
 
+
+    // **comapany
+
+    'company' => 'الشركة',
+    'company setting' => 'إعدادات الشركة',
+    'company name' => 'اسم الشركة',
+    'company phone' => 'هاتف الشركة',
+    'company address' => 'عنوان الشركة',
+    'company email' => 'البريد الإلكتروني للشركة',
+    'company latitude' => 'خط العرض للشركة',
+    'company longitude' => 'خط الطول للشركة',
+    'company radius' => 'نطاق الشركة',
+    'company city' => 'مدينة الشركة',
+    'company location' => 'موقع الشركة',
 ];

@@ -65,7 +65,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4><i class="bi bi-calendar-check me-2"></i> Add New Attendance</h4>
+                                <h4><i class="bi bi-calendar-check me-2"></i> {{__('app.add new career')}}</h4>
                                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                             </div>
                             <div class="card-content collapse show">
@@ -80,41 +80,42 @@
                                     </div>
                                     @endif
 
-                                    <form action="{{ route('attendance.store') }}" method="POST">
+                                    <form action="{{ route('careers.store') }}" method="POST">
                                         @csrf
                                         <div class="mb-1 py-2">
-                                            <label for="user">{{__('app.user')}}</label>
-                                            <select name="user_id" id="user" class="form-select">
-                                                @foreach($users as $user)
-                                                <option data-start="
-                                                
-                                                {{$user->start_time  }}" data-end="{{$user->end_time }}"
-                                                    value="{{$user->id}}" class="user-option">
-                                                    {{$user->fullname}}</option>
+                                            <label for="department_id">{{__('app.department')}}</label>
+                                            <select name="department_id" id="department_id" class="form-select">
+                                                @foreach($departments as $department)
+                                                <option {{ old("department") == $department->id ? "selected" : "" }}
+                                                    value="{{$department->id}}">{{$department->name}}</option>
+
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="mb-2">
-                                            <label class="form-label">Date</label>
-                                            <input type="date" name="date" value="{{ now()->format('Y-m-d') }}"
-                                                max="{{ date('Y-m-d') }}" class="form-control" required>
+                                            <label class="form-label">{{__("app.title")}}</label>
+                                            <input type="text" name="title" required class="form-control" id="title"
+                                                value="{{ old("title") }}" autofocus placeholder="{{__('app.title')}}">
                                         </div>
 
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="mb-2">
-                                                    <label class="form-label">{{__("app.timein")}}</label>
-                                                    <input type="time" name="time_in" id="time_in"
-                                                        value="{{ $user->start_time }}" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="mb-2">
-                                                    <label class="form-label">{{__("app.timeout")}}</label>
-                                                    <input type="time" name="time_out" value="{{ $user->end_time }}"
-                                                        id="time_out" class="form-control">
-                                                </div>
-                                            </div>
+                                        <div class="mb-2">
+                                            <label for="status">{{__('app.status')}}</label>
+                                            <select name="status" id="title" class="form-select">
+                                                @foreach(careerStatus() as $status)
+                                                <option value="{{$status}}"
+                                                    {{ old("status") == $status ? "selected" : "" }}>
+                                                    {{$status}}</option>
+                                                >{{$status}}</option>
+
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <label for="description">{{__('app.description')}}</label>
+                                            <textarea name="description" id="description" class="form-control" rows="5">
+                                            {{ old("description") }}
+                                            </textarea>
                                         </div>
 
 
@@ -153,20 +154,7 @@
 @section("js")
 
 <script>
-    $(document).ready(function() {
-    $('#user').change(function(e){
-        const selectedValue = e.target.value;
-        let selectedOption = $('.user-option').filter(function () {
-            return $(this).val() == selectedValue;
-        });
-
-    
-        let start = formateTime(selectedOption.data('start'));
-        let end = formateTime(selectedOption.data('end'));
-        $('#start_in').val(start);
-        $('#time_out').val(end);
-            });
-});
+   
 </script>
 
 

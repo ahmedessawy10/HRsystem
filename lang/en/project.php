@@ -71,6 +71,18 @@ return [
     "option" => "Option",
     "all" => "All",
     // END GENERAL
+
+    // Chat
+    "chat_history" => "Chat History",
+    "loading" => "Loading...",
+    "no_user" => "No user",
+    "type_your_message" => "Type your message",
+    "send" => "Send",
+    "message_required" => "Message cannot be empty",
+    "message_min_length" => "Message must be at least 2 characters",
+    "search_or_start_chat" => "Search or start new chat",
+    "you" => "You",
+
     // login in
 
     "enter email" => "Enter Email",
@@ -106,5 +118,7 @@ return [
     'address' => "Address",
     'phone' => "Phone",
     'additional_information' => "additional information",
+
+    
 
 ];

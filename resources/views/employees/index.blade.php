@@ -1,6 +1,11 @@
 @extends("layouts.master")
 @section("title", __("project.employee_list"))
 
+@section("css")
+
+<link rel="stylesheet" href="{{ asset("app-assets/css/tablestyle.css") }}">
+@endsection
+
 @section("content")
 <div class="app-content content">
   <div class="content-wrapper">

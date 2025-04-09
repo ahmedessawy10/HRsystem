@@ -70,6 +70,16 @@ return [
     "all" => "الجميع",
     // END GENERAL
 
+    // Chat
+    "chat_history" => "سجل المحادثة",
+    "loading" => "جاري التحميل...",
+    "no_user" => "لا يوجد مستخدم",
+    "type_your_message" => "اكتب رسالتك",
+    "send" => "إرسال",
+    "message_required" => "لا يمكن أن تكون الرسالة فارغة",
+    "message_min_length" => "يجب أن تكون الرسالة على الأقل حرفين",
+    "search_or_start_chat" => "ابحث أو ابدأ محادثة جديدة",
+    "you" => "أنت",
 
     // login in
 
@@ -91,5 +101,28 @@ return [
     "old-password-doesnt-match" => "كلمة المرور القديمة لا تتطابق.",
     // end login
 
+
+    // Attendance Related
+    "Add New Attendance" => "إضافة حضور جديد",
+    "Edit Attendance" => "تعديل الحضور",
+    "Employee Name" => "اسم الموظف",
+    "Full Name" => "الاسم الكامل",
+    "Date" => "التاريخ",
+    "Time In" => "وقت الدخول",
+    "Time Out" => "وقت الخروج",
+    "Late Minutes" => "دقائق التأخير",
+    "Extra Minutes" => "الدقائق الإضافية",
+    "Save" => "حفظ",
+    "Back" => "رجوع",
+    "user" => "المستخدم",
+    "timein" => "وقت الدخول",
+    "timeout" => "وقت الخروج",
+    "lateMinutes" => "دقائق التأخير",
+    "extraMinutes" => "الدقائق الإضافية",
+
+    // Messages
+    "Time out must be later than time in" => "يجب أن يكون وقت الخروج بعد وقت الدخول",
+    "No recipient selected" => "لم يتم اختيار مستلم",
+    "Failed to send message" => "فشل في إرسال الرسالة",
 
 ];

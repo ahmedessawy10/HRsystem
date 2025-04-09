@@ -62,6 +62,13 @@
         font-weight: 600;
     }
 
+    button[type="submit"] {
+        background-color: #1da1f2 !important;
+        color: #fff !important;
+        border: none !important;
+        padding: 10px 20px !important;
+    }
+
     /* Search Input */
     #search {
         border-radius: 25px;
@@ -365,7 +372,7 @@
 
                                             <div class="d-flex justify-content-center ">
                                                 <button type="submit"
-                                                    class="btn btn-primary text-center fs-4">{{__('app.save')}}</button>
+                                                    class="btn text-center fs-4">{{__('app.save')}}</button>
                                             </div>
 
 
@@ -408,7 +415,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type=" submit" class="btn btn-success">Save</button>
+                    <button type=" submit" class="btn ">Save</button>
                 </div>
             </form>
         </div>

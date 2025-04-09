@@ -1,7 +1,7 @@
 @extends("layouts.master")
 
 @section("title")
-    {{ __("project.Holiday List") }}
+{{ __("project.Holiday List") }}
 @endsection
 
 @section("css")
@@ -19,9 +19,11 @@
     overflow: hidden;
     border: none;
   }
+
   .card:hover {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   }
+
   .card-header {
     padding: 20px;
     background: #f0f4f8;
@@ -32,6 +34,7 @@
     justify-content: space-between;
     align-items: center;
   }
+
   .card-body {
     padding: 30px;
   }
@@ -44,12 +47,15 @@
     font-size: 14px;
     font-weight: 500;
   }
+
   .table-hover tbody tr:hover {
     background-color: #e3f2fd;
   }
+
   .table-striped tbody tr:nth-of-type(odd) {
     background-color: #f9fbff;
   }
+
   .thead-custom th {
     background: #1da1f2;
     color: #fff;
@@ -65,9 +71,10 @@
     background-color: #fff;
     width: 100%;
     margin-bottom: 20px;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
+
   #search:focus {
     border-color: #1da1f2;
     box-shadow: 0 0 8px rgba(29, 161, 242, 0.3);
@@ -82,6 +89,7 @@
     padding: 10px 16px;
     transition: background-color 0.3s ease;
   }
+
   .btn-light:hover {
     background-color: #007bff;
   }
@@ -94,13 +102,16 @@
     font-size: 18px;
     padding: 4px;
   }
+
   .dropdown .dropdown-toggle:focus {
     outline: none;
     box-shadow: none;
   }
+
   .dropdown-menu {
     min-width: 140px;
   }
+
   .dropdown-item {
     font-size: 14px;
     padding: 8px 12px;
@@ -108,6 +119,7 @@
     align-items: center;
     gap: 8px;
   }
+
   .dropdown-item:hover {
     background: #1da1f2;
     color: #fff;
@@ -118,6 +130,7 @@
     justify-content: center;
     margin-top: 20px;
   }
+
   .pagination .page-link {
     border-radius: 50px;
     padding: 8px 16px;
@@ -127,60 +140,30 @@
     border: none;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
+
   .pagination .page-link:hover {
     background-color: #1da1f2;
     color: #fff;
   }
+
   .pagination .active .page-link {
     background-color: #1da1f2;
     color: #fff;
   }
 
   /* Alert Styles */
-  .alert {
-    padding: 15px 20px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 16px;
-    margin-bottom: 20px;
-  }
-  .alert-success {
-    background-color: #d4edda;
-    color: #155724;
-    border-left: 5px solid #1da1f2;
-  }
-  .alert-info {
-    background-color: #d1ecf1;
-    color: #0c5460;
-    border-left: 5px solid #1da1f2;
-  }
-  .alert-warning {
-    background-color: #fff3cd;
-    color: #856404;
-    border-left: 5px solid #ffc107;
-  }
-  .alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-    border-left: 5px solid #dc3545;
-  }
-  .alert .close {
-    margin-left: auto;
-    font-size: 20px;
-    cursor: pointer;
-  }
 
   @media (max-width: 767px) {
     .table-responsive {
       margin-bottom: 20px;
     }
+
     #search {
       width: 100%;
     }
   }
 </style>
+<link rel="stylesheet" href="{{ asset("app-assets/css/tablestyle.css") }}">
 @endsection
 
 @section("content")
@@ -192,54 +175,56 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-  <h4 class="card-title m-0">
-    <i class="fas fa-calendar-alt mr-2"></i>{{ __("Holiday List") }}
-  </h4>
-  <div>
-    <a href="{{ route('holiday.report') }}" class="btn btn-info mr-2" data-toggle="tooltip" data-placement="top" title="View Holiday Report">
-      <i class="fas fa-file-alt"></i>
-    </a>
-    <a href="{{ route('holiday.create') }}" class="btn btn-light" data-toggle="tooltip" data-placement="top" title="{{ __('Add New Holiday') }}">
-      <i class="fas fa-plus"></i>
-    </a>
-  </div>
-</div>
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="card-title m-0">
+                  <i class="fas fa-calendar-alt mr-2"></i>{{ __("Holiday List") }}
+                </h4>
+                <div>
+                  <a href="{{ route('holiday.report') }}" class="btn btn-info mr-2" data-toggle="tooltip"
+                    data-placement="top" title="View Holiday Report">
+                    <i class="fas fa-file-alt"></i>
+                  </a>
+                  <a href="{{ route('holiday.create') }}" class="btn btn-light" data-toggle="tooltip"
+                    data-placement="top" title="{{ __('Add New Holiday') }}">
+                    <i class="fas fa-plus"></i>
+                  </a>
+                </div>
+              </div>
 
               <div class="card-content collapse show">
                 <div class="card-body">
                   <!-- Alert Messages -->
                   @if(session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                      <i class="fas fa-check-circle"></i> {{ session('success') }}
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle"></i> {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
                   @endif
                   @if(session('error'))
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                      <i class="fas fa-times-circle"></i> {{ session('error') }}
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-times-circle"></i> {{ session('error') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
                   @endif
                   @if(session('warning'))
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                      <i class="fas fa-exclamation-triangle"></i> {{ session('warning') }}
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-triangle"></i> {{ session('warning') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
                   @endif
                   @if(session('info'))
-                    <div class="alert alert-info alert-dismissible fade show" role="alert">
-                      <i class="fas fa-info-circle"></i> {{ session('info') }}
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
+                  <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <i class="fas fa-info-circle"></i> {{ session('info') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
                   @endif
 
                   <!-- Search Input -->
@@ -271,7 +256,8 @@
                           <td>
                             <!-- Dropdown with Three Dots and Icons -->
                             <div class="dropdown">
-                              <button class="btn dropdown-toggle" type="button" id="actionMenu{{ $holiday->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <button class="btn dropdown-toggle" type="button" id="actionMenu{{ $holiday->id }}"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v"></i>
                               </button>
                               <div class="dropdown-menu" aria-labelledby="actionMenu{{ $holiday->id }}">
@@ -281,7 +267,8 @@
                                 <a class="dropdown-item" href="{{ route('holiday.copy', $holiday) }}">
                                   <i class="fas fa-copy"></i> Copy
                                 </a>
-                                <form action="{{ route('holiday.destroy', $holiday) }}" method="POST" onsubmit="return confirm('{{ __('Are you sure?') }}');">
+                                <form action="{{ route('holiday.destroy', $holiday) }}" method="POST"
+                                  onsubmit="return confirm('{{ __('Are you sure?') }}');">
                                   @csrf
                                   @method('DELETE')
                                   <button type="submit" class="dropdown-item">

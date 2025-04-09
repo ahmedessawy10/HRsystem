@@ -72,12 +72,52 @@ return [
     'edit department' => 'edit department',
     'department_name' => 'department name',
     'employees' => 'Employees',
+    "company setting" => "Company Setting",
     'is_demo' => 'Is Demo',
     'true' => 'True',
     'false' => 'False',
+    "hr Module" => "HR Module",
+    "holiday list" => "Holiday List",
+    "attendances" => "Attendances",
+    "salaries" => "Salaries",
+    "careers" => "Careers",
+    "employees" => "Employees",
+    "job positions" => "Job Positions",
+    "Settings" => "Settings",
+    "Users" => "Users",
+    "my Attendance" => "My Attendance",
+
+    //** new add */
+    "add new career" => "Add New Career",
+    "title" => "Title",
+    "department" => "Department",
+    "description" => "Description",
+    "status" => "Status",
+    "open" => "Open",
+    "close" => "Close",
+    "careers" => "Careers",
+    "add new career" => "Add New Career",
+    "no careers found" => "No Careers Found",
+    "job description" => "Job Description",
+    "career details" => "Career Details",
+    // app comapany
+
+    'company' => 'Company',
+    "company setting" => "Company Setting",
+    'company name' => 'Company Name',
+    'company phone' => 'Company Phone',
+    'company address' => 'Company Address',
+    'company email' => 'Company Email',
+    'company latitude' => 'Company Latitude',
+    'company longitude' => 'Company Longitude',
+    'company radius' => 'Company Radius',
+    'company city' => 'Company City',
+    "company location" => "Company Location",
 
 
-
-
+    // 
+    "update_success" => "Updated Successfully",
+    "create_success" => "Created Successfully",
+    "delete_success" => "Deleted Successfully",
 
 ];

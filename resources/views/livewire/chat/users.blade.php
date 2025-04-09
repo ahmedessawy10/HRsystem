@@ -2,8 +2,8 @@
     <div class="sidebar-content card d-none d-lg-block">
         <div class="card-body chat-fixed-search">
             <fieldset class="form-group position-relative has-icon-left m-0">
-                <input type="text" class="form-control" wire:model.live="search" placeholder="Search user"
-                    wire:loading.attr="disabled">
+                <input type="text" class="form-control" wire:model.live="search"
+                    placeholder="{{ __('project.search_or_start_chat') }}" wire:loading.attr="disabled">
                 <div class="form-control-position">
                     <i class="ft-search" wire:loading.remove></i>
                     <i class="la la-spinner spinner" wire:loading></i>
@@ -14,7 +14,7 @@
         <!-- Add loading spinner -->
         <div wire:loading class="text-center my-3">
             <div class="spinner-border text-primary" role="status">
-                <span class="sr-only">Loading...</span>
+                <span class="sr-only">{{ __('project.loading') }}</span>
             </div>
         </div>
 

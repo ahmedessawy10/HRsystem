@@ -6,27 +6,33 @@ use App\Models\HrSetting;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CareerController;
 use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HrSettingController;
 use App\Http\Controllers\AppSettingController;
+
 use App\Http\Controllers\AttendanceController;
+
 use App\Http\Controllers\DepartmentController;
-
 use App\Http\Controllers\PermissionController;
-
 use App\Http\Controllers\JobpositionController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\HolidayController; // For holidays
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\AttendanceHomeController; // For attendance
 
+Route::get("/home", function () {
+    return view("welcome");
+})->name("home");
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
-    // livewire for localiztion
+
+    // **livewire for localiztion
     Livewire::setUpdateRoute(function ($handle) {
         return Route::post('/livewire/update', $handle);
     });
@@ -41,14 +47,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name("dashboard");
 
 
-        // Role and Permission routes
+        //** Role and Permission routes
         Route::resource('permission', PermissionController::class);
         Route::resource('userRole', UserRoleController::class);
 
-        //salary pages
+        //**salary pages
         Route::resource('salaries', SalaryController::class);
         Route::get('salaries/{salary}/print', [SalaryController::class, 'print'])->name('salaries.print');
-        // Holiday routes
+        // **Holiday routes
         Route::prefix('holidays')->name('holiday.')->group(function () {
             Route::get('/', [HolidayController::class, 'index'])->name('index');
             Route::get('/create', [HolidayController::class, 'create'])->name('create');
@@ -61,13 +67,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::get('/report', [HolidayController::class, 'report'])->name('report');
         });
 
-        // Attendance routes (for employee attendance)
+        // **Attendance routes (for employee attendance)
         Route::prefix('attendance-home')->name('attendanceHome.')->group(function () {
             Route::get('/', [AttendanceHomeController::class, 'index'])->name('index');
             Route::post('/checkin', [AttendanceHomeController::class, 'checkIn'])->name('checkin');
             Route::post('/checkout', [AttendanceHomeController::class, 'checkOut'])->name('checkout');
         });
-        // attendance
+        // **attendance
         Route::get('/attendance/create', [AttendanceController::class, 'create'])->name('attendance.create');
         Route::post('/attendance', [AttendanceController::class, 'store'])->name('attendance.store');
         Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
@@ -77,9 +83,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::delete('/attendance/{id}', [AttendanceController::class, 'destroy'])->name('attendance.destroy');
 
 
+        // ** employee
+        Route::resource('employees', EmployeeController::class);
 
 
-        // app 
+
+        //&& app 
 
         //** departments  */
         Route::resource('departments', DepartmentController::class);
@@ -89,6 +98,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::resource('hrSettings', HrSettingController::class)->only(['index', 'store']);
         Route::resource('appSettings', AppSettingController::class)->only(['index', 'store']);
 
+        // ** company
+        Route::resource("companySetting", CompanyController::class)->only(['index', "store"]);
+        // ** careers
+        Route::resource('/careers', CareerController::class);
         // ** chat app
         Route::post("/aichat", [ChatController::class, "ai_chat"]);
         Route::post("/chat", [ChatController::class, "ai_chat"]);
@@ -103,14 +116,8 @@ Route::middleware('auth')->group(function () {
 });
 Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
 
-// Route to display a single employee
-// Route::get('/employees/{id}', [EmployeeController::class, 'show'])->name('employees.show');
-// Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
-// Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
-// Route::delete('/employees/{id}', [EmployeeController::class, 'destroy'])->name('employees.destroy');
-// Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
-// Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
-Route::resource('employees', EmployeeController::class);
+
+
 
 
 

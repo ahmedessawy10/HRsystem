@@ -5,6 +5,7 @@
 
 @section("css")
 {{-- Remove or update DataTables CSS as it might conflict with Livewire --}}
+<link rel="stylesheet" href="{{ asset("app-assets/css/tablestyle.css") }}">
 @livewireStyles
 @endsection
 

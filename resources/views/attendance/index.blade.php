@@ -5,124 +5,7 @@
 @section("css")
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-<style>
-    body {
-        background-color: #f8f9fa;
-        color: #333;
-    }
-
-    .card {
-        border-radius: 8px;
-        background: #ffffff;
-        border: none;
-        box-shadow: 0px 4px 12px rgb(17, 70, 162, .7);
-    }
-
-    .card-header {
-        background-color: #f0f3f7;
-        color: rgb(17, 70, 162);
-        text-align: center;
-        border-radius: 8px 8px 0 0;
-        padding: 1.5rem;
-    }
-
-    .card-header h4 {
-        margin: 0;
-        font-weight: 600;
-    }
-
-    .table thead {
-        background-color: #f0f3f7;
-        color: rgb(17, 70, 162);
-    }
-
-    .btn-filter {
-        background-color: #f0f3f7;
-        color: rgb(17, 70, 162);
-        transition: 0.3s;
-        border: none;
-    }
-
-    .btn-filter:hover {
-        background-color: white;
-        color: #2c3e50;
-        border: 1px solid #2c3e50;
-    }
-
-    .badge-late {
-        background-color: #e74c3c;
-        font-weight: bold;
-        color: white;
-    }
-
-    .badge-extra {
-        background-color: #2ecc71;
-        font-weight: bold;
-        color: white;
-    }
-
-    th,
-    td {
-        text-align: center;
-        vertical-align: middle;
-    }
-
-    .btn-action {
-        padding: 0.5rem 1rem;
-        font-size: 0.875rem;
-        border-radius: 6px;
-        transition: 0.3s;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        border: none;
-    }
-
-    .btn-edit {
-        background-color: #3498db;
-        color: white;
-    }
-
-    .btn-edit:hover {
-        background-color: white;
-        color: #3498db;
-        border: 1px solid #3498db;
-    }
-
-    .btn-delete {
-        background-color: #e74c3c;
-        color: white;
-    }
-
-    .btn-delete:hover {
-        background-color: white;
-        color: #e74c3c;
-        border: 1px solid #e74c3c;
-    }
-
-    .alert-success {
-        background-color: #2ecc71;
-        color: white;
-        border: none;
-    }
-
-    .form-control {
-        border-radius: 6px;
-        border: 1px solid #ddd;
-    }
-
-    .form-control:focus {
-        border-color: #3498db;
-        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
-    }
-
-    .action-buttons {
-        display: flex;
-        gap: 0.5rem;
-        justify-content: center;
-    }
-</style>
+<link rel="stylesheet" href="{{ asset("app-assets/css/tablestyle.css") }}">
 @endsection
 
 @section("content")
@@ -285,16 +168,16 @@
             return;
         }
 
-        // let start = new Date(startDate);
-        // let end = new Date(endDate);
+        let start = new Date(startDate);
+        let end = new Date(endDate);
 
-        // $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-        //     let rowDate = new Date(data[1]); 
-        //     return rowDate >= start && rowDate <= end;
-        // });
+        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+            let rowDate = new Date(data[1]); 
+            return rowDate >= start && rowDate <= end;
+        });
 
-        // table.draw();
-        // $.fn.dataTable.ext.search.pop();
+        table.draw();
+        $.fn.dataTable.ext.search.pop();
     });
 });
 </script>

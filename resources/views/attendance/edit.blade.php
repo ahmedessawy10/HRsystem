@@ -78,7 +78,8 @@
                 <div class="mb-3">
                     <label class="form-label">Date</label>
                     <input type="date" name="date" class="form-control" required
-                        value="{{ old('date', $attendance->date) }}" max="{{ date('Y-m-d') }}">
+                        value="{{ old('date', \Carbon\Carbon::parse($attendance->date)->format('Y-m-d')) }}"
+                        max="{{ date('Y-m-d') }}">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Time In</label>
