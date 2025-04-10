@@ -34,5 +34,9 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'huggingface' => [
+        'api_key' => env('HUGGINGFACE_API_KEY'),
+        'api_url' => env('HUGGINGFACE_API_URL', 'https://api-inference.huggingface.co/models/your-model-id'),
+    ],
 
 ];

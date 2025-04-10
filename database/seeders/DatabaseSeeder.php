@@ -32,8 +32,9 @@ class DatabaseSeeder extends Seeder
             HrSettingSeeder::class,
             EmployeeSeeder::class,
             AttendanceSeeder::class,
-
-
         ]);
+
+        // Add this line in the run() method
+        $this->call(AppSettingsSeeder::class);
     }
 }
