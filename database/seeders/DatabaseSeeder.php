@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\AppSetting;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\CareerSeeder;
 use Database\Seeders\CompanySeeder;
 use Database\Seeders\HolidaySeeder;
 use Database\Seeders\EmployeeSeeder;
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
             HrSettingSeeder::class,
             EmployeeSeeder::class,
             AttendanceSeeder::class,
+            CareerSeeder::class,
 
 
         ]);

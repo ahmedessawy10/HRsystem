@@ -25,11 +25,11 @@
 @section("content")
 <div class="chat-application">
   <div class="app-content content">
-    <div class="sidebar-left sidebar-fixed">
+    <div class="sidebar-left sidebar-fixed" id="user-window">
       @livewire('chat.users')
 
     </div>
-    <div class="content-right">
+    <div class="content-right" id="chat-container">
 
       @livewire("chat.messages")
     </div>
@@ -44,6 +44,27 @@
 @section("js")
 
 {{-- <script src="{{ asset("app-assets/js/scripts/pages/chat-application.js") }}" type="text/javascript"></script> --}}
+
+
+<script>
+  function toggleUserWindow(btn){
+      const userWindow = document.getElementById('user-window');
+      const chatContainer = document.getElementById('chat-container');
+      const icon = btn.children[0];
+      if (userWindow.style.display === 'none' || userWindow.style.display === '') {
+          userWindow.style.display = 'block';
+          chatContainer.style.width = 'calc(100% - 300px)';
+         let x= icon.classList.remove("ft-arrow-left");
+         icon.classList.add('fa', 'fa-bars');
+          // Adjust width when user window is open
+      } else {
+          userWindow.style.display = 'none';
+          chatContainer.style.width = 'calc(100% - 0px)';
+          icon.classList.remove('fa', 'fa-bars');
+          icon.classList.add("ft-arrow-left");
+      }
+  }
+</script>
 
 <script>
   //Broadcast messages

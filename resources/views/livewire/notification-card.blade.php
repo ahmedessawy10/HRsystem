@@ -20,7 +20,8 @@
                         <div class="media-body">
                             <h6 class="media-heading">{{$notify->from_user_id}}</h6>
                             <p class="notification-text font-small-3 text-muted">
-                                {{str($notify->message)->limit(10)}}
+                                {{-- {{ dump($notify) }} --}}
+                                {{$notify->data['message']}}
                             </p>
                             <small>
                                 <time class="media-meta text-muted"

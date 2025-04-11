@@ -3,118 +3,74 @@
 
 @section('content')
 <section class="flexbox-container">
-    <div class="col-12 d-flex align-items-center justify-content-center">
-        <div class="col-md-4 col-10 box-shadow-2 p-0">
-            <div class="card border-grey border-lighten-3 m-0">
-                <div class="card-header border-0">
-                    <div class="card-title text-center">
-                        <div class="p-1">
-                            <img style="width:200px" src="{{asset('uploads/'.$appSetting->logo)}}" alt="LOGO" />
-
-                        </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-8 col-sm-10">
+                <div class="card shadow-sm border-light">
+                    <div class="card-header text-center bg-transparent border-0">
+                        <img style="width: 150px;" src="{{ asset('uploads/'.$appSetting->logo) }}" alt="LOGO">
                     </div>
 
-                </div>
-
-                <div class="card-content">
                     <div class="card-body">
-                        <form class="form-horizontal form-simple" action="{{route('login')}}" method="post" novalidate
-                            id="loginForm">
+                        <form action="{{ route('login') }}" method="POST" id="loginForm">
                             @csrf
-                            <fieldset class="form-group position-relative has-icon-left mb-2">
-                                <input type="text" name="email" class="form-control form-control-lg input-lg"
-                                    value="{{old('email')}}" id="email" placeholder="{{__('project.enter email')}}">
-                                <div class="form-control-position">
-                                    <i class="ft-user"></i>
-                                </div>
+
+                            <div class="mb-1 position-relative">
+                                <label for="email" class="form-label">{{ __('project.enter email') }}</label>
+                                <input type="text" name="email" id="email" class="form-control ps-4"
+                                    value="{{ old('email') }}" placeholder="{{ __('project.enter email') }}">
+                                <i class="position-absolute translate-middle-y me-3 ft-user" style="top:65%;"></i>
                                 @error('email')
-                                <span class="text-danger">{{$message}}</span>
+                                <div class="text-danger small">{{ $message }}</div>
                                 @enderror
-
-                            </fieldset>
-                            <fieldset class="form-group position-relative has-icon-left">
-                                <input type="password" name="password" id="password"
-                                    class="form-control form-control-lg input-lg " id="user-password"
-                                    value="{{old('password')}}" placeholder="{{__('project.enter password')}}">
-
-                                <div class="form-control-position">
-                                    <i class="la la-key"></i>
-                                </div>
-
-                                <i id="eye-password" class=" eye-icon  ft-eye position-absolute"></i>
-
-                            </fieldset>
-
-                            @error('password')
-                            <span class="text-danger">{{$message}}</span>
-                            @enderror
-                            <div class="form-group row">
-                                <div class="col-md-6 col-12 text-center text-md-left">
-
-                                    {!!htmlFormSnippet()!!}
-                                    @if($errors->has('g-recaptcha-response'))
-
-                                    <span class="text-danger">{{$errors->first('g-recaptcha-response')}}</span>
-
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-6 col-md-12 text-center text-md-left ">
-
-                                    <fieldset>
-                                        <input type="checkbox" name="remember_me" id="remember-me"
-                                            class="chk-remember text-3">
-                                        <label for="remember-me"> {{__('remember me')}}</label>
-                                    </fieldset>
-
-                                </div>
-
-                                <div>
-                                    <fieldset class="col-6 col-md-12 text-center text-md-left ">
-                                        <a href="{{route('password.request')}}"
-                                            rel="noopener noreferrer">{{__('Forgot your password?')}}</a>
-                                    </fieldset>
-                                </div>
                             </div>
 
-                            <button type="submit" class="btn btn-info btn-lg btn-block"><i class="ft-unlock"></i>
-                                {{__("login")}}
+                            <div class="mb-1 position-relative">
+                                <label for="password" class="form-label">{{ __('project.enter password') }}</label>
+                                <input type="password" name="password" id="password" class="form-control"
+                                    placeholder="{{ __('project.enter password') }}">
+                                <i id="eye-password" style="top:69%"
+                                    class="eye-icon position-absolute top-50 end-0 translate-middle-y me-3 ft-eye"
+                                    style="cursor: pointer;"></i>
+                                @error('password')
+                                <div class="text-danger small">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-1">
+                                {!! htmlFormSnippet() !!}
+                                @if($errors->has('g-recaptcha-response'))
+                                <div class="text-danger small">{{ $errors->first('g-recaptcha-response') }}</div>
+                                @endif
+                            </div>
+
+                            <div class=" form-check">
+                                <input type="checkbox" name="remember_me" id="remember-me" class="form-check-input">
+                                <label class="form-check-label" for="remember-me">{{ __('remember me') }}</label>
+                            </div>
+
+                            <div class="">
+                                <a href="{{ route('password.request') }}">{{ __('Forgot your password?') }}</a>
+                            </div>
+
+                            <button type="submit" class="btn btn-info w-100">
+                                <i class="ft-unlock"></i> {{ __("login") }}
                             </button>
                         </form>
-                        <table class="table table-bordered mt-3">
-                            <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Email</th>
-                                    <th>Password</th>
-                                    <th>Copy</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Admin</td>
-                                    <td>admin@gmail.com</td>
-                                    <td>123456</td>
-                                    <td><button type="button" class="btn btn-primary"
-                                            onclick="copyUser('admin@gmail.com', '123456');">Login</button></td>
-                                </tr>
-                                <tr>
-                                    <td>HR</td>
-                                    <td>hrManger@gmail.com</td>
-                                    <td>123456</td>
-                                    <td><button type="button" class="btn btn-primary"
-                                            onclick="copyUser('hrManger@gmail.com', '123456');">Login</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Employee</td>
-                                    <td>employee@gmail.com</td>
-                                    <td>123456</td>
-                                    <td><button type="button" class="btn btn-primary"
-                                            onclick="copyUser('employee@gmail.com', '123456');">Login</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
+
+                        {{-- Demo Accounts --}}
+                        <div class="mt-4">
+                            <h5 class="text-center mb-1">{{ __('Demo Accounts') }}</h5>
+                            <div class="d-grid gap-2 ">
+                                <button class="btn btn-outline-primary"
+                                    onclick="copyUser('admin@gmail.com', '123456')">Login as Admin</button>
+                                <button class="btn btn-outline-primary"
+                                    onclick="copyUser('hrManger@gmail.com', '123456')">Login as HR</button>
+                                <button class="btn btn-outline-primary"
+                                    onclick="copyUser('employee@gmail.com', '123456')">Login as Employee</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

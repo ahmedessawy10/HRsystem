@@ -50,21 +50,22 @@
                         <div class="container">
                           <h3>{{__('project.Permissions')}}</h3>
                           <div class="row pt-2">
-
-
+                            {{-- 
+                            {{ dd($permissions) }}
+                            {{ dd($hasPermission) }} --}}
 
                             @foreach ($permissions as $key => $value)
-                            <div class="col-2  col-md-4">
+                            <div class="col-6  col-md-4">
                               <h4>{{ $key }}</h4>
                               <div class="d-flex flex-column">
                                 @if (count($value) > 0)
                                 @foreach ($value as $item)
                                 <div class="form-group  d-flex" style="margin-bottom:12px">
                                   @foreach ($item as $permission => $short)
-                                  <input type="checkbox" class="form-control"
-                                    {{($hasPermission->contains($permission))?'checked':" "}} style="width:18px"
-                                    name="permissions[]" id="{{ 'permission-' . $key . $permission }}"
-                                    value="{{ $permission }}">
+                                  <input class="form-check-input" type="checkbox"
+                                    {{($hasPermission->contains($permission))?'checked':" "}}
+                                    style="width:18px;height:18px" name="permissions[]"
+                                    id="{{ 'permission-' . $key . $permission }}" value="{{ $permission }}">
                                   <label for="{{ 'permission-' . $key . $permission }}" class="" style="padding-left: 11px;
                                              padding-right: 11px;">{{$short}} </label>
 

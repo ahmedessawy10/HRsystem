@@ -66,6 +66,10 @@ class PermissionSeeder extends Seeder
             ['name' => 'hrSetting manage', 'guard_name' => 'web'],
             ['name' => 'company manage', 'guard_name' => 'web'],
             ['name' => 'employee_attendance show', 'guard_name' => 'web'],
+            ['name' => 'statistics employee_count', 'guard_name' => 'web'],
+            ['name' => 'statistics total_payroll', 'guard_name' => 'web'],
+            ['name' => 'statistics absent_employee', 'guard_name' => 'web'],
+            ['name' => 'statistics open_career_count', 'guard_name' => 'web'],
 
 
         ]);

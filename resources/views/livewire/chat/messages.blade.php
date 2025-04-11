@@ -2,10 +2,21 @@
 
     @if ($user)
     <div class="content-body">
-        <div class="content-header row">
-            <div class="d-flex justify-content-between w-100 align-items-center">
-                <span>{{ $user->name ?? __('project.no_user')}}</span>
-                <button wire:click="closeChat" class="btn btn-sm btn-outline-danger">
+        <div class="content-header row py-2" style="background-color:#168DEE;">
+            <div class="d-flex justify-content-between w-100 align-items-center ps-5"
+                style="padding-right:40px;padding-left:40px;">
+                <div class="d-flex align-items-center">
+                    <button class="ms-3 btn font-bold " onclick="toggleUserWindow(this)"
+                        style="color:white;font-size:23px;">
+                        <i class="ft-arrow-left"></i>
+                    </button>
+                    <span class="avatar avatar-online ms-2">
+                        <img src="../../../app-assets/images/portrait/small/avatar-s-1.png" alt="avatar" />
+                    </span>
+                    <h4 class="ml-1 mb-0  font-bold" style="color:white">{{ $user->name ?? __('project.no_user')}}</h4>
+                </div>
+
+                <button wire:click="closeChat" class="btn btn-lg  font-bold btn-outline-light ">
                     <i class="la la-times"></i>
                 </button>
             </div>
@@ -51,7 +62,7 @@
                     @endforeach
                     @empty
                     <div class="text-center text-muted">
-                        {{ __('project.no_messages') }}
+                        {{ __('app.no_messages') }}
                     </div>
                     @endforelse
                 </div>
@@ -97,5 +108,8 @@
 
 
     @endif
+
+
+
 
 </div>

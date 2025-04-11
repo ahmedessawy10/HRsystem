@@ -100,6 +100,15 @@ return [
     "no careers found" => "No Careers Found",
     "job description" => "Job Description",
     "career details" => "Career Details",
+    "open_career_count" => "Open Career Count",
+    "career applications" => "Career Applications",
+    "total payroll" => "Total Payroll this month",
+    "employees count" => "Employees Count",
+    "not_notification" => "No Notification",
+    "no_messages" => "No Messages",
+    "applications" => "Applications",
+    "congratulations"=> "Congratulations!",
+
     // app comapany
 
     'company' => 'Company',

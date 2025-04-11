@@ -23,7 +23,7 @@
   padding: 20px 30px;
   overflow-y: scroll;
   text-align: center;
-  height: calc(100% - 112px);
+  height: calc(100% - 177px);
   background-color: #fff; }
 
 .chat-application .chat-app-form {
@@ -100,7 +100,7 @@
 
 @media (max-width: 767.98px) {
   .chat-application .chat-app-window {
-    height: calc(100% - 132px); } }
+    height: calc(100% - 177px); } }
 
 .horizontal-layout.chat-application .app-content {
   height: calc(100% - 144px) !important;

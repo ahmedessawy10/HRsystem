@@ -25,11 +25,18 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\HolidayController; // For holidays
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\AttendanceHomeController; // For attendance
+use App\Http\Controllers\HomeController;
 
-Route::get("/home", function () {
-    return view("welcome");
-})->name("home");
+Route::get("/", [HomeController::class, "home"])->name("home");
+Route::get("/home/careers", [HomeController::class, "careers"])->name("home.careers");
+Route::get("/home/careers/{career}", [HomeController::class, "showCareer"])->name("home.career.details");
+Route::post("/home/careers/{career}/apply", [HomeController::class, "applyCareer"])->name("home.career.apply");
+Route::get("/notify", [HomeController::class, "notify"]);
+
+// Route::redirect('/', '/home', 301);
+
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
+
 
 
     // **livewire for localiztion
@@ -37,7 +44,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         return Route::post('/livewire/update', $handle);
     });
 
-    Route::redirect('/', '/login', 301);
+
     Route::get('/formChangePass', [UserController::class, 'formChangePass'])->name('formChangePass');
     Route::post('/change-password', [UserController::class, 'changePassword'])->name('changePassword');
     Route::get('/counter', function () {

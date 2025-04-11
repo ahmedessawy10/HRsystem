@@ -98,12 +98,12 @@ class AttendanceHomeController extends Controller
                 'user_id'       => $userId,
                 'date'          => $today,
                 'time_in'       => $currentTime,
-                'late_minutes'  => 0,
-                'extra_minutes' => 0,
+                'late_hours'  => 0,
+                'extra_hours' => 0,
             ]);
 
 
-            $attendance->late_minutes = $attendance->calculateLateMinutes($this->officialTimeIn);
+            $attendance->late_hours = $attendance->calculateLateMinutes($this->officialTimeIn);
             $attendance->save();
 
             return redirect()->back()->with('success', 'Check-in recorded successfully!');
@@ -133,7 +133,7 @@ class AttendanceHomeController extends Controller
 
         if ($attendance && !$attendance->time_out) {
             $attendance->time_out = $currentTime->toTimeString();
-            $attendance->extra_minutes = $attendance->calculateExtraMinutes($this->officialTimeOut);
+            $attendance->extra_hours = $attendance->calculateExtraMinutes($this->officialTimeOut);
             $attendance->save();
 
             return redirect()->back()->with('success', 'Check-out recorded successfully!');

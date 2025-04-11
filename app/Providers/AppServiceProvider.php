@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Company;
 use App\Models\AppSetting;
 use App\Models\Attendance;
 use App\Events\Notifications;
@@ -31,7 +32,9 @@ class AppServiceProvider extends ServiceProvider
         Attendance::observe(AttendObserver::class);
         Paginator::useBootstrapFive();
         $appSetting = AppSetting::find(1);
+        $companyInfo = Company::find(1);
         View::share('appSetting', $appSetting);
+        View::share('companyInfo',  $companyInfo);
 
 
         Event::listen(

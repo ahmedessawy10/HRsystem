@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string("cover_letter")->nullable();
             $table->string("status")->default("pending");
             $table->string("ai_rate")->nullable();
-            $table->string("ai_summary")->nullable();
+            $table->text("ai_summary")->nullable();
             $table->timestamps();
         });
     }

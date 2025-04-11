@@ -64,6 +64,42 @@
             font-size: 1.2rem;
             font-weight: bold;
         }
+
+        :root {
+            --bs-primary: #1E9FF2;
+        }
+
+        .btn-primary {
+            background-color: #1E9FF2 !important;
+            border-color: #1E9FF2 !important;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background-color: #178fd8 !important;
+            border-color: #178fd8 !important;
+        }
+
+        .text-primary {
+            color: #1E9FF2 !important;
+        }
+
+        .bg-primary {
+            background-color: #1E9FF2 !important;
+        }
+
+        .btn-outline-primary {
+            border-color: #1E9FF2 !important;
+            background-color: transparent !important;
+            color: #1E9FF2 !important;
+
+        }
+
+        .btn-outline-primary:hover,
+        .btn-outline-primary:focus {
+            background-color: #1E9FF2 !important;
+            color: #fff !important;
+        }
     </style>
 </head>
 

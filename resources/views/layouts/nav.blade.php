@@ -86,8 +86,10 @@
           </li>
           @livewire('notification-card')
           <li class="dropdown dropdown-notification nav-item">
-            <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-mail"> </i></a>
-            <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
+            <a class="nav-link nav-link-label" href="{{ route("chats.index") }}"><i class="ficon ft-mail"> </i></a>
+            {{-- <a class="nav-link nav-link-label" href="{{ route("chats.index") }}" data-toggle="dropdown"><i
+              class="ficon ft-mail"> </i></a> --}}
+            {{-- <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
               <li class="dropdown-menu-header">
                 <h6 class="dropdown-header m-0">
                   <span class="grey darken-2">Messages</span>
@@ -158,7 +160,7 @@
               </li>
               <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center"
                   href="javascript:void(0)">Read all messages</a></li>
-            </ul>
+            </ul> --}}
           </li>
         </ul>
       </div>

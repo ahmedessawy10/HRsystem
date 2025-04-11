@@ -55,9 +55,10 @@
     }
 
     .card .footer {
-        display: flex;
+        display: flex !important;
         gap: 10px;
         flex-wrap: wrap;
+        margin-left: 20px !important;
     }
 
     .card .footer .btn {
@@ -132,7 +133,7 @@
 
                 <div class="row">
                     @forelse($careers as $career )
-                    <div class="col-md-4 col-lg-4">
+                    <div class="col-md-6 col-lg-4">
                         <div class="card">
                             <div class="header">
                                 <div>

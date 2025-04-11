@@ -25,9 +25,9 @@
   padding: 20px 30px;
   overflow-y: scroll;
   text-align: center;
-  height: -webkit-calc(100% - 112px);
-  height: -moz-calc(100% - 112px);
-  height: calc(100% - 112px);
+  height: -webkit-calc(100% - 177px);
+  height: -moz-calc(100% - 177px);
+  height: calc(100% - 177px);
   background-color: #fff; }
 
 .chat-application .chat-app-form {

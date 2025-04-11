@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Salary;
 use App\Models\Holiday;
@@ -20,44 +21,42 @@ Schedule::call(function () {
     $holidays = json_decode($hr->holidays, true) ?? [];
     $isHoliday = in_array(now()->dayOfWeek, $holidays);
     $hasHolidayToday = Holiday::whereDate('date', now())->exists();
+    $date = Carbon::parse(now());
+    $month = $date->month;
+    $year = $date->year;
+    $monthDay = $this->calcDayMonth($year, $month, $holidays); // Days in the current month
+    $dailyRate = 0;
 
-    if ($isHoliday && !$hasHolidayToday) {
-        User::roles('employee')->with(['attendances', 'salaries'])->chunk(100, function ($users) {
+    if ($isHoliday || $hasHolidayToday) { // If today is a holiday
+        User::roles('employee')->with(['attendances', 'salaries'])->chunk(100, function ($users) use ($month, $year, $monthDay, $dailyRate) {
             foreach ($users as $user) {
-                $absent = $user->absents()
-                    ->whereDate('absent_date', now())
-                    ->exists();
+                $dailyRate = $user->salary / $monthDay;
 
-                if (!$absent) {
-                    $attended = $user->attendances()
-                        ->whereDate('date', now())
-                        ->exists();
+                $salary = Salary::firstOrCreate(
+                    [
+                        'user_id' => $user->id,
+                        'month' => $month,
+                        'year' => $year,
+                    ],
+                    [
+                        'delay_hours' => 0.0,
+                        'extra_hours' => 0.0,
+                        'delay_cost' => 0.0,
+                        'extra_cost' => 0.0,
+                        'salary' => $user->salary ?? 0,
+                        'absent' => $monthDay,
+                        'net_salary' => 0,
+                    ]
+                );
 
-                    $salary = $user->salaries()
-                        ->firstOrCreate(
-                            [
-                                'month' => now()->month,
-                                'year' => now()->year,
-                            ],
-                            [
-                                'salary' => $user->salary ?? 0,
-                                'net_salary' => $user->salary ?? 0,
-                                'absent' => 0,
-                            ]
-                        );
-
-                    if (!$attended) {
-                        $salary->net_salary -= $salary->salary / 30;
-                        $salary->absent += 1;
-                        $salary->save();
-                    }
-
-                    $user->absents()->create([
-                        'absent_date' => now()->toDateString(),
-                        'reason' => 'Absent',
-                    ]);
+                // If employee was absent, reduce the salary
+                if ($salary->absent > 0) {
+                    $salary->absent -= 1; // Deduct one day for attendance
+                    $salary->net_salary += $dailyRate; // Add salary for the day present
                 }
+
+                $salary->save();
             }
         });
     }
-})->daily()->at('7:56')->timezone('Africa/Cairo');
+})->daily()->at('12:00')->timezone('Africa/Cairo');

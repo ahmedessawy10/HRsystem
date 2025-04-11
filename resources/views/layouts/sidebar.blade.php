@@ -49,7 +49,7 @@
 
           <li class=" nav-item {{ request()->routeIs('careers.*') ? 'active' : '' }} ">
             <a href="{{ route('careers.index') }}">
-              <i class="fa fa-wallet "></i>
+              <i class="fa fa-suitcase"></i>
               <span class="" data-i18n="nav.templates.main">{{ __('app.careers') }}</span>
             </a>
           </li>
@@ -70,7 +70,7 @@
       <!-- Settings Section -->
       @canany(['user view_only', 'user create_and_view', 'permission view_only', 'permission create_and_view',
       'role view_only', 'role create_and_view', 'appSetting manage', 'hrSetting manage',
-      'department view', 'department create', 'jobposition view', 'jobposition create_and_view'])
+      'department view', 'department create', 'jobposition view', 'jobposition create_and_view',"company manage"])
       <li class=" nav-item {{ request()->routeIs('user.*', 'userRole.*', 'permission.*', 'appSettings.*',       
       'hrSettings.*', 'departments.*', 'jobpositions.*') ? 'active' : '' }}">
 
