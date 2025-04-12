@@ -34,8 +34,9 @@ class DatabaseSeeder extends Seeder
             EmployeeSeeder::class,
             AttendanceSeeder::class,
             CareerSeeder::class,
-
-
         ]);
+
+        // Add this line in the run() method
+        $this->call(AppSettingsSeeder::class);
     }
 }

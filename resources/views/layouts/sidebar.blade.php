@@ -55,6 +55,27 @@
           </li>
           @endcanany
 
+          <!-- CV Analysis Section -->
+          <li class="nav-item {{ request()->routeIs('cv.upload', 'cv-analysis.*') ? 'active' : '' }}">
+            <a href="#">
+              <i class="fa fa-file-alt"></i>
+              <span class="menu-title" data-i18n="nav.templates.main">{{ __('CV Analysis') }}</span>
+            </a>
+            <ul class="menu-content">
+              <li class="{{ request()->routeIs('cv.upload') ? 'active' : '' }}">
+                <a href="{{ route('cv.upload') }}">
+                  <i class="fa fa-upload"></i>
+                  {{ __('Upload CV') }}
+                </a>
+              </li>
+              <li class="{{ request()->routeIs('cv-analysis.index') ? 'active' : '' }}">
+                <a href="{{ route('cv-analysis.index') }}">
+                  <i class="fa fa-list"></i>
+                  {{ __('CV List') }}
+                </a>
+              </li>
+            </ul>
+          </li>
 
           @canany(['employees view','employees create_and_view','employees update'])
           <li class="nav-item {{ request()->routeIs('employees.*') ? 'active' : '' }}">

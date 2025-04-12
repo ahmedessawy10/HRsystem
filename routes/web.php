@@ -25,6 +25,8 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\HolidayController; // For holidays
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\AttendanceHomeController; // For attendance
+use App\Http\Controllers\CvAnalysisController; // For CV Analysis
+
 use App\Http\Controllers\HomeController;
 
 Route::get("/", [HomeController::class, "home"])->name("home");
@@ -34,6 +36,8 @@ Route::post("/home/careers/{career}/apply", [HomeController::class, "applyCareer
 Route::get("/notify", [HomeController::class, "notify"]);
 
 // Route::redirect('/', '/home', 301);
+
+
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
@@ -113,6 +117,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::post("/aichat", [ChatController::class, "ai_chat"]);
         Route::post("/chat", [ChatController::class, "ai_chat"]);
         Route::resource("/chats", ChatController::class);
+        Route::get('/cv/upload', [CvAnalysisController::class, 'showUploadForm'])->name('cv.upload');
+        Route::delete('cv-analysis/{cvAnalysis}', [CvAnalysisController::class, 'destroy'])->name('cv-analysis.destroy');
     });
 });
 
@@ -123,17 +129,16 @@ Route::middleware('auth')->group(function () {
 });
 Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
 
+Route::middleware(['auth', 'changepassword'])->group(function () {
+    // CV Analysis routes
+    Route::get('/cv/upload', [CvAnalysisController::class, 'showUploadForm'])->name('cv.upload');
+    Route::post('/cv/upload', [CvAnalysisController::class, 'store'])->name('cv.store');
+    Route::post('/cv/analyze', [CvAnalysisController::class, 'analyze'])->name('cv.analyze');
+    Route::resource('cv-analysis', CvAnalysisController::class);
+});
 
-
-
-
-
-
-
-
-
-
-
-
+Route::middleware(['auth'])->group(function () {
+    Route::post('/cv/analyze', [CvAnalysisController::class, 'analyze'])->name('cv.analyze');
+});
 
 require __DIR__ . '/auth.php';
