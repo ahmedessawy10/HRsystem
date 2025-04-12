@@ -107,7 +107,8 @@ return [
     "not_notification" => "No Notification",
     "no_messages" => "No Messages",
     "applications" => "Applications",
-    "congratulations"=> "Congratulations!",
+    "no applications yet" => "No Applications Yet",
+    "congratulations" => "Congratulations!",
 
     // app comapany
 

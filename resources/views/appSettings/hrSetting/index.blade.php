@@ -299,9 +299,9 @@
                                                         class="form-label">{{__('app.salary_discount')}}</label>
                                                     <div class="input-group mb-1">
                                                         <input type="text" class="form-control checknumber"
-                                                            id="discount" name="discount" placeholder="2 hours"
+                                                            id="discount" name="discount" placeholder="50"
                                                             value="{{old('discount',$hrSetting->discount)}}">
-                                                        <span class="input-group-text">{{__('app.hours')}}</span>
+                                                        <span class="input-group-text">$</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-lg-6 mb-1 fs-4">
@@ -309,9 +309,9 @@
                                                         class="form-label">{{__('app.salary_add')}}</label>
                                                     <div class="input-group mb-1">
                                                         <input type="text" class="form-control checknumber" id="add"
-                                                            name="overtime" placeholder="2 hours"
+                                                            name="overtime" placeholder="50 "
                                                             value="{{old('overtime',$hrSetting->overtime)}}">
-                                                        <span class="input-group-text">{{__('app.hours')}}</span>
+                                                        <span class="input-group-text">$</span>
                                                     </div>
 
                                                 </div>

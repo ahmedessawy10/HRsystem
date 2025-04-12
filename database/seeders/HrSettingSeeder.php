@@ -14,8 +14,8 @@ class HrSettingSeeder extends Seeder
     public function run(): void
     {
         HrSetting::create([
-            'discount' => 2,
-            'overtime' => 2,
+            'discount' => 50,
+            'overtime' => 50,
             'start_time' => date('H:i:s', strtotime('10:00:00')),
             'end_time' => date('H:i:s', strtotime('18:00:00')),
             'holidays' => json_encode([5, 6]),

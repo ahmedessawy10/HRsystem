@@ -91,7 +91,7 @@
                     <div class="col-12">
                         <div class="card shadow-sm rounded-3">
                             <div class="card-header bg-transparent border-bottom">
-                                <h5 class="fw-bold mb-0">{{__('app.application')}}</h5>
+                                <h5 class="fw-bold mb-0">{{__('app.applications')}}</h5>
                             </div>
                             <div class="card-body">
                                 <div class="accordion accordion-flush" id="applicationsAccordion">
@@ -164,7 +164,7 @@
                                     @empty
                                     <div class="text-center text-muted py-4">
                                         <i class="fa fa-inbox fa-2x mb-3"></i>
-                                        <p>No applications yet</p>
+                                        <p>{{ __("app.no applications yet") }}</p>
                                     </div>
                                     @endforelse
                                 </div>
