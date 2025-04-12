@@ -109,6 +109,16 @@ return [
     "applications" => "Applications",
     "no applications yet" => "No Applications Yet",
     "congratulations" => "Congratulations!",
+    "jobpostions" => "Job Positions",
+    "id" => "ID",
+    "name" => "Name",
+    "job position" => "Job Position",
+    "created at" => "Created At",
+    "updated at" => "Updated At",
+    "actions" => "Actions",
+    "user role list" => "User Role List",
+    "create user role" => "Create User Role",
+    "role name" => "Role Name",
 
     // app comapany
 

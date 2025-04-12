@@ -284,11 +284,11 @@
                                         <table class="table table-hover table-bordered table-striped">
                                             <thead class="thead-custom">
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th>name</th>
-                                                    <th>Created At</th>
-                                                    <th>Updated At</th>
-                                                    <th style="width: 20%;">Actions</th>
+                                                    <th>{{__('app.id')}}</th>
+                                                    <th>{{__('app.name')}}</th>
+                                                    <th>{{__("app.created at")}}</th>
+                                                    <th>{{__("app.updated at")}}</th>
+                                                    <th style="width: 20%;">{{__("app.actions")}}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

@@ -1,6 +1,6 @@
 @extends("layouts.master")
 @section("title")
-{{__("project.user role list")}}
+{{__("app.user role")}}
 @endsection
 @section("css")
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
@@ -18,7 +18,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title"> {{__("project.user role list")}}</h4>
+                <h4 class="card-title"> {{__("app.user role")}}</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                 <div class="heading-elements">
                   <ul class="list-inline mb-0">
