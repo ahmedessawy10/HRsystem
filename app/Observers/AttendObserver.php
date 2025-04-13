@@ -52,7 +52,7 @@ class AttendObserver
         $salary->absent = max(0, $salary->absent - 1);
         $salary->net_salary += $daily_rate;
 
-        if ($attendance->user_id == 4) dump($salary->net_salary);
+        // if ($attendance->user_id == 4) dump($salary->net_salary);
 
         // Calculate late hours cost
         if ($attendance->late_hours > 0) {
