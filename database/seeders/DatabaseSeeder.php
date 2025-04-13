@@ -36,7 +36,6 @@ class DatabaseSeeder extends Seeder
             CareerSeeder::class,
         ]);
 
-        // Add this line in the run() method
-        $this->call(AppSettingsSeeder::class);
+        
     }
 }
