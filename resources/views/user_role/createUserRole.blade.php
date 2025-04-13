@@ -17,7 +17,7 @@
           <div class="col-md-12">
             <div class="card" style="">
               <div class="card-header">
-                <h4 class="card-title" id="basic-layout-form">{{__('project.create user role')}}</h4>
+                <h4 class="card-title" id="basic-layout-form">{{__('app.create user role')}}</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
               </div>
               <div class="card-content collapse show">
@@ -32,7 +32,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group redAstric">
-                            <label for="projectinput1">{{__('project.name of user role')}} </label>
+                            <label for="projectinput1">{{__('app.role name')}} </label>
                             <input type="text" id="projectinput1" class="form-control" name="name"
                               value="{{old('name')}}">
                           </div>
