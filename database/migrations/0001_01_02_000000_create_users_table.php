@@ -34,6 +34,7 @@ return new class extends Migration
             $table->time('end_time')->nullable();
             $table->foreignId('department_id')->nullable()->constrained('departments');
             $table->foreignId('job_position_id')->nullable()->constrained('job_positions');
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

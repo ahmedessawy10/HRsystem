@@ -48,7 +48,8 @@ class AppSettingController extends Controller
         $data = $request->except(['logo', 'favicon']);
 
         if (in_array($request->language, LaravelLocalization::getSupportedLanguagesKeys())) {
-            app()->setLocale($request->language);
+            // App::setLocale($request->language);
+            // dd(app()->getLocale());
             LaravelLocalization::setLocale($request->language);
         }
 
