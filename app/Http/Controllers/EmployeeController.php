@@ -35,7 +35,6 @@ class EmployeeController extends Controller
             'leave_date' => 'nullable|date',
             'start_time' => 'nullable|date_format:H:i',
             'end_time' => 'nullable|date_format:H:i',
-            'role' => 'nullable|string',
             'status' => 'nullable|in:active,inactive,pending,leave',
             'gender' => 'nullable|in:male,female',
             'nationality_id' => 'nullable|string',
@@ -44,7 +43,12 @@ class EmployeeController extends Controller
             'job_position_id' => 'nullable|integer',
         ]);
 
-        User::create($validatedData);
+        $validatedData['password'] = bcrypt('123456');
+        $user = User::create($validatedData);
+
+        $user->assignRole(["employee"]);
+
+
 
         return redirect()->route('employees.index')->with('success', 'Employee added successfully!');
     }
