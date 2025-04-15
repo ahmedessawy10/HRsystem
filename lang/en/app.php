@@ -148,7 +148,7 @@ return [
 
     "create user" => "Create User",
     "add employee" => "Add Employee",
-    "User name" => "User Name",
+    "user name" => "User Name",
     "full name" => "Full Name",
     "email" => "Email",
     "phone" => "Phone",

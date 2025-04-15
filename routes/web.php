@@ -93,8 +93,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::put('/attendance/{id}', [AttendanceController::class, 'update'])->name('attendance.update');
         Route::delete('/attendance/{id}', [AttendanceController::class, 'destroy'])->name('attendance.destroy');
 
-
+        //** users
+        Route::resource("users", userController::class);
+        Route::post("users/active", [userController::class, "active"])->name("users.active");
         // ** employee
+        // Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
         Route::resource('employees', EmployeeController::class);
 
 
@@ -127,7 +130,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
+
 
 Route::middleware(['auth', 'changepassword'])->group(function () {
     // CV Analysis routes

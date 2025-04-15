@@ -107,8 +107,8 @@
         </a>
         <ul class=" menu-content">
           @canany(['user view_only', 'user create_and_view'])
-          <li class="nav-item {{ request()->routeIs('user.*') ? 'active' : '' }}">
-            <a href="{{ route('admin.user.index') }}">
+          <li class="nav-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
+            <a href="{{ route('users.index') }}">
               <i class="la la-user"></i>
               <span class="menu-title" data-i18n="nav.templates.main">{{ __('project.Users') }}</span>
             </a>

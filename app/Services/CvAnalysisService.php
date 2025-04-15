@@ -13,18 +13,39 @@ class CvAnalysisService
     protected string $apiUrl;
 
     protected array $skillKeywords = [
-        'php', 'laravel', 'javascript', 'html', 'css', 'mysql',
-        'python', 'java', 'react', 'angular', 'vue', 'node'
+        'php',
+        'laravel',
+        'javascript',
+        'html',
+        'css',
+        'mysql',
+        'python',
+        'java',
+        'react',
+        'angular',
+        'vue',
+        'node'
     ];
 
     protected array $softSkillKeywords = [
-        'teamwork', 'communication', 'leadership', 'problem solving',
-        'adaptability', 'time management', 'critical thinking'
+        'teamwork',
+        'communication',
+        'leadership',
+        'problem solving',
+        'adaptability',
+        'time management',
+        'critical thinking'
     ];
 
     protected array $educationKeywords = [
-        'bachelor', 'master', 'phd', 'degree', 'university',
-        'diploma', 'certification', 'graduate'
+        'bachelor',
+        'master',
+        'phd',
+        'degree',
+        'university',
+        'diploma',
+        'certification',
+        'graduate'
     ];
 
     public function __construct()
@@ -37,7 +58,7 @@ class CvAnalysisService
     {
         try {
             $content = $this->extractText($cv->file_path);
-            
+
             if (!$content) {
                 throw new \Exception('Could not extract text from CV');
             }
@@ -48,7 +69,7 @@ class CvAnalysisService
             $softSkills = $this->calculateScore($content, $this->softSkillKeywords);
             $educationScore = $this->calculateScore($content, $this->educationKeywords);
             $relevantExperience = $this->calculateRelevantExperience($content);
-            
+
             // Get summary using Hugging Face API
             $summary = $this->getSummary($content);
 
@@ -103,8 +124,9 @@ class CvAnalysisService
 
     protected function calculateExperienceYears(string $text): int
     {
-        preg_match_all('/(\d+)\s*(?:year|yr)s?\s+(?:of\s+)?experience/', 
-            strtolower($text), 
+        preg_match_all(
+            '/(\d+)\s*(?:year|yr)s?\s+(?:of\s+)?experience/',
+            strtolower($text),
             $matches
         );
 
@@ -119,7 +141,7 @@ class CvAnalysisService
     {
         $text = strtolower($text);
         $score = 0;
-        
+
         foreach ($keywords as $keyword) {
             if (str_contains($text, strtolower($keyword))) {
                 $score += 20;
@@ -142,9 +164,9 @@ class CvAnalysisService
     {
         return (int) round(
             ($scores['skill_score'] * 0.4) +
-            ($scores['soft_skills'] * 0.2) +
-            ($scores['education_score'] * 0.2) +
-            ($scores['relevant_experience'] * 0.2)
+                ($scores['soft_skills'] * 0.2) +
+                ($scores['education_score'] * 0.2) +
+                ($scores['relevant_experience'] * 0.2)
         );
     }
 
@@ -152,10 +174,10 @@ class CvAnalysisService
     {
         // Remove BOM if present
         $content = str_replace("\xEF\xBB\xBF", '', $content);
-        
+
         // Detect encoding from our list of supported encodings
         $detectedEncoding = mb_detect_encoding($content, $this->encodings, true);
-        
+
         // If no valid encoding detected, default to ISO-8859-1
         if (!$detectedEncoding) {
             $detectedEncoding = 'ISO-8859-1';

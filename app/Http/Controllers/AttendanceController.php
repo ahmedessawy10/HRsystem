@@ -16,10 +16,8 @@ class AttendanceController extends Controller
     public function index()
     {
         $attendances = Attendance::with(['user', "user.department"])->latest('date')->paginate();
-
         // Only use event, don't send notification directly
         // event(new Notifications(Auth::user(), "You have a new message!"));
-
         return view('attendance.index', compact('attendances'));
     }
 
@@ -32,19 +30,13 @@ class AttendanceController extends Controller
 
     public function store(Request $request)
     {
-
-
         $data = $request->validate([
             'user_id' => 'required|exists:users,id',
             'date' => 'required|date|unique:attendances,date,NULL,id,user_id,' . $request->user_id,
             'time_in' => 'nullable',
             'time_out' => 'nullable',
-            // 'late_minutes' => 'required|integer',
-            // 'extra_minutes' => 'required|integer',
+           
         ]);
-
-        // $data = $request->validated();
-
 
         $holiday = Holiday::where('date', $data['date'])->first();
         $hr = HrSetting::first();

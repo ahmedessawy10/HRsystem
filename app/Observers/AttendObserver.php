@@ -20,17 +20,14 @@ class AttendObserver
         $hr = HrSetting::first();
         $holidays = json_decode($hr->holidays);
         $user = $attendance->user;
-
         $month_day = $this->calcDayMonth($year, $month, $holidays);
         // Calculate daily rate with more precision
         $daily_rate = $user->salary / $month_day;
-
         $exists = Attendance::where('user_id', $attendance->user_id)
             ->whereDate('date', $attendance->date)
             ->where('id', '<', $attendance->id)
             ->exists();
         if ($exists) return;
-
         $salary = Salary::firstOrCreate(
             [
                 'user_id' => $attendance->user_id,
@@ -47,13 +44,10 @@ class AttendObserver
                 'net_salary' => 0,
             ]
         );
-
         // Update attendance and calculate net salary
         $salary->absent = max(0, $salary->absent - 1);
         $salary->net_salary += $daily_rate;
-
         // if ($attendance->user_id == 4) dump($salary->net_salary);
-
         // Calculate late hours cost
         if ($attendance->late_hours > 0) {
             $delay_cost = doubleval($hr->discount) * doubleval($attendance->late_hours);
