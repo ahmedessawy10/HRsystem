@@ -9,7 +9,13 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class AttendanceHomeController extends Controller
+
 {
+
+    
+
+
+
     private $officialTimeIn = '08:00:00';
     private $officialTimeOut = '17:00:00';
 
@@ -71,7 +77,7 @@ class AttendanceHomeController extends Controller
     public function index()
     {
         $userId = Auth::id();
-        $attendances = Attendance::where('user_id', Auth::id())->orderBy("date", "desc")->paginate(31);
+        $attendances = Attendance::where('user_id', Auth::id())->orderBy("date", "desc")->paginate(10);
 
         return view('attendance_home.index', compact('attendances'));
     }

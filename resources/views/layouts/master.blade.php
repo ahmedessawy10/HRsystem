@@ -66,7 +66,7 @@
         }
 
         :root {
-            --bs-primary: #1E9FF2;
+            --bs-primary: #0ccaf0;
         }
 
         .btn-primary {

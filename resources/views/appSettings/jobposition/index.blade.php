@@ -62,25 +62,6 @@
         font-weight: 600;
     }
 
-    /* Search Input */
-    #search {
-        border-radius: 25px;
-        padding: 12px 20px;
-        font-size: 15px;
-        border: 1px solid #ccc;
-        background-color: #fff;
-        width: 100%;
-        margin-bottom: 20px;
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    #search:focus {
-        border-color: #1da1f2;
-        box-shadow: 0 0 8px rgba(29, 161, 242, 0.3);
-        outline: none;
-    }
-
     /* Buttons & Actions */
     .btn-light {
         background-color: #1da1f2;
@@ -92,37 +73,6 @@
 
     .btn-light:hover {
         background-color: #007bff;
-    }
-
-    /* Dropdown Menu Styles */
-    .dropdown .dropdown-toggle {
-        background: transparent;
-        border: none;
-        color: #333;
-        font-size: 18px;
-        padding: 4px;
-    }
-
-    .dropdown .dropdown-toggle:focus {
-        outline: none;
-        box-shadow: none;
-    }
-
-    .dropdown-menu {
-        min-width: 140px;
-    }
-
-    .dropdown-item {
-        font-size: 14px;
-        padding: 8px 12px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .dropdown-item:hover {
-        background: #1da1f2;
-        color: #fff;
     }
 
     /* Pagination Styles */
@@ -150,57 +100,6 @@
         background-color: #1da1f2;
         color: #fff;
     }
-
-    /* Alert Styles */
-    .alert {
-        padding: 15px 20px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        font-size: 16px;
-        margin-bottom: 20px;
-    }
-
-    .alert-success {
-        background-color: #d4edda;
-        color: #155724;
-        border-left: 5px solid #1da1f2;
-    }
-
-    .alert-info {
-        background-color: #d1ecf1;
-        color: #0c5460;
-        border-left: 5px solid #1da1f2;
-    }
-
-    .alert-warning {
-        background-color: #fff3cd;
-        color: #856404;
-        border-left: 5px solid #ffc107;
-    }
-
-    .alert-danger {
-        background-color: #f8d7da;
-        color: #721c24;
-        border-left: 5px solid #dc3545;
-    }
-
-    .alert .close {
-        margin-left: auto;
-        font-size: 20px;
-        cursor: pointer;
-    }
-
-    @media (max-width: 767px) {
-        .table-responsive {
-            margin-bottom: 20px;
-        }
-
-        #search {
-            width: 100%;
-        }
-    }
 </style>
 @endsection
 
@@ -216,68 +115,18 @@
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h4 class="card-title m-0">
                                     <i class="fas fa-setting-alt mr-2"></i>{{ __("app.jobpostions") }}
-
                                 </h4>
 
-
                                 <div>
-                                    {{-- <a href="{{ route('holiday.report') }}" class="btn btn-info mr-2"
-                                    data-toggle="tooltip" data-placement="top" title="View Holiday Report">
-                                    <i class="fas fa-file-alt"></i>
-                                    </a> --}}
                                     <a href="{{ route('jobpositions.create') }}" class="btn btn-light"
-                                        data-toggle="tooltip" data-placement="top"
-                                        title="{{ __('Add New Department') }}">
+                                       data-toggle="tooltip" data-placement="top"
+                                       title="{{ __('Add New Job Position') }}">
                                         <i class="fas fa-plus"></i>
                                     </a>
-                                    {{-- <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
-                                        <i class="fas fa-plus"></i>
-                                    </button> --}}
                                 </div>
                             </div>
 
-                            <div class="card-content collapse show">
-                                <div class="card-body">
-                                    <!-- Alert Messages -->
-                                    @if(session('success'))
-                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <i class="fas fa-check-circle"></i> {{ session('success') }}
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    @endif
-                                    @if(session('error'))
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <i class="fas fa-times-circle"></i> {{ session('error') }}
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    @endif
-                                    @if(session('warning'))
-                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                        <i class="fas fa-exclamation-triangle"></i> {{ session('warning') }}
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    @endif
-                                    @if(session('info'))
-                                    <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                        <i class="fas fa-info-circle"></i> {{ session('info') }}
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    @endif
 
-                                    <!-- Search Input -->
-                                    <div class="mb-3">
-                                        {{-- <input type="text" id="search" class="form-control"
-                                            placeholder="{{ __('Search Holidays') }}"> --}}
-                                    </div>
 
                                     <!-- Holidays Table -->
                                     <div class="table-responsive">
@@ -286,7 +135,7 @@
                                                 <tr>
                                                     <th>{{__("app.id")}}</th>
                                                     <th>{{__("app.department")}}</th>
-                                                    <th>{{__("app.job  position")}}</th>
+                                                    <th>{{__("app.job position")}}</th>
                                                     <th>{{__("app.created at")}}</th>
                                                     <th>{{__("app.updated at")}}</th>
                                                     <th style="width: 20%;">{{__("app.actions")}}</th>
@@ -298,23 +147,19 @@
                                                     <td>{{ $jobposition->id}}</td>
                                                     <td>{{ $jobposition->department->name }}</td>
                                                     <td>{{ $jobposition->name }}</td>
-
-                                                    <td>{{ $jobposition->created_at ? $jobposition->created_at->format('Y-m-d') : 'NULL' }}
-                                                    </td>
-                                                    <td>{{ $jobposition->updated_at ? $jobposition->updated_at->format('Y-m-d') : 'NULL' }}
-                                                    </td>
+                                                    <td>{{ $jobposition->created_at ? $jobposition->created_at->format('Y-m-d') : 'NULL' }}</td>
+                                                    <td>{{ $jobposition->updated_at ? $jobposition->updated_at->format('Y-m-d') : 'NULL' }}</td>
                                                     <td>
-                                                        <!-- Dropdown with Three Dots and Icons -->
+                                                        <!-- Edit and Delete Buttons -->
                                                         <div class="d-flex gap-1 justify-content-center">
-                                                            <a class="btn btn-warning  text-white"
-                                                                href="{{ route('jobpositions.edit', $jobposition->id) }}">
+                                                            <a class="btn btn-warning text-white"
+                                                               href="{{ route('jobpositions.edit', $jobposition->id) }}">
                                                                 <i class="fas fa-edit"></i>
                                                             </a>
 
-                                                            <form
-                                                                action="{{ route('jobpositions.destroy', $jobposition->id) }}"
-                                                                method="POST"
-                                                                onsubmit="return confirm('{{ __('Are you sure?') }}');">
+                                                            <form action="{{ route('jobpositions.destroy', $jobposition->id) }}"
+                                                                  method="POST"
+                                                                  onsubmit="return confirmDelete({{ $jobposition->id }})">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="btn btn-danger text-white">
@@ -322,14 +167,11 @@
                                                                 </button>
                                                             </form>
                                                         </div>
-
-
                                                     </td>
                                                 </tr>
                                                 @empty
                                                 <tr>
-                                                    <td colspan="6" class="text-center">{{ __("No holidays found") }}
-                                                    </td>
+                                                    <td colspan="6" class="text-center">{{ __("No job positions found") }}</td>
                                                 </tr>
                                                 @endforelse
                                             </tbody>
@@ -350,52 +192,50 @@
     </div>
 </div>
 
-
-
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{ __("Add New Job Position") }}</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form>
+            <form action="{{ route('jobpositions.store') }}" method="POST">
+                @csrf
                 <div class="modal-body">
-
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">{{__('app.department_name')}}</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="department">
-
+                        <label for="department_name" class="form-label">{{__('app.department_name')}}</label>
+                        <input type="text" name="department_name" class="form-control" id="department_name" required>
                     </div>
-
-
-
+                    <!-- Add additional fields if necessary -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type=" submit" class="btn btn-success">Save</button>
+                    <button type="submit" class="btn btn-success">Save</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 @endsection
 
 @section("js")
 <script>
-    // Search filter functionality
-//   document.getElementById('search').addEventListener('keyup', function() {
-//     let value = this.value.toLowerCase();
-//     document.querySelectorAll("tbody tr").forEach(row => {
-//       row.style.display = row.innerText.toLowerCase().includes(value) ? "" : "none";
-//     });
-//   });
-
-  // Initialize tooltips (using Bootstrap)
-//   $(function () {
-//     $('[data-toggle="tooltip"]').tooltip();
-//   });
+    function confirmDelete(id) {
+        Swal.fire({
+            title: '{{ __("Are you sure?") }}',
+            text: '{{ __("You won’t be able to revert this!") }}',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '{{ __("Yes, delete it!") }}'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form-' + id).submit();
+            }
+        });
+    }
 </script>
 @endsection

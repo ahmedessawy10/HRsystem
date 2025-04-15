@@ -9,21 +9,22 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('companies', function (Blueprint $table) {
-            $table->id();
-            $table->string('address');
-            $table->string('name');
-            $table->string('city');
-            $table->string('latitude');
-            $table->string('longitude');
-            $table->integer('radius'); //by kilometer
-            $table->string('phone');
-            $table->string('email');
-
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('companies')) {
+            Schema::create('companies', function (Blueprint $table) {
+                $table->id();
+                $table->string('address');
+                $table->string('name');
+                $table->string('city');
+                $table->string('latitude');
+                $table->string('longitude');
+                $table->integer('radius');
+                $table->string('phone');
+                $table->string('email');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
