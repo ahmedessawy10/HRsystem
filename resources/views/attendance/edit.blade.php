@@ -1,6 +1,6 @@
 @extends("layouts.master")
 
-@section("title", "Edit Attendance")
+@section("title", __("edit attendance"))
 
 @section("css")
 
@@ -49,7 +49,7 @@
 <div class="container py-4">
     <div class="card shadow border-0">
         <div class="card-header">
-            <h4><i class="bi bi-calendar-check me-2"></i> Edit Attendance</h4>
+            <h4><i class="bi bi-calendar-check me-2"></i> {{ __("edit attendance")}}</h4>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -66,29 +66,29 @@
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
-                    <label class="form-label">Employee Name</label>
+                    {{-- <label class="form-label">{{__("app.employee name")}}</label>
                     <input type="text" readonly name="employee_name" class="form-control" required
-                        value="{{ old('employee_name', $attendance->user->name) }}">
+                        value="{{ old('employee_name', $attendance->user->name) }}"> --}}
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Full Name</label>
+                    <label class="form-label">{{__("app.employee name")}}</label>
                     <input type="text" name="fullname" readonly class="form-control" required
                         value="{{ old('fullname', $attendance->user->fullname) }}">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Date</label>
+                    <label class="form-label">{{ __("app.date") }}</label>
                     <input type="date" name="date" class="form-control" required
                         value="{{ old('date', \Carbon\Carbon::parse($attendance->date)->format('Y-m-d')) }}"
                         max="{{ date('Y-m-d') }}">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Time In</label>
+                    <label class="form-label">{{__("app.time in")}}</label>
                     <input type="time" name="time_in" id="timeIn" class="form-control" required
                         value="{{ old('time_in',optional($attendance->time_in)->format('H:i')) }}">
                 </div>
                 <div class="mb-3">
 
-                    <label class="form-label">Time Out</label>
+                    <label class="form-label">{{__("app.time out")}}</label>
                     <input type="time" name="time_out" id="timeOut" class="form-control" required
                         value="{{ old('time_out',optional($attendance->time_out)->format('H:i')) }}">
                 </div>
@@ -104,10 +104,10 @@
         </div> --}}
         <div class="d-flex justify-content-between">
             <a href="{{ route('attendance.index') }}" class="btn btn-secondary">
-                <i class="bi bi-arrow-left me-2"></i> Back
+                <i class="bi bi-arrow-left me-2"></i> {{ __("app.back") }}
             </a>
             <button type="submit" class="btn btn-primary">
-                <i class="bi bi-save me-2"></i> Save
+                <i class="bi bi-save me-2"></i> {{ __("app.save") }}
             </button>
         </div>
         </form>
