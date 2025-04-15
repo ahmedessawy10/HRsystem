@@ -1,7 +1,7 @@
 @extends("layouts.master")
 
 @section("title")
-    {{ __("project.Add Holiday") }}
+    {{ __("Add Holiday") }}
 @endsection
 
 @section("css")

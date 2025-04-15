@@ -12,28 +12,14 @@
 
   .attendance-container {
     min-height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 20px;
   }
 
   .attendance-card {
-    max-width: 800px;
     width: 100%;
+    background-color: #fff;
     border: none;
-    border-radius: 15px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-    overflow: hidden;
-  }
-
-  .attendance-card .card-header {
-    background-color: #1da1f2;
-    color: #fff;
-    text-align: center;
-    padding: 25px;
-    font-size: 1.75rem;
-    font-weight: 700;
+    border-radius: 0;
   }
 
   .attendance-card .card-body {
@@ -41,29 +27,35 @@
     background-color: #fff;
   }
 
-  /* Button styling with icons */
   .btn-attendance {
     min-width: 160px;
     margin: 10px;
     font-size: 1.1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #1da1f2;
+    color: white;
+    transition: background-color 0.3s ease;
   }
 
   .btn-attendance i {
     margin-right: 8px;
   }
 
-  /* Badge styling */
+  .btn-checkout {
+    background-color: #6c757d;
+  }
+
   .badge-late {
-    background-color: #ff4d4f;
-    color: #fff;
+    color: #ff4d4f;
     padding: 8px 15px;
     border-radius: 20px;
     font-size: 1rem;
   }
 
   .badge-extra {
-    background-color: #52c41a;
-    color: #fff;
+    color: #52c41a;
     padding: 8px 15px;
     border-radius: 20px;
     font-size: 1rem;
@@ -90,6 +82,49 @@
     text-align: center;
     padding: 20px;
     font-size: 1rem;
+    border: none;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .pagination .page-link {
+    color: #1da1f2;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+
+  .pagination .page-item.active .page-link {
+    background-color: #1da1f2;
+    color: white;
+    border-color: #1da1f2;
+  }
+
+  .pagination .page-link:hover {
+    background-color: #0d8ddb;
+    color: white;
+    text-decoration: none;
+  }
+
+  .pagination .page-item.disabled .page-link {
+    color: #ccc;
+    pointer-events: none;
+    background-color: #f5f5f5;
+  }
+
+  .pagination-info {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+    font-size: 0.95rem;
   }
 </style>
 @endsection
@@ -99,21 +134,18 @@
   <div class="content-wrapper">
     <div class="content-body">
       <section id="attendance-section" class="attendance-container">
-        <div class="card attendance-card">
-          <div class="card-header">
-            <i class="fas fa-calendar-check"></i> My Attendance
-          </div>
+        <div class="attendance-card">
           <div class="card-body">
             @if(session('success'))
-            <div class="alert alert-success">
-              {{ session('success') }}
-            </div>
+              <div class="alert alert-success">
+                {{ session('success') }}
+              </div>
             @endif
 
             @if(session('error'))
-            <div class="alert alert-danger">
-              {{ session('error') }}
-            </div>
+              <div class="alert alert-danger">
+                {{ session('error') }}
+              </div>
             @endif
 
             <div class="mb-4 text-center">
@@ -122,7 +154,7 @@
                 @csrf
                 <input type="hidden" name="latitude" id="checkin-latitude">
                 <input type="hidden" name="longitude" id="checkin-longitude">
-                <button type="submit" class="btn btn-primary btn-attendance">
+                <button type="submit" class="btn btn-attendance">
                   <i class="fas fa-sign-in-alt"></i> Check In
                 </button>
               </form>
@@ -132,7 +164,7 @@
                 @csrf
                 <input type="hidden" name="latitude" id="checkout-latitude">
                 <input type="hidden" name="longitude" id="checkout-longitude">
-                <button type="submit" class="btn btn-secondary btn-attendance">
+                <button type="submit" class="btn btn-attendance btn-checkout">
                   <i class="fas fa-sign-out-alt"></i> Check Out
                 </button>
               </form>
@@ -151,39 +183,46 @@
                 </thead>
                 <tbody>
                   @forelse($attendances as $attendance)
-                  <tr>
-                    <td>{{ $attendance->date }}</td>
-                    <td>{{ $attendance->time_in ? \Carbon\Carbon::parse($attendance->time_in)->format('H:i:s') : '-' }}
-                    </td>
-                    <td>
-                      {{ $attendance->time_out ? \Carbon\Carbon::parse($attendance->time_out)->format('H:i:s') : '-' }}
-                    </td>
-                    <td>
-                      @if($attendance->late_hours > 0)
-                      <span class="badge-late">{{ $attendance->late_hours }}</span>
-                      @else
-                      <span class="badge-zero">0</span>
-                      @endif
-                    </td>
-                    <td>
-                      @if($attendance->extra_hours > 0)
-                      <span class="badge-extra">{{ $attendance->extra_hours }}</span>
-                      @else
-                      <span class="badge-zero">0</span>
-                      @endif
-                    </td>
-                  </tr>
+                    <tr>
+                      <td>{{ $attendance->date }}</td>
+                      <td>{{ $attendance->time_in ? \Carbon\Carbon::parse($attendance->time_in)->format('H:i:s') : '-' }}</td>
+                      <td>{{ $attendance->time_out ? \Carbon\Carbon::parse($attendance->time_out)->format('H:i:s') : '-' }}</td>
+                      <td>
+                        @if($attendance->late_hours > 0)
+                          <span class="badge-late">{{ $attendance->late_hours }}</span>
+                        @else
+                          <span class="badge-zero">0</span>
+                        @endif
+                      </td>
+                      <td>
+                        @if($attendance->extra_hours > 0)
+                          <span class="badge-extra">{{ $attendance->extra_hours }}</span>
+                        @else
+                          <span class="badge-zero">0</span>
+                        @endif
+                      </td>
+                    </tr>
                   @empty
-                  <tr>
-                    <td colspan="5">No attendance records available.</td>
-                  </tr>
+                    <tr>
+                      <td colspan="5">No attendance records available.</td>
+                    </tr>
                   @endforelse
                 </tbody>
               </table>
             </div>
 
+            <!-- Result Info + Pagination at Bottom -->
+            <div class="mt-4 d-flex flex-column align-items-center">
+              <!-- @if($attendances->total() > 0)
+              <div class="pagination-info">
+                Showing {{ $attendances->firstItem() }} to {{ $attendances->lastItem() }} of {{ $attendances->total() }} results
+              </div>
+              @endif -->
+              <div>
+                {{ $attendances->links() }}
+              </div>
+            </div>
 
-            {{ $attendances->links() }}
           </div>
         </div>
       </section>
@@ -196,23 +235,22 @@
 <script>
   function setLocation() {
     if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(function(position) {
+      navigator.geolocation.getCurrentPosition(function (position) {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
-        
+
         document.getElementById('checkin-latitude').value = latitude;
         document.getElementById('checkin-longitude').value = longitude;
-    
         document.getElementById('checkout-latitude').value = latitude;
         document.getElementById('checkout-longitude').value = longitude;
-      }, function(error) {
+      }, function (error) {
         console.error("Error retrieving location:", error);
       });
     } else {
       alert("Geolocation is not supported by your browser.");
     }
   }
-  
+
   window.onload = setLocation;
 </script>
 @endsection

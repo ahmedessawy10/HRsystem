@@ -13,7 +13,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Department::paginate();
+        $departments = Department::paginate(5);
         return view('appSettings.departments.index', compact('departments'));
     }
 

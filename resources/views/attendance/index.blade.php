@@ -32,11 +32,11 @@
 
 
                                 <div class="card-body">
-                                    @if(session('success'))
+                                    <!-- @if(session('success'))
                                     <div class="alert alert-success d-flex align-items-center" role="alert">
                                         <i class="bi bi-check-circle me-2"></i> {{ session('success') }}
                                     </div>
-                                    @endif
+                                    @endif -->
 
 
                                     <div class="mb-4">

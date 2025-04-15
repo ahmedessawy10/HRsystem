@@ -1,8 +1,9 @@
 @extends("layouts.master")
 
-@section("title", "Attendance Management")
+@section("title", "Career Management")
 
 @section("css")
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css" rel="stylesheet">
 <style>
     .card {
@@ -11,12 +12,12 @@
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         padding: 25px;
         margin-bottom: 30px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
     }
 
     .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        transform: none;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     }
 
     .card .header {
@@ -32,22 +33,6 @@
         color: #2c3e50;
     }
 
-    .card .header button {
-        background: none;
-        border: none;
-        color: #3498db;
-        cursor: pointer;
-        transition: color 0.3s ease;
-    }
-
-    .card .header button:hover {
-        color: #2980b9;
-    }
-
-    .card .body {
-        margin-bottom: 20px;
-    }
-
     .card .body p {
         margin-bottom: 12px;
         color: #555;
@@ -55,54 +40,48 @@
     }
 
     .card .footer {
-        display: flex !important;
+        display: flex;
         gap: 10px;
         flex-wrap: wrap;
-        margin-left: 20px !important;
+        margin-left: 20px;
     }
 
     .card .footer .btn {
-        padding: 8px 16px;
-        border-radius: 8px;
-        font-weight: 500;
-        transition: all 0.3s ease;
+        background: none !important;
+        border: none !important;
+        padding: 0;
+        font-size: 18px;
     }
 
-    .btn-primary {
-        background-color: #3498db;
-        border-color: #3498db;
+    /* Soft colors for icons */
+    .btn-primary .fa {
+        color: #70d4f7;
     }
 
-    .btn-primary:hover {
-        background-color: #2980b9;
-        border-color: #2980b9;
+    .btn-primary:hover .fa {
+        color: #36c4f0;
     }
 
-    .btn-warning {
-        background-color: #f1c40f;
-        border-color: #f1c40f;
-        color: #fff;
+    .btn-warning .fa {
+        color: #f7d774;
     }
 
-    .btn-warning:hover {
-        background-color: #f39c12;
-        border-color: #f39c12;
+    .btn-warning:hover .fa {
+        color: #f5c543;
     }
 
-    .btn-danger {
-        background-color: #e74c3c;
-        border-color: #e74c3c;
+    .btn-danger .fa {
+        color: #f49b9b;
     }
 
-    .btn-danger:hover {
-        background-color: #c0392b;
-        border-color: #c0392b;
+    .btn-danger:hover .fa {
+        color: #ec6e6e;
     }
 
     .add-career-btn {
         display: inline-block;
         padding: 12px 24px;
-        background-color: #2ecc71;
+        background-color: #0ccaf0;
         color: white;
         text-decoration: none;
         border-radius: 8px;
@@ -111,9 +90,22 @@
     }
 
     .add-career-btn:hover {
-        background-color: #27ae60;
+        background-color: #00a3e0;
         text-decoration: none;
         color: white;
+    }
+
+    .status-icon {
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+
+    .status-icon.text-success {
+        color: #0ccaf0;
+    }
+
+    .status-icon.text-danger {
+        color: #e74c3c;
     }
 </style>
 @endsection
@@ -121,8 +113,7 @@
 @section("content")
 <div class="app-content content">
     <div class="content-wrapper">
-        <div class="content-header row">
-        </div>
+        <div class="content-header row"></div>
         <div class="content-body">
             <section id="basic-form-layouts">
                 <div>
@@ -132,61 +123,50 @@
                 </div>
 
                 <div class="row">
-                    @forelse($careers as $career )
+                    @forelse($careers as $career)
                     <div class="col-md-6 col-lg-4">
-                        <div class="card">
+                        <div class="card h-100">
                             <div class="header">
-                                <div>
-                                    {{ $career->title }}
-                                </div>
-                                @if($career->status == "open")
-                                <span class="badge rounded fs-6  p-1 text-bg-success">{{ $career->status }}</span>
+                                <div>{{ $career->title }}</div>
 
+                                @if($career->status == "open")
+                                <i class="bi bi-check-circle-fill status-icon text-success">{{ $career->status }}</i>
                                 @else
-                                <span class="badge rounded fs-6  p-1  text-bg-danger">{{ $career->status }}</span>
+                                <i class="bi bi-x-circle-fill status-icon text-danger">{{ $career->status }}</i>
                                 @endif
                             </div>
 
                             <div class="body">
-                                <p>
-                                    <i class="fa fa-clock"></i>
-                                    {{ $career->created_at->diffForHumans() }}
-                                </p>
-                                <p>
-                                    <i class="fa fa-building"></i>
-                                    {{ $career->department->name }}
-                                </p>
-                                <p>
-                                    {{ Str::limit($career->description, 300, __("app.more")) }}
-                                </p>
+                                <p><i class="fa fa-clock"></i> {{ $career->created_at->diffForHumans() }}</p>
+                                <p><i class="fa fa-building"></i> {{ $career->department->name }}</p>
+                                <p>{{ Str::limit($career->description, 300, __("app.more")) }}</p>
                             </div>
 
                             <div class="footer">
-                                <a href="{{ route('careers.show', $career->id) }}" class="btn btn-primary">
+                                <a href="{{ route('careers.show', $career->id) }}" class="btn btn-primary" data-bs-toggle="tooltip" title="View">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a href="{{ route('careers.edit', $career->id) }}" class="btn btn-warning">
+                                <a href="{{ route('careers.edit', $career->id) }}" class="btn btn-warning" data-bs-toggle="tooltip" title="Edit">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <form action="{{ route('careers.destroy', $career->id) }}" method="POST"
-                                    style="display:inline;" id="deleteCareer">
+                                <form action="{{ route('careers.destroy', $career->id) }}" method="POST" class="delete-form" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">
+                                    <button type="submit" class="btn btn-danger" data-bs-toggle="tooltip" title="Delete">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </form>
                             </div>
                         </div>
                     </div>
-
                     @empty
                     <div class="col-md-12">
                         <div class="alert alert-warning">
                             <strong>{{ __('app.no careers found') }}</strong>
                         </div>
-                        @endforelse
                     </div>
+                    @endforelse
+                </div>
             </section>
         </div>
     </div>
@@ -194,53 +174,55 @@
 @endsection
 
 @section("js")
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
-
 <script>
-    $(document).ready(function() {
-        $("#deleteCareer").submit(function(e) {
-            e.preventDefault();
-            const swalWithBootstrapButtons = Swal.mixin({
-  customClass: {
-    confirmButton: "btn btn-success",
-    cancelButton: "btn btn-danger"
-  },
-  buttonsStyling: false
-});
-swalWithBootstrapButtons.fire({
-  title: "Are you sure?",
-  text: "You won't be able to revert this!",
-  icon: "warning",
-  showCancelButton: true,
-  confirmButtonText: "Yes, delete it!",
-  cancelButtonText: "No, cancel!",
-  reverseButtons: true
-}).then((result) => {
-  if (result.isConfirmed) {
-    swalWithBootstrapButtons.fire({
-      title: "Deleted!",
-      text: "Your file has been deleted.",
-      icon: "success"
-    });
-    setTimeout(() => {
-        e.target.submit();
-    }, 1500);
-   
-  } else if (
-    /* Read more about handling dismissals below */
-    result.dismiss === Swal.DismissReason.cancel
-  ) {
-    swalWithBootstrapButtons.fire({
-      title: "Cancelled",
-      text: "Your imaginary file is safe :)",
-      icon: "error"
-    });
-  }
-});
+    document.addEventListener('DOMContentLoaded', function () {
+        // Init Bootstrap tooltips
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
 
+        // Delete confirmation
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger"
+                    },
+                    buttonsStyling: false
+                });
+                swalWithBootstrapButtons.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel!",
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        swalWithBootstrapButtons.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                        });
+                        setTimeout(() => {
+                            e.target.submit();
+                        }, 1500);
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        swalWithBootstrapButtons.fire({
+                            title: "Cancelled",
+                            text: "Your imaginary file is safe :)",
+                            icon: "error"
+                        });
+                    }
+                });
+            });
+        });
     });
-    });
-  
 </script>
 @endsection
