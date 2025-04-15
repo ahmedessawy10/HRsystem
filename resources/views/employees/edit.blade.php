@@ -77,7 +77,7 @@
                         <div class="mb-3 col-md-6">
                           <label for="join_date" class="form-label">{{ __("app.join date") }}</label>
                           <input type="date" class="form-control" id="join_date" name="join_date"
-                            value="{{ old('join_date', $employee->join_date ? $employee->join_date->toDateString() : '') }}"
+                          value="{{ old('join_date', $employee->join_date ? \Carbon\Carbon::parse($employee->join_date)->toDateString() : '') }}"
                             required>
                         </div>
                         <div class="mb-3 col-md-6">
@@ -127,7 +127,8 @@
                         <div class="mb-3 col-md-6">
                           <label for="birth_date" class="form-label">{{ __("app.birth date") }}</label>
                           <input type="date" class="form-control" id="birth_date" name="birthdate"
-                            value="{{ old('birthdate', $employee->birthdate ? $employee->birthdate->toDateString() : '') }}">
+                          value="{{ old('birthdate', \Carbon\Carbon::parse($employee->birthdate)->toDateString()) }}"
+                            required>
                         </div>
                       </div>
 

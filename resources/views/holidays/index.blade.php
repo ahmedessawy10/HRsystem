@@ -177,6 +177,11 @@
                   <a href="{{ route('holiday.report') }}" class="btn btn-info mr-2" data-toggle="tooltip" title="View Holiday Report">
                     <i class="fas fa-file-alt"></i>
                   </a>
+                  <!-- Calendar Popup Button -->
+<button type="button" class="btn btn-outline-primary mr-2" data-toggle="modal" data-target="#calendarPopupModal" title="Show Calendar">
+  <i class="fas fa-calendar-alt"></i>
+</button>
+
                   <!-- Trigger button for the modal -->
                   <button type="button" class="btn btn-light" data-toggle="modal" data-target="#addHolidayModal">
                     <i class="fas fa-plus"></i> {{ __('Add New Holiday') }}
@@ -260,6 +265,24 @@
   </div>
 </div>
 
+<!-- Calendar Popup Modal -->
+<div class="modal fade" id="calendarPopupModal" tabindex="-1" role="dialog" aria-labelledby="calendarPopupModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="calendarPopupModalLabel">Holiday Calendar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="calendarPicker" class="form-control" placeholder="Pick a date">
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <!-- Add Holiday Modal -->
 <div class="modal fade" id="addHolidayModal" tabindex="-1" role="dialog" aria-labelledby="addHolidayModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -326,6 +349,37 @@
 @endsection
 
 @section("js")
+<!-- Flatpickr Styles & Script -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<style>
+  .holiday-highlight {
+    background-color: #ffeb3b !important;
+    color: #000 !important;
+    border-radius: 50% !important;
+    font-weight: bold;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const holidays = @json($holidays->pluck('date')->map(fn($d) => \Carbon\Carbon::parse($d)->format('Y-m-d')));
+
+    flatpickr("#calendarPicker", {
+      inline: true,
+      dateFormat: "Y-m-d",
+      onDayCreate: function (dObj, dStr, fp, dayElem) {
+        const date = dayElem.dateObj.toISOString().split('T')[0];
+        if (holidays.includes(date)) {
+          dayElem.classList.add("holiday-highlight");
+        }
+      }
+    });
+  });
+</script>
+
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -399,5 +453,8 @@
       form.action = `/holidays/${id}`;
     });
   });
+
+  
 </script>
+
 @endsection
