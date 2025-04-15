@@ -31,7 +31,7 @@ class SalaryV2 extends Component
     }
     public function render()
     {
-        $users = User::select(['fullname', 'id', 'department_id'])->when($this->user, function ($query) {
+        $users = User::role("employee")->select(['fullname', 'id', 'department_id'])->when($this->user, function ($query) {
             $query->where('fullname', 'like', '%' . $this->user . '%');
         })
             ->whereHas('salaries', function ($query) {

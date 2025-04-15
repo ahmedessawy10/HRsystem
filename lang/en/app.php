@@ -119,6 +119,59 @@ return [
     "user role list" => "User Role List",
     "create user role" => "Create User Role",
     "role name" => "Role Name",
+    "attendance management" => "Attendance Management",
+    "edit attendance" => "Edit Attendance",
+    "create attendance" => "Create Attendance",
+
+    // 
+
+    "time in" => "Time In",
+    "time out" => "Time Out",
+    "date" => "Date",
+    "late" => "Late ",
+    "extra" => "Extra ",
+    "hours" => "Hours",
+    "employee" => "Employee",
+    "add new attendance" => "Add New Attendance",
+    "start date" => "Start Date",
+    "end date" => "End Date",
+    "filter" => "Filter",
+    "edit" => "Edit",
+    "employee name" => "Employee Name",
+    "employee id" => "Employee ID",
+    "back" => "Back",
+    "save" => "Save",
+
+
+    // 
+
+
+    "create user" => "Create User",
+    "add employee" => "Add Employee",
+    "User name" => "User Name",
+    "full name" => "Full Name",
+    "email" => "Email",
+    "phone" => "Phone",
+    "address" => "Address",
+    "salary" => "Salary",
+    "join date" => "Join Date",
+    "national id" => "National ID",
+    "department" => "Department",
+    "job position" => "Job Position",
+    "gender" => "Gender",
+    "birth date" => "Birth Date",
+    "start time" => "Start Time",
+    "end time" => "End Time",
+    "male" => "Male",
+    "female" => "Female",
+    "save" => "Save",
+    "select" => "Select",
+    "edit employee" => "Edit Employee",
+    "save changes" => "Save Changes",
+    "active" => "Active",
+    "inactive" => "Inactive",
+    "pending" => "Pending",
+    "leave" => "Leave",
 
     // app comapany
 

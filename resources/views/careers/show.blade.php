@@ -257,7 +257,7 @@
                                                     <div class="col-12 mt-3">
                                                         <small class="text-muted">AI Rating</small>
                                                         <div class="fw-bold text-success">
-                                                            {{ $application->ai_rating }} / 5
+                                                            {{ $application->ai_rate }} / 100
                                                         </div>
                                                     </div>
                                                     @endif

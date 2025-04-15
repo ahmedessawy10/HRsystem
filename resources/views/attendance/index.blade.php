@@ -1,6 +1,6 @@
 @extends("layouts.master")
 
-@section("title", "Attendance Management")
+@section("title", __("app.attendance management"))
 
 @section("css")
 
@@ -24,14 +24,9 @@
                                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                             </div> --}}
                             <div class="card-content collapse show">
-
-
-
-
-
                                 <div class="card-header">
                                     <h4><i class="bi bi-calendar-check me-2" style="color:#fff"></i>
-                                        Attendance Management
+                                        {{  __("app.attendance management")}}
                                     </h4>
                                 </div>
 
@@ -47,25 +42,25 @@
                                     <div class="mb-4">
                                         <a href="{{ route('attendance.create') }}" class="btn "
                                             style="background-color: #1e9ff2;color:#fff">
-                                            <i class="bi bi-plus-circle me-2"></i> Add New Attendance
+                                            <i class="bi bi-plus-circle me-2"></i> {{ __("app.add new attendance") }}
                                         </a>
                                     </div>
 
                                     <div class="row g-3 mb-4">
                                         <div class="col-md-5">
-                                            <label class="form-label fw-semibold text-dark">Start
-                                                Date</label>
+                                            <label
+                                                class="form-label fw-semibold text-dark">{{__("app.start date")}}</label>
                                             <input type="date" id="start-date" class="form-control">
                                         </div>
                                         <div class="col-md-5">
-                                            <label class="form-label fw-semibold text-dark">End
-                                                Date</label>
+                                            <label
+                                                class="form-label fw-semibold text-dark">{{__("app.end date")}}</label>
                                             <input type="date" id="end-date" class="form-control">
                                         </div>
                                         <div class="col-md-2 d-flex align-items-end">
                                             <button class="btn btn-filter w-100" id="filter-btn"><i
                                                     class="bi bi-funnel me-2"></i>
-                                                Filter</button>
+                                                {{__("app.filter")}}</button>
                                         </div>
                                     </div>
 
@@ -74,18 +69,21 @@
                                             class="table table-bordered table-striped align-middle">
                                             <thead>
                                                 <tr>
-                                                    <th>Employee</th>
-                                                    <th>Date</th>
-                                                    <th>Time In</th>
-                                                    <th>Time Out</th>
-                                                    <th>Late (hours)</th>
-                                                    <th>Extra (hours)</th>
-                                                    <th>Actions</th>
+                                                    <th>{{__("app.department")}}</th>
+                                                    <th>{{ __("app.employee") }}</th>
+
+                                                    <th>{{__("app.date")}}</th>
+                                                    <th>{{__("app.date")}}</th>
+                                                    <th>{{__("app.time in")}}</th>
+                                                    <th>{{__("app.late")}}({{__("app.hours")}})</th>
+                                                    <th>{{__("app.extra")}} ({{__("app.hours")}})</th>
+                                                    <th>{{ __("app.actions") }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach($attendances as $attendance)
                                                 <tr>
+                                                    <td>{{ $attendance->user->department->name??"N/A" }}</td>
                                                     <td>{{ $attendance->user->name }}</td>
                                                     <td>{{ $attendance->date }}</td>
                                                     <td>{{ $attendance->time_in }}</td>
@@ -103,7 +101,8 @@
                                                         <div class="action-buttons">
                                                             <a href="{{ route('attendance.edit', $attendance->id) }}"
                                                                 class="btn btn-edit btn-action">
-                                                                <i class="bi bi-pencil"></i> Edit
+                                                                <i class="fa fa-pencil"></i>
+                                                                {{ __("app.edit") }}
                                                             </a>
                                                             <form
                                                                 action="{{ route('attendance.destroy', $attendance->id) }}"
@@ -112,7 +111,8 @@
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="btn btn-delete btn-action">
-                                                                    <i class="bi bi-trash"></i> Delete
+                                                                    <i class="bi bi-trash"></i>
+                                                                    {{ __("app.delete") }}
                                                                 </button>
                                                             </form>
                                                         </div>

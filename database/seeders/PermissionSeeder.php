@@ -54,6 +54,7 @@ class PermissionSeeder extends Seeder
             ['name' => 'careers create_view', 'guard_name' => 'web'],
             ['name' => 'careers update', 'guard_name' => 'web'],
             ['name' => 'careers delete', 'guard_name' => 'web'],
+            ['name' => 'cv analysis', 'guard_name' => 'web'],
             ['name' => 'salaries view_all', 'guard_name' => 'web'],
             ['name' => 'salaries view_own', 'guard_name' => 'web'],
             ['name' => 'salaries update', 'guard_name' => 'web'],

@@ -38,7 +38,7 @@ class HomeController extends Controller
             "name" => "required|string|max:255",
             "email" => "required|email|max:255",
             "cv" => "required|file|mimes:pdf,doc,docx|max:2048",
-            "phone" => "required|string",
+            "phone" => "required|numeric",
             "cover_letter" => "nullable|string",
         ]);
 

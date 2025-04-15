@@ -1,5 +1,5 @@
 @extends("layouts.master")
-@section("title", "Add New Attendance")
+@section("title", __("app.add new attendance"))
 
 @section("css")
 
@@ -65,7 +65,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4><i class="bi bi-calendar-check me-2"></i> Add New Attendance</h4>
+                                <h4><i class="bi bi-calendar-check me-2"></i> {{__("app.add new attendance")}}</h4>
                                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                             </div>
                             <div class="card-content collapse show">
@@ -83,7 +83,7 @@
                                     <form action="{{ route('attendance.store') }}" method="POST">
                                         @csrf
                                         <div class="mb-1 py-2">
-                                            <label for="user">{{__('app.user')}}</label>
+                                            <label for="user">{{__('app.employee name')}}</label>
                                             <select name="user_id" id="user" class="form-select">
                                                 @foreach($users as $user)
                                                 <option data-start="
@@ -95,7 +95,7 @@
                                             </select>
                                         </div>
                                         <div class="mb-2">
-                                            <label class="form-label">Date</label>
+                                            <label class="form-label">{{__("app.date")}}</label>
                                             <input type="date" name="date" value="{{ now()->format('Y-m-d') }}"
                                                 max="{{ date('Y-m-d') }}" class="form-control" required>
                                         </div>
@@ -103,14 +103,14 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="mb-2">
-                                                    <label class="form-label">{{__("app.timein")}}</label>
+                                                    <label class="form-label">{{__("app.time in")}}</label>
                                                     <input type="time" name="time_in" id="time_in"
                                                         value="{{ $user->start_time }}" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-2">
-                                                    <label class="form-label">{{__("app.timeout")}}</label>
+                                                    <label class="form-label">{{__("app.time out")}}</label>
                                                     <input type="time" name="time_out" value="{{ $user->end_time }}"
                                                         id="time_out" class="form-control">
                                                 </div>
@@ -128,7 +128,7 @@
                             </div> --}}
                             <div class="d-flex justify-content-center mt-4 ">
                                 <button type="submit" class="btn  fs-5">
-                                    <i class="fa fa-save me-2 "></i> Save
+                                    <i class="fa fa-save me-2 "></i> {{__("app.save")}}
                                 </button>
                             </div>
                             </form>

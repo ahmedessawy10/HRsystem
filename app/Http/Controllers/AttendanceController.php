@@ -15,7 +15,7 @@ class AttendanceController extends Controller
 {
     public function index()
     {
-        $attendances = Attendance::with('user')->latest('date')->paginate();
+        $attendances = Attendance::with(['user', "user.department"])->latest('date')->paginate();
 
         // Only use event, don't send notification directly
         // event(new Notifications(Auth::user(), "You have a new message!"));
@@ -25,7 +25,7 @@ class AttendanceController extends Controller
 
     public function create()
     {
-        $users = User::role('employee')->select('id', 'fullname', "start_time", "end_time")->get();
+        $users = User::select('id', 'fullname', "start_time", "end_time")->get();
 
         return view('attendance.create', compact('users'));
     }

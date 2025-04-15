@@ -19,6 +19,10 @@
           <i class="fa fa-user"></i>
           <span class="menu-title" data-i18n="nav.templates.main">{{ __('app.hr Module') }}</span>
         </a>
+
+        @canany(['holiday view',
+        'holiday create_and_view',
+        'holiday update'])
         <ul class="menu-content">
           <li class="nav-item {{ request()->routeIs('holiday.index') ? 'active' : '' }}">
             <a href="{{ route('holiday.index') }} ">
@@ -56,6 +60,7 @@
           @endcanany
 
           <!-- CV Analysis Section -->
+          @can("cv analysis")
           <li class="nav-item {{ request()->routeIs('cv.upload', 'cv-analysis.*') ? 'active' : '' }}">
             <a href="#">
               <i class="fa fa-file-alt"></i>
@@ -76,7 +81,7 @@
               </li>
             </ul>
           </li>
-
+          @endcan
           @canany(['employees view','employees create_and_view','employees update'])
           <li class="nav-item {{ request()->routeIs('employees.*') ? 'active' : '' }}">
             <a href="{{ route('employees.index') }}">
@@ -86,6 +91,7 @@
           </li>
           @endcanany
         </ul>
+        @endcanany
       </li>
 
       <!-- Settings Section -->

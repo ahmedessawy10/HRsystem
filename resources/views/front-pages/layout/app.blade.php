@@ -201,7 +201,7 @@
                             </div>
                             <div class="d-flex mb-2">
                                 <i class="bi bi-telephone text-primary me-2"></i>
-                                <p class="mb-0">+012 345 67890</p>
+                                <p class="mb-0">{{$appSetting->phone}}</p>
                             </div>
                             <div class="d-flex mt-4">
                                 <a class="btn btn-primary btn-square me-2" href="#"><i
@@ -219,22 +219,19 @@
                                 <h3 class="text-light mb-0">Quick Links</h3>
                             </div>
                             <div class="link-animated d-flex flex-column justify-content-start">
-                                <a class="text-light mb-2" href="#"><i
+                                <a class="text-light mb-2" href="{{ route("home").'/#home' }}"><i
                                         class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                                <a class="text-light mb-2" href="#"><i
+                                <a class="text-light mb-2" href="{{ route("home").'/#about' }}"><i
                                         class="bi bi-arrow-right text-primary me-2"></i>About
                                     Us</a>
-                                <a class="text-light mb-2" href="#"><i
+                                <a class="text-light mb-2" href="{{ route("home").'/#service' }}"><i
                                         class="bi bi-arrow-right text-primary me-2"></i>Our
                                     Services</a>
-                                <a class="text-light mb-2" href="#"><i
-                                        class="bi bi-arrow-right text-primary me-2"></i>Meet
-                                    The Team</a>
-                                <a class="text-light mb-2" href="#"><i
-                                        class="bi bi-arrow-right text-primary me-2"></i>Latest Blog</a>
+
                                 <a class="text-light" href="#"><i
                                         class="bi bi-arrow-right text-primary me-2"></i>Contact
                                     Us</a>
+
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5">
@@ -242,19 +239,15 @@
                                 <h3 class="text-light mb-0">Popular Links</h3>
                             </div>
                             <div class="link-animated d-flex flex-column justify-content-start">
-                                <a class="text-light mb-2" href="#"><i
+                                <a class="text-light mb-2" href="{{ route("home").'/#home' }}"><i
                                         class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                                <a class="text-light mb-2" href="#"><i
+                                <a class="text-light mb-2" href="{{ route("home").'/#about' }}"><i
                                         class="bi bi-arrow-right text-primary me-2"></i>About
                                     Us</a>
-                                <a class="text-light mb-2" href="#"><i
+                                <a class="text-light mb-2" href="{{ route("home").'/#service' }}"><i
                                         class="bi bi-arrow-right text-primary me-2"></i>Our
                                     Services</a>
-                                <a class="text-light mb-2" href="#"><i
-                                        class="bi bi-arrow-right text-primary me-2"></i>Meet
-                                    The Team</a>
-                                <a class="text-light mb-2" href="#"><i
-                                        class="bi bi-arrow-right text-primary me-2"></i>Latest Blog</a>
+
                                 <a class="text-light" href="#"><i
                                         class="bi bi-arrow-right text-primary me-2"></i>Contact
                                     Us</a>
