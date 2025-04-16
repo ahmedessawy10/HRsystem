@@ -18,14 +18,15 @@
     }
 
     .card-header {
-        background: linear-gradient(90deg, #f0f3f7, #0ccaf0);
+        background: linear-gradient(90deg, #b2d0f7, #1e9ff2);
         color: white;
         text-align: center;
         border-radius: 16px 16px 0 0;
         padding: 2rem;
     }
 
-    .card-header h4, .card-header h5 {
+    .card-header h4,
+    .card-header h5 {
         margin: 0;
         font-weight: 700;
     }
@@ -175,10 +176,12 @@
                             </div>
                             <div class="card-body">
                                 <div class="d-flex justify-content-end mb-3 gap-2">
-                                    <a href="{{ route('careers.edit', $career->id) }}" class="icon-button" data-tooltip="Edit">
+                                    <a href="{{ route('careers.edit', $career->id) }}" class="icon-button"
+                                        data-tooltip="Edit">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <form action="{{ route('careers.destroy', $career->id) }}" method="POST" class="d-inline delete-form">
+                                    <form action="{{ route('careers.destroy', $career->id) }}" method="POST"
+                                        class="d-inline delete-form">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="icon-button" data-tooltip="Delete">
@@ -195,9 +198,11 @@
                                         <small class="text-muted">{{ __('app.status') }}</small>
                                         <div>
                                             @if($career->status == "open")
-                                            <i class="bi bi-check-circle-fill status-icon text-success">{{ $career->status }}</i>
+                                            <i
+                                                class="bi bi-check-circle-fill status-icon text-success">{{ $career->status }}</i>
                                             @else
-                                            <i class="bi bi-x-circle-fill status-icon text-danger">{{ $career->status }}</i>
+                                            <i
+                                                class="bi bi-x-circle-fill status-icon text-danger">{{ $career->status }}</i>
                                             @endif
                                         </div>
                                     </div>
@@ -287,87 +292,113 @@
             </section> -->
 
             <section id="applications" class="mt-4">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5>{{ __('app.applications') }}</h5>
-                </div>
-                <div class="card-body">
-                    @forelse ($career->applications as $application)
-                        <div class="border-bottom py-2">
-                            <a href="#" 
-                               class="application-title text-primary fw-bold text-decoration-none" 
-                               data-bs-toggle="modal" 
-                               data-bs-target="#applicationModal-{{ $application->id }}">
-                                {{ $application->name }}
-                            </a>
-                            <div class="application-meta text-muted small">
-                                {{ $application->created_at->diffForHumans() }}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5>{{ __('app.applications') }}</h5>
                             </div>
-                        </div>
+                            <div class="card-body">
+                                @forelse ($career->applications->sortByDesc("ai_rate") as $application)
+                                <div class="border-bottom py-2 "
+                                    style="box-shadow: 0 2px 4px rgba(18, 17, 17, 0.1);padding:5px 10px">
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="applicationModal-{{ $application->id }}" tabindex="-1" aria-labelledby="applicationModalLabel-{{ $application->id }}" aria-hidden="true">
-                            <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="applicationModalLabel-{{ $application->id }}">{{ $application->name }}</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <div class="row align-items-center g-2 ">
+                                        <div class="col-10 ">
+                                            <a href="#"
+                                                class="application-title text-primary fw-bold text-decoration-none"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#applicationModal-{{ $application->id }}">
+                                                {{ $application->name }}
+                                            </a>
+                                            <div class="application-meta text-muted small">
+                                                {{ $application->created_at->diffForHumans() }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-2">
+
+                                            @if ($application->ai_rate)
+
+                                            <span class="fs-5 fw-bold">{{ __("app.ai rate") }}</span>
+                                            <span class="badge bg-success fs-6">
+                                                {{ $application->ai_rate }} / 100
+                                                @endif
+
+                                        </div>
+
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <small class="text-muted">Email</small>
-                                                <div class="fw-bold">{{ $application->email }}</div>
+
+
+
+                                </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="applicationModal-{{ $application->id }}" tabindex="-1"
+                                    aria-labelledby="applicationModalLabel-{{ $application->id }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title"
+                                                    id="applicationModalLabel-{{ $application->id }}">
+                                                    {{ $application->name }}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
-                                            <div class="col-md-6 mb-3">
-                                                <small class="text-muted">Phone</small>
-                                                <div class="fw-bold">{{ $application->phone }}</div>
-                                            </div>
-                                            <div class="col-12 mb-3">
-                                                <small class="text-muted">Cover Letter</small>
-                                                <div>{{ $application->cover_letter }}</div>
-                                            </div>
-                                            @if($application->cv_path)
-                                            <div class="col-12 mt-3">
-                                                <a href="{{ asset('storage/' . $application->cv_path) }}" class="btn btn-primary btn-sm" download>
-                                                    <i class="fa fa-download"></i> Download CV
-                                                </a>
-                                            </div>
-                                            @endif
-                                            @if($application->ai_rating)
-                                            <div class="col-12 mt-3">
-                                                <small class="text-muted">AI Rating</small>
-                                                <div class="fw-bold text-success">
-                                                    {{ $application->ai_rating }} / 5
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-3">
+                                                        <small class="text-muted">Email</small>
+                                                        <div class="fw-bold">{{ $application->email }}</div>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <small class="text-muted">Phone</small>
+                                                        <div class="fw-bold">{{ $application->phone }}</div>
+                                                    </div>
+                                                    <div class="col-12 mb-3">
+                                                        <small class="text-muted">Cover Letter</small>
+                                                        <div>{{ $application->cover_letter }}</div>
+                                                    </div>
+                                                    @if($application->cv_path)
+                                                    <div class="col-12 mt-3">
+                                                        <a href="{{ asset('storage/' . $application->cv_path) }}"
+                                                            class="btn btn-primary btn-sm" download>
+                                                            <i class="fa fa-download"></i> Download CV
+                                                        </a>
+                                                    </div>
+                                                    @endif
+                                                    @if($application->ai_rate)
+                                                    <div class="col-12 mt-3">
+                                                        <small class="text-muted">AI Rating</small>
+                                                        <div class="fw-bold text-success">
+                                                            {{ $application->ai_rate }} / 100
+                                                        </div>
+                                                    </div>
+                                                    @endif
+                                                    @if($application->ai_summary)
+                                                    <div class="col-12 mt-3">
+                                                        <small class="text-muted">AI Summary</small>
+                                                        <div class="text-muted">
+                                                            {{ $application->ai_summary }}
+                                                        </div>
+                                                    </div>
+                                                    @endif
                                                 </div>
                                             </div>
-                                            @endif
-                                            @if($application->ai_summary)
-                                            <div class="col-12 mt-3">
-                                                <small class="text-muted">AI Summary</small>
-                                                <div class="text-muted">
-                                                    {{ $application->ai_summary }}
-                                                </div>
-                                            </div>
-                                            @endif
                                         </div>
                                     </div>
                                 </div>
+                                @empty
+                                <div class="text-center text-muted py-4">
+                                    <i class="fa fa-inbox fa-2x mb-3"></i>
+                                    <p>{{ __("app.no applications yet") }}</p>
+                                </div>
+                                @endforelse
                             </div>
                         </div>
-                    @empty
-                        <div class="text-center text-muted py-4">
-                            <i class="fa fa-inbox fa-2x mb-3"></i>
-                            <p>{{ __("app.no applications yet") }}</p>
-                        </div>
-                    @endforelse
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
+            </section>
 
         </div>
     </div>

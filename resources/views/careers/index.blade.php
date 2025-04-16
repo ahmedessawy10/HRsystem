@@ -55,11 +55,11 @@
 
     /* Soft colors for icons */
     .btn-primary .fa {
-        color: #70d4f7;
+        color: #1e9ff2;
     }
 
     .btn-primary:hover .fa {
-        color: #36c4f0;
+        color: #1e9ff2;
     }
 
     .btn-warning .fa {
@@ -81,7 +81,7 @@
     .add-career-btn {
         display: inline-block;
         padding: 12px 24px;
-        background-color: #0ccaf0;
+        background-color: #1e9ff2;
         color: white;
         text-decoration: none;
         border-radius: 8px;
@@ -143,16 +143,20 @@
                             </div>
 
                             <div class="footer">
-                                <a href="{{ route('careers.show', $career->id) }}" class="btn btn-primary" data-bs-toggle="tooltip" title="View">
+                                <a href="{{ route('careers.show', $career->id) }}" class="btn btn-primary"
+                                    data-bs-toggle="tooltip" title="View">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a href="{{ route('careers.edit', $career->id) }}" class="btn btn-warning" data-bs-toggle="tooltip" title="Edit">
+                                <a href="{{ route('careers.edit', $career->id) }}" class="btn btn-warning"
+                                    data-bs-toggle="tooltip" title="Edit">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <form action="{{ route('careers.destroy', $career->id) }}" method="POST" class="delete-form" style="display:inline;">
+                                <form action="{{ route('careers.destroy', $career->id) }}" method="POST"
+                                    class="delete-form" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" data-bs-toggle="tooltip" title="Delete">
+                                    <button type="submit" class="btn btn-danger" data-bs-toggle="tooltip"
+                                        title="Delete">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </form>
