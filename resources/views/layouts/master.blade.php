@@ -26,6 +26,10 @@
             font-family: "Cairo", sans-serif;
         }
 
+        .bg-info {
+            background-color: #1e9ff2 !important;
+        }
+
         #loader {
             position: fixed;
             left: 0;
