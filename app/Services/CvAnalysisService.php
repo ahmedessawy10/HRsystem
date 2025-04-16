@@ -10,7 +10,8 @@ use Smalot\PdfParser\Parser;
 class CvAnalysisService
 {
     protected string $apiKey;
-    protected string $apiUrl;
+    protected string $endpoint;
+    protected string $model;
 
     protected array $skillKeywords = [
         'php', 'laravel', 'javascript', 'html', 'css', 'mysql',
@@ -29,8 +30,9 @@ class CvAnalysisService
 
     public function __construct()
     {
-        $this->apiKey = config('services.huggingface.api_key');
-        $this->apiUrl = config('services.huggingface.api_url');
+        $this->apiKey = config('groq.api_key') ?? throw new \RuntimeException('GROQ API key not configured');
+        $this->endpoint = config('groq.endpoint');
+        $this->model = config('groq.model');
     }
 
     public function analyze(CvAnalysis $cv)
@@ -82,37 +84,72 @@ class CvAnalysisService
 
     protected function getSummary(string $text): string
     {
-        $response = Http::withHeaders([
-            'Authorization' => "Bearer {$this->apiKey}",
-            'Content-Type' => 'application/json',
-        ])->post('https://api-inference.huggingface.co/models/facebook/bart-large-cnn', [
-            'inputs' => $text,
-            'parameters' => [
-                'max_length' => 300,
-                'min_length' => 100,
-            ]
-        ]);
+        try {
+            $response = Http::withHeaders([
+                'Authorization' => "Bearer {$this->apiKey}",
+                'Content-Type' => 'application/json',
+            ])->post($this->endpoint, [
+                'model' => $this->model,
+                'messages' => [
+                    [
+                        'role' => 'system',
+                        'content' => 'You are a CV analysis expert. Provide a concise summary of the following CV text.'
+                    ],
+                    [
+                        'role' => 'user',
+                        'content' => $text
+                    ]
+                ],
+                'max_tokens' => config('groq.max_tokens', 2048),
+                'temperature' => config('groq.options.temperature', 0.7)
+            ]);
 
-        if ($response->successful()) {
-            $result = $response->json();
-            return $result[0]['summary_text'] ?? 'Summary not available';
+            if ($response->successful()) {
+                $result = $response->json();
+                return $result['choices'][0]['message']['content'] ?? 'Summary not available';
+            }
+
+            Log::error('GROQ API Error:', ['response' => $response->json()]);
+            return 'Error generating summary';
+        } catch (\Exception $e) {
+            Log::error('GROQ API Exception:', ['message' => $e->getMessage()]);
+            return 'Error generating summary';
         }
-
-        return 'Error generating summary';
     }
 
     protected function calculateExperienceYears(string $text): int
     {
-        preg_match_all('/(\d+)\s*(?:year|yr)s?\s+(?:of\s+)?experience/', 
-            strtolower($text), 
-            $matches
-        );
+        try {
+            $response = Http::withHeaders([
+                'Authorization' => "Bearer {$this->apiKey}",
+                'Content-Type' => 'application/json',
+            ])->post($this->endpoint, [
+                'model' => $this->model,
+                'messages' => [
+                    [
+                        'role' => 'system',
+                        'content' => 'You are a CV analysis expert. Extract the total years of experience from the following CV text. Respond with ONLY a number representing total years. If unclear, estimate based on work history.'
+                    ],
+                    [
+                        'role' => 'user',
+                        'content' => $text
+                    ]
+                ],
+                'max_tokens' => 10,
+                'temperature' => 0.3
+            ]);
 
-        if (!empty($matches[1])) {
-            return max(array_map('intval', $matches[1]));
+            if ($response->successful()) {
+                $result = $response->json();
+                $years = (int) preg_replace('/[^0-9]/', '', $result['choices'][0]['message']['content']);
+                return $years > 0 ? $years : 0;
+            }
+
+            return 0;
+        } catch (\Exception $e) {
+            Log::error('Experience calculation failed: ' . $e->getMessage());
+            return 0;
         }
-
-        return 0;
     }
 
     protected function calculateScore(string $text, array $keywords): int
