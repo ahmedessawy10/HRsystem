@@ -60,12 +60,14 @@
                                             </a>
                                             <form action="{{ route('cvs.destroy', $cv) }}" 
                                                   method="POST" 
-                                                  class="d-inline">
+                                                  class="d-inline" 
+                                                  onsubmit="return confirm('Are you sure you want to delete this CV and its analysis?');">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" 
                                                         class="btn btn-sm btn-danger" 
-                                                        onclick="return confirm('Delete this CV?')">
+                                                        {{ $cv->status === 'processing' ? 'disabled' : '' }}
+                                                        title="Delete CV">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </form>
