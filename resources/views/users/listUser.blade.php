@@ -29,13 +29,13 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title"> {{__("project.users")}} </h4>
+                <h4 class="card-title"> {{__("app.users")}} </h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                 <div class="heading-elements">
                   <ul class="list-inline mb-0">
                     @can('user create_and_view')
-                    <li><a class="btn btn-success text-white"
-                        href="{{route('users.create')}}">{{__("project.create")}}</a></li>
+                    <li><a class="btn btn-success text-white" href="{{route('users.create')}}">{{__("app.create")}}</a>
+                    </li>
                     @endcan
 
                   </ul>
@@ -55,23 +55,23 @@
                             aria-sort="descending">#</th>
                           <th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
                             aria-label="Position: activate to sort column ascending" style="width: 88.3375px;">
-                            {{__("project.name")}}</th>
+                            {{__("app.name")}}</th>
 
                           <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1"
                             colspan="1" aria-label="Name: activate to sort column ascending" style="width: 69.4875px;"
-                            aria-sort="descending">{{__("project.email")}}</th>
+                            aria-sort="descending">{{__("app.email")}}</th>
                           <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1"
                             colspan="1" aria-label="Name: activate to sort column ascending" style="width: 69.4875px;"
-                            aria-sort="descending">{{__("project.roles")}}</th>
+                            aria-sort="descending">{{__("app.roles")}}</th>
                           <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1"
                             colspan="1" aria-label="Name: activate to sort column ascending" style="width: 69.4875px;"
-                            aria-sort="descending">{{__("project.status")}}</th>
+                            aria-sort="descending">{{__("app.status")}}</th>
                           <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1"
                             colspan="1" aria-label="Name: activate to sort column ascending" style="width: 69.4875px;"
-                            aria-sort="descending">{{__("project.created_at")}}</th>
+                            aria-sort="descending">{{__("app.created at")}}</th>
                           <th class="no-sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
                             aria-label="Position: activate to sort column ascending" style="width: 88.3375px;">
-                            {{__("project.action")}}</th>
+                            {{__("app.actions")}}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -91,7 +91,7 @@
                               @if($user->id !=1)
 
                               <input type="checkbox" class="make-switch switchBootstrap" data-id="{{$user->id}}"
-                                data-on-text="{{__('project.active')}}" data-off-text="{{__('project.inactive')}}"
+                                data-on-text="{{__('app.active')}}" data-off-text="{{__('app.inactive')}}"
                                 @if($user->status == 'active')
                               checked="checked"
                               @endif
@@ -99,7 +99,7 @@
 
                             </div>
                             @else
-                            <div class="btn " style="background-color:#337ab7;color:white;">{{__('project.active')}}
+                            <div class="btn " style="background-color:#337ab7;color:white;">{{__('app.active')}}
                             </div>
                             @endif
                           </td>
@@ -111,13 +111,13 @@
                             @if (auth()->id()==1)
                             <a class="btn btn-success mx-1" href="{{route('users.edit',$user->id)}}">
                               <i class="la la-pencil" data-toggle="tooltip" data-placement="top"
-                                title="{{__("project.edit")}}"></i>
+                                title="{{__("app.edit")}}"></i>
                             </a>
                             @endif
                             @else
                             <a class="btn btn-success mx-1" href="{{route('users.edit',$user->id)}}">
                               <i class="la la-pencil" data-toggle="tooltip" data-placement="top"
-                                title="{{__("project.edit")}}"></i>
+                                title="{{__("app.edit")}}"></i>
                             </a>
                             @endif
 
@@ -129,7 +129,7 @@
                               @csrf
                               @method('delete')
                               <button type="submit" class="btn btn-danger confirm-button">
-                                <i class="la la-trash" title="{{__("project.delete")}}" data-toggle="tooltip"
+                                <i class="la la-trash" title="{{__("app.delete")}}" data-toggle="tooltip"
                                   data-placement="top"></i></button>
                             </form>
                             @endif

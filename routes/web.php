@@ -95,7 +95,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
         //** users
         Route::resource("users", userController::class);
-        Route::post("users/active", [userController::class, "active"])->name("users.active");
+        Route::post("users/active", [userController::class, "activeUser"])->name("users.active");
         // ** employee
         // Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
         Route::resource('employees', EmployeeController::class);
