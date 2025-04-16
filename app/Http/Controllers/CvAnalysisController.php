@@ -1,124 +1,89 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Services;
 
-use App\Models\CvAnalysis;
-use Illuminate\Http\Request;
-use App\Services\CvAnalysisService;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
-use App\Jobs\AnalyzeCvJob;
+use App\Models\Cv;
+use Illuminate\Support\Facades\Http;
 
-class CvAnalysisController extends Controller
+class CvAnalysisService
 {
-    protected $cvAnalysisService;
+    protected $apiKey;
+    protected $endpoint;
+    protected $model;
 
-    public function __construct(CvAnalysisService $cvAnalysisService)
+    public function __construct()
     {
-        $this->cvAnalysisService = $cvAnalysisService;
+        $this->apiKey = env('GROQ_API_KEY');
+        $this->endpoint = env('GROQ_ENDPOINT');
+        $this->model = env('GROQ_MODEL');
     }
 
-    public function index()
+    public function analyze(Cv $cv)
     {
-        $cvs = CvAnalysis::latest()->paginate(10);
-        return view('cv.index', compact('cvs'));
-    }
-
-    public function create()
-    {
-        return view('cv.create');
-    }
-
-    /**
-     *
-     * @return \Illuminate\View\View
-     */
-    public function showUploadForm()
-    {
-        $cvs = CvAnalysis::latest()->paginate(10);
-        return view('cv.upload', compact('cvs'));
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'cv_file' => 'required|mimes:pdf,doc,docx|max:10240'
-        ]);
-
         try {
-            $file = $request->file('cv_file');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('cvs', $fileName, 'public');
+            $content = file_get_contents(storage_path("app/public/{$cv->path}"));
+            $prompt = $this->buildPrompt($content);
 
-            $analysis = CvAnalysis::create([
-                'user_id' => auth()->id(),
-                'file_name' => $fileName,  
-                'file_path' => $filePath,  
-                'status' => 'processing'
+            $response = Http::withHeaders([
+                'Authorization' => "Bearer {$this->apiKey}",
+                'Content-Type' => 'application/json',
+            ])->post($this->endpoint, [
+                'model' => $this->model,
+                'messages' => [
+                    ['role' => 'user', 'content' => $prompt]
+                ],
+                'temperature' => 0.2
             ]);
 
-            // Queue the analysis job
-            dispatch(new \App\Jobs\AnalyzeCvJob($analysis));
-
-            return redirect()->route('cv-analysis.index')
-                ->with('success', 'CV uploaded successfully and analysis started.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->with('error', 'Error uploading CV: ' . $e->getMessage());
-        }
-    }
-
-    /**
-     * Analyze uploaded CV file
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function analyze(Request $request)
-    {
-        Log::info('Starting CV analysis', ['request' => $request->all()]);
-
-        $request->validate([
-            'cv_file' => 'required|mimes:pdf,doc,docx|max:10240'
-        ]);
-
-        try {
-            // Check if file exists
-            if (!$request->hasFile('cv_file') || !$request->file('cv_file')->isValid()) {
-                throw new \Exception('Invalid file upload');
+            if (!$response->successful()) {
+                \Log::error("AI API request failed", ['response' => $response->body()]);
+                throw new \Exception('Groq API request failed.');
             }
 
-            $file = $request->file('cv_file');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('cvs', $fileName, 'public');
+            $data = $response->json();
+            $resultText = $data['choices'][0]['message']['content'];
+            $analysisResult = json_decode($resultText, true);
 
-            // Create CV record
-            $cv = CvAnalysis::create([
-                'user_id' => auth()->id(),
-                'file_name' => $fileName,
-                'file_path' => $filePath,
-                'status' => 'processing'
+            if (!is_array($analysisResult)) {
+                \Log::error("Failed to decode AI response", ['result' => $resultText]);
+                throw new \Exception('Invalid AI response.');
+            }
+
+            $cv->update([
+                'summary' => $analysisResult['summary'],
+                'experience_years' => $analysisResult['experience_years'],
+                'skill_score' => $analysisResult['skill_score'],
+                'soft_skills' => implode(', ', $analysisResult['soft_skills']),
+                'education_score' => $analysisResult['education_score'],
+                'relevant_experience' => implode(', ', $analysisResult['relevant_experience']),
+                'fit_score' => $this->calculateFitScore($analysisResult),
+                'status' => 'completed',
+                'analysis_result' => $analysisResult,
             ]);
-
-            // Pass the model instance directly
-            dispatch(new AnalyzeCvJob($cv));
-
-            return response()->json([
-                'success' => true,
-                'message' => 'CV uploaded and queued for analysis',
-                'data' => $cv
-            ]);
-
-        } catch (\Exception $e) {
-            Log::error('CV Analysis failed', [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
-            ]);
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Error analyzing CV: ' . $e->getMessage()
-            ], 500);
+        } catch (\Throwable $e) {
+            \Log::error("CV analysis failed: {$e->getMessage()}", ['exception' => $e]);
+            $cv->update(['status' => 'failed']);
         }
+    }
+
+    private function buildPrompt($content)
+    {
+        return "Please analyze the following CV content and return a JSON structure with the following fields:
+        - summary (short summary of the CV)
+        - experience_years (calculated experience years from the CV)
+        - skill_score (score for technical skills)
+        - soft_skills (list of soft skills mentioned)
+        - education_score (score for education level)
+        - relevant_experience (list of relevant experience mentioned)
+        - fit_score (a general fit score for the job)\n\nCV Content:\n{$content}";
+    }
+
+    private function calculateFitScore(array $analysisResult): int
+    {
+        return round((
+            $analysisResult['skill_score'] +
+            $analysisResult['education_score'] +
+            $analysisResult['experience_years'] * 10
+        ) / 3);
     }
 }
