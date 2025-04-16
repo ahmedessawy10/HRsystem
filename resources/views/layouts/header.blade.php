@@ -37,7 +37,8 @@
 <!-- BEGIN Page Level CSS-->
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
 
-
+<link rel="stylesheet" type="text/css"
+    href="{{asset('app-assets/vendors/css/forms/toggle/bootstrap-switch.min.css') }}">
 
 
 @endif
