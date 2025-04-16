@@ -22,7 +22,7 @@
                             <tr>
                                 <th>File Name</th>
                                 <th>Summary</th>
-                                <th>Experience</th>
+                                <!-- <th>Experience</th> -->
                                 <th>Skills</th>
                                 <th>Education</th>
                                 <th>Fit Score</th>
@@ -47,7 +47,7 @@
                                             <span class="text-muted">No summary available</span>
                                         @endif
                                     </td>
-                                    <td>{{ $cv->experience_years ?? 'N/A' }} years</td>
+                                    <!-- <td>{{ $cv->experience_years ?? 'N/A' }} years</td> -->
                                     <td>{{ $cv->skill_score ?? 'N/A' }}%</td>
                                     <td>{{ $cv->education_score ?? 'N/A' }}%</td>
                                     <td>{{ $cv->fit_score ?? 'N/A' }}%</td>
@@ -60,12 +60,14 @@
                                             </a>
                                             <form action="{{ route('cvs.destroy', $cv) }}" 
                                                   method="POST" 
-                                                  class="d-inline">
+                                                  class="d-inline" 
+                                                  onsubmit="return confirm('Are you sure you want to delete this CV and its analysis?');">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" 
                                                         class="btn btn-sm btn-danger" 
-                                                        onclick="return confirm('Delete this CV?')">
+                                                        {{ $cv->status === 'processing' ? 'disabled' : '' }}
+                                                        title="Delete CV">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </form>

@@ -19,20 +19,18 @@ class CvController extends Controller
     public function upload(Request $request)
     {
         $request->validate([
-            'cv' => 'required|mimes:pdf|max:10240', // 10MB max size
+            'cv' => 'required|mimes:pdf|max:10240', 
         ]);
 
         $file = $request->file('cv');
         $path = $file->storeAs('public/cvs', $file->getClientOriginalName());
 
-        // Store CV details
         $cv = Cv::create([
             'name' => $file->getClientOriginalName(),
             'path' => $path,
-            'status' => 'pending', // initially pending for analysis
+            'status' => 'pending', 
         ]);
 
-        // Run analysis on the CV
         $this->cvAnalysisService->analyze($cv);
 
         return redirect()->route('cvs.index')->with('status', 'CV uploaded and analysis started');
@@ -70,18 +68,40 @@ class CvController extends Controller
     public function destroy(Cv $cv)
     {
         try {
-            // Delete the physical file first
-            if (Storage::exists($cv->path)) {
-                Storage::delete($cv->path);
+            // Check if analysis is in progress
+            if ($cv->status === 'processing') {
+                return redirect()
+                    ->route('cvs.index')
+                    ->with('error', 'Cannot delete CV while analysis is in progress');
             }
 
-            // Delete the database record
+            if (Storage::disk('public')->exists($cv->path)) {
+                Storage::disk('public')->delete($cv->path);
+            }
+
+            $analysisPath = 'analyses/' . basename($cv->path, '.pdf') . '_analysis.json';
+            if (Storage::disk('public')->exists($analysisPath)) {
+                Storage::disk('public')->delete($analysisPath);
+            }
+
+            // Log deletion for audit
+            \Log::info('Deleting CV:', [
+                'id' => $cv->id,
+                'file_name' => $cv->file_name,
+                'path' => $cv->path
+            ]);
+
             $cv->delete();
 
             return redirect()
                 ->route('cvs.index')
-                ->with('success', 'CV deleted successfully');
+                ->with('success', 'CV and associated analysis data deleted successfully');
         } catch (\Exception $e) {
+            \Log::error('CV deletion failed:', [
+                'cv_id' => $cv->id,
+                'error' => $e->getMessage()
+            ]);
+
             return redirect()
                 ->route('cvs.index')
                 ->with('error', 'Failed to delete CV: ' . $e->getMessage());

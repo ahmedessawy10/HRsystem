@@ -121,4 +121,25 @@ class CvAnalysisController extends Controller
             ], 500);
         }
     }
+
+    public function destroy(CvAnalysis $cvAnalysis)
+    {
+        try {
+            // Delete the physical file first
+            if (Storage::disk('public')->exists($cvAnalysis->file_path)) {
+                Storage::disk('public')->delete($cvAnalysis->file_path);
+            }
+
+            // Delete the database record
+            $cvAnalysis->delete();
+
+            return redirect()
+                ->route('cvs.index')
+                ->with('success', 'CV deleted successfully');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('cvs.index')
+                ->with('error', 'Failed to delete CV: ' . $e->getMessage());
+        }
+    }
 }

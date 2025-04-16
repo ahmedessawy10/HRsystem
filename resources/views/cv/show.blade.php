@@ -43,10 +43,10 @@
                                         <h4 class="font-medium mb-2">Education</h4>
                                         <p class="text-gray-600">{{ $cv->education ?? 'No education details detected' }}</p>
                                     </div>
-                                    <div>
+                                    <!-- <div>
                                         <h4 class="font-medium mb-2">Experience</h4>
                                         <p class="text-gray-600">{{ $cv->experience ?? 'No experience details detected' }}</p>
-                                    </div>
+                                    </div> -->
                                 </div>
                             @else
                                 <p class="text-gray-600">Analysis {{ $cv->status }}</p>

@@ -40,9 +40,9 @@
                                 <thead>
                                     <tr>
                                         <th>{{ __('File Name') }}</th>
-                                        <th>{{ __('Name') }}</th>
+                                        <!-- <th>{{ __('Name') }}</th> -->
                                         <th>{{ __('Summary') }}</th>
-                                        <th>{{ __('Experience') }}</th>
+                                        <!-- <th>{{ __('Experience') }}</th> -->
                                         <th>{{ __('Skills') }}</th>
                                         <th>{{ __('Soft Skills') }}</th>
                                         <th>{{ __('Education') }}</th>
@@ -56,7 +56,7 @@
                                     @foreach($cvs as $cv)
                                     <tr>
                                         <td>{{ $cv->file_name }}</td>
-                                        <td>{{ $cv->name ?? 'N/A' }}</td>
+                                        <!-- <td>{{ $cv->name ?? 'N/A' }}</td> -->
                                         <td>
                                             @if($cv->summary)
                                                 <div class="text-wrap" style="max-width: 200px; max-height: 80px; overflow-y: auto;">
@@ -71,7 +71,7 @@
                                                 <span class="text-muted">{{ __('Pending') }}</span>
                                             @endif
                                         </td>
-                                        <td>{{ $cv->experience_years }} {{ __('years') }}</td>
+                                        <!-- <td>{{ $cv->experience_years }} {{ __('years') }}</td> -->
                                         <td>
                                             <div class="progress">
                                                 <div class="progress-bar" role="progressbar" 
