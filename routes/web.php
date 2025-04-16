@@ -15,6 +15,7 @@ use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HrSettingController;
 use App\Http\Controllers\AppSettingController;
+use App\Http\Controllers\CvController;
 
 use App\Http\Controllers\AttendanceController;
 
@@ -119,6 +120,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::resource("/chats", ChatController::class);
         Route::get('/cv/upload', [CvAnalysisController::class, 'showUploadForm'])->name('cv.upload');
         Route::delete('cv-analysis/{cvAnalysis}', [CvAnalysisController::class, 'destroy'])->name('cv-analysis.destroy');
+
+        // CV Management Routes
+        Route::prefix('cvs')->name('cvs.')->group(function () {
+            Route::get('/', [CvAnalysisController::class, 'index'])->name('index');
+            Route::get('/upload', [CvAnalysisController::class, 'showUploadForm'])->name('upload-form');
+            Route::post('/upload', [CvAnalysisController::class, 'store'])->name('store');
+            Route::post('/analyze', [CvAnalysisController::class, 'analyze'])->name('analyze');
+            Route::delete('/{cvAnalysis}', [CvAnalysisController::class, 'destroy'])->name('destroy');
+        });
     });
 });
 
@@ -135,10 +145,16 @@ Route::middleware(['auth', 'changepassword'])->group(function () {
     Route::post('/cv/upload', [CvAnalysisController::class, 'store'])->name('cv.store');
     Route::post('/cv/analyze', [CvAnalysisController::class, 'analyze'])->name('cv.analyze');
     Route::resource('cv-analysis', CvAnalysisController::class);
+    Route::delete('cv-analysis/{cvAnalysis}', [CvAnalysisController::class, 'destroy'])->name('cv-analysis.destroy');
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::post('/cv/analyze', [CvAnalysisController::class, 'analyze'])->name('cv.analyze');
+    Route::resource('cvs', CvController::class);
+    // This will create all RESTful routes including:
+    // GET /cvs (index)
+    // POST /cvs (store)
+    // DELETE /cvs/{cv} (destroy)
+    Route::delete('/cvs/{cv}', [CvController::class, 'destroy'])->name('cvs.destroy');
 });
 
 require __DIR__ . '/auth.php';
