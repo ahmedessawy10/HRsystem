@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CareerApplication;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Events\Notifications;
+use App\Models\CareerApplication;
 
 class CareerApplicationController extends Controller
 {
@@ -40,6 +42,11 @@ class CareerApplicationController extends Controller
 
         $careerApplication = new CareerApplication($request->all());
         $careerApplication->save();
+
+        User::role("hrManager")->get()->each(function ($user) use ($careerApplication) {
+
+            event(new Notifications($user, "New application received for the position: " . $careerApplication->career->name . "." ));
+        });
 
         return redirect()->route('career_applications.index')->with('success', 'Application submitted successfully.');
     }

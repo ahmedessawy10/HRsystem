@@ -2,10 +2,12 @@
 
 namespace App\Jobs;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\Http;
+use App\Models\User;
 use Smalot\PdfParser\Parser;
+use App\Events\Notifications;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class AnalyzeCVWithAI implements ShouldQueue
 {
@@ -78,5 +80,12 @@ class AnalyzeCVWithAI implements ShouldQueue
             $this->application->ai_summary = $aiResponse;
             $this->application->save();
         }
+
+        $application = $this->application;
+
+        User::role("hrManager")->get()->each(function ($user) use ($application) {
+
+            event(new Notifications($user, "New application received for the position: " . $application->career->name . "."));
+        });
     }
 }

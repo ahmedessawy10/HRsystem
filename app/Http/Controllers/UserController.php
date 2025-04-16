@@ -54,16 +54,18 @@ class UserController extends Controller
             'fullname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'unique:users,email', 'min:3'],
             'status' => ['required', Rule::in(['active', 'inactive', 'pending'])],
+            "password" => 'string|min:12|regex:/[A-Z]/|regex:/[a-z]/|regex:/[0-9]/|regex:/[!@#$%^&*()_+{}\[\]:;"\'<>,.?~`-]/|nullable',
+            'password_confirmation' => 'required_with:password|same:password|nullable|string|min:12|regex:/[A-Z]/|regex:/[a-z]/|regex:/[0-9]/|regex:/[!@#$%^&*()_+{}\[\]:;"\'<>,.?~`-]/',
             'roles' => ['required'],
 
         ]);
-        $mail_fail = false;
+        // $mail_fail = false;
         //   if(isset($request->roles)&& in_array('employee',$request->roles)){
         $data["password"] = Hash::make("123456");
 
         $user = User::create($data);
         $user->assignRole($request->roles);
-        return redirect()->route('admin.user.index')->with('success', __('project.create successfully'));
+        return redirect()->route('users.index')->with('success', __('project.create successfully'));
     }
 
     /**
@@ -92,12 +94,14 @@ class UserController extends Controller
     {
 
         // if(isset($request->roles)&& in_array('employee',$request->roles)){
-        $request->validate([
+        $data = $request->validate([
             "name" => ['required', 'string', 'max:255', 'unique:users,name,' . $user->id . 'id'],
             'email' => 'email|unique:users,email,' . $user->id . 'id',
             'fullname' => ['required', 'string', 'max:255'],
             'status' => ['required', Rule::in(['active', 'inactive', 'pending'])],
-            'roles' => ['required']
+            'roles' => ['required'],
+            "password" => 'string|min:12|regex:/[A-Z]/|regex:/[a-z]/|regex:/[0-9]/|regex:/[!@#$%^&*()_+{}\[\]:;"\'<>,.?~`-]/|nullable',
+            'password_confirmation' => 'required_with:password|same:password|nullable|string|min:12|regex:/[A-Z]/|regex:/[a-z]/|regex:/[0-9]/|regex:/[!@#$%^&*()_+{}\[\]:;"\'<>,.?~`-]/',
         ]);
 
 
@@ -106,20 +110,27 @@ class UserController extends Controller
             return redirect()->back()->with('error', __('project.something_went_wrong'));
         }
 
-        $updateData = $request->only(['name', 'email', 'password', 'status']);
-
+        if ($request->has("password") && $request->password != null) {
+            $data['password'] = Hash::make($request->password);
+        } else {
+            unset($data['password']);
+        }
 
         if ($user->id == 1) {
 
-            unset($updateData['status']);
+            unset($data['status']);
         }
+
+        $user->update($data);
+
+        // dd($user);
         if ($user->id != 1) {
 
             $user->syncRoles($request->roles);
         }
 
 
-        return redirect()->route('admin.user.index')->with('success', __('project.edit successfully'));
+        return redirect()->route('users.index')->with('success', __('project.edit successfully'));
     }
 
     public function destroy($userId)
@@ -130,7 +141,7 @@ class UserController extends Controller
         $user = User::findOrFail($userId);
         $user->delete();
 
-        return redirect()->route('admin.user.index')->with('success', __('project.delete successfully'));
+        return redirect()->route('users.index')->with('success', __('project.delete successfully'));
     }
 
     public function editProfile()
@@ -145,8 +156,9 @@ class UserController extends Controller
         $user = Auth::user();
 
         $request->validate([
-            'name' => 'string|max:255',
-            'email' => 'email|unique:users,email,' . $user->id,
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'fullname' => 'required|string|max:255',
             'password' => 'nullable|string|min:12|regex:/[A-Z]/|regex:/[a-z]/|regex:/[0-9]/|regex:/[!@#$%^&*()_+{}\[\]:;"\'<>,.?~`-]/',
             'password_confirmation' => 'required_with:password|same:password|nullable|string|min:12|regex:/[A-Z]/|regex:/[a-z]/|regex:/[0-9]/|regex:/[!@#$%^&*()_+{}\[\]:;"\'<>,.?~`-]/',
         ]);
